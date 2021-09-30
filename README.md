@@ -2,7 +2,7 @@
 
 The ELISA Open-Source Engineering Process working group (OSEP) examines how
 software engineering processes can be used to facilitate the certification of
-safety-critical systems incorporating Linux and other FOSS. We aim to consider
+safety-related systems incorporating Linux and other FOSS. We aim to consider
 the roles that a Linux-based OS might have in such systems, and identify how
 FOSS developers, system integrators and product creators can specify these, and
 provide evidence to support associated safety arguments.
