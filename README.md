@@ -9,15 +9,14 @@ provide evidence to support associated safety arguments.
 
 This repository captures the peer-reviewed outputs of the group; you will find
 collaborative work-in-progress (topic suggestions, notes, etc) in the project
-[wiki](https://github.com/elisa-tech/wg-osep/wiki), along with the weekly
-[meeting minutes](https://github.com/elisa-tech/wg-osep/wiki/minutes).
+[wiki](https://github.com/elisa-tech/wg-osep/wiki).
 
 ## Project index
 
 * [Mission statement](mission.md)
-* [Meeting minutes (*wiki*)](https://github.com/elisa-tech/wg-osep/wiki/minutes)
 
 ## External links
 
 * [ELISA home page](https://elisa.tech/)
 * [OSEP mailing list and meeting calendar](https://lists.elisa.tech/g/osep)
+* [Meeting minutes (*Google Drive*)](https://docs.google.com/document/d/15oxDUVsvGFg0IIJ9RVympV8F9h0rKLAeAZCUi_L4ieY)
