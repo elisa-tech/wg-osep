@@ -16,6 +16,8 @@
    id="svg2307"
    sodipodi:docname="ISO-26262-Software-level-Overview.svg"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)">
+  <title
+     id="title7675">ISO 26262 Software Level Overview</title>
   <metadata
      id="metadata2313">
     <rdf:RDF>
@@ -24,8 +26,28 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>ISO 26262 Software Level Overview</dc:title>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Paul Albertella</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <defs
@@ -43,9 +65,9 @@
      inkscape:window-height="1376"
      id="namedview2309"
      showgrid="false"
-     inkscape:zoom="1.3167598"
-     inkscape:cx="349.02778"
-     inkscape:cy="309.44882"
+     inkscape:zoom="1.8621795"
+     inkscape:cx="479.00787"
+     inkscape:cy="312"
      inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1"

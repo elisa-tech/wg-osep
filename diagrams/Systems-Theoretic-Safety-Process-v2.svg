@@ -16,6 +16,8 @@
    width="850"
    height="550"
    style="fill:none;stroke:none;stroke-linecap:square;stroke-miterlimit:10">
+  <title
+     id="title4113">Systems Theoretic Safety Process</title>
   <metadata
      id="metadata2532">
     <rdf:RDF>
@@ -24,8 +26,28 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title>Systems Theoretic Safety Process</dc:title>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/by/4.0/" />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Paul Albertella</dc:title>
+          </cc:Agent>
+        </dc:creator>
       </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/by/4.0/">
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Reproduction" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#Distribution" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Notice" />
+        <cc:requires
+           rdf:resource="http://creativecommons.org/ns#Attribution" />
+        <cc:permits
+           rdf:resource="http://creativecommons.org/ns#DerivativeWorks" />
+      </cc:License>
     </rdf:RDF>
   </metadata>
   <defs
@@ -748,9 +770,9 @@
      inkscape:window-height="1376"
      id="namedview2528"
      showgrid="false"
-     inkscape:zoom="2.3648141"
-     inkscape:cx="464.03479"
-     inkscape:cy="260.6733"
+     inkscape:zoom="2.1127273"
+     inkscape:cx="425"
+     inkscape:cy="275"
      inkscape:window-x="72"
      inkscape:window-y="27"
      inkscape:window-maximized="1"
@@ -1038,15 +1060,15 @@
        y="95.829239"
        id="text3542-0-5-4"><tspan
          sodipodi:role="line"
-         x="232.42535"
+         x="234.09235"
          y="95.829239"
          style="font-size:12px"
-         id="tspan3711-3">What is X intended</tspan><tspan
+         id="tspan3711-3">What is X </tspan><tspan
          sodipodi:role="line"
          x="234.09235"
          y="110.82924"
          style="font-size:12px"
-         id="tspan4446">to do </tspan><tspan
+         id="tspan4446">intended to do </tspan><tspan
          sodipodi:role="line"
          x="232.42535"
          y="125.82924"
