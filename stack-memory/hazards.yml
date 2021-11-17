@@ -1,0 +1,21 @@
+#
+# A hazard is a system state or set of conditions that, together with a
+# particular set of worst-case environmental conditions, will lead to a loss.
+#
+Hazards:
+- Identifier: H-1
+  Text: >
+    Stack buffer overflow results in corruption of safety application data
+  Losses: [L-1]
+
+- Identifier: H-1
+  Text: >
+    Undetected corruption of safety application data results in 
+  Losses: [L-1]
+
+
+- Identifier: H-2
+  Text: >
+    Stack depth overflow results in corruption of kernel data structures
+    that are required for a safety-critical function
+  Losses: [L-2]

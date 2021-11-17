@@ -1,0 +1,24 @@
+#
+# A system-level constraint specifies system conditions or behaviors that need
+# to be satisfied to prevent hazards (and ultimately prevent losses)
+#
+# These constraints differ from controller constraints inasmuch as they
+# describe how components in the system need to work together in order
+# to prevent hazards.
+#
+Constraints:
+
+- Identifier: SC-1.1
+  Text: >
+    Safety-critical data must be protected from stack overflow
+  Hazards: [ H-1 ]
+
+- Identifier: SC-1.1
+  Text: >
+    Corruption of safety-critical data by stack overflow must be detected
+  Hazards: [ H-2 ]
+
+- Identifier: SC-2.1
+  Text: >
+    Critical operating system data must be protected from stack depth overflow
+  Hazards: [ H-2 ]
