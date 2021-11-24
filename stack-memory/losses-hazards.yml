@@ -1,0 +1,32 @@
+#
+# A loss involves something of value to stakeholders. Losses may include a loss
+# of human life or human injury, property damage, environmental pollution, loss
+# of mission, loss of reputation, loss or leak of sensitive information, or any
+# other loss that is unacceptable to the stakeholders.
+#
+Losses:
+- Identifier: L-1
+  Text: Undetected malfunction of a safety-critical function
+
+#
+# A hazard is a system state or set of conditions that, together with a
+# particular set of worst-case environmental conditions, will lead to a loss.
+#
+Hazards:
+- Identifier: H-1
+  Text: >
+    Unintended and incorrect data is written over the allocated stack memory
+    used by a safety-critical function
+  Losses: [L-1]
+
+ Identifier: H-2
+  Text: >
+    Unintended and incorrect data is written over safety-critical data or
+    program control structures stored adjacent to allocated stack memory
+  Losses: [L-1]
+
+- Identifier: H-3
+  Text: >
+    Uninitialised stack memory is referenced via a variable or program control
+    structure as part of a safety-critical function
+  Losses: [L-1]
