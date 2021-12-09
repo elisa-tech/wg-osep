@@ -73,8 +73,7 @@ to allow all past contributors to be involved.
 Collaboration
 -------------
 
-The group expects to collaborate with the existing working groups and with the
-new group proposed by Elana, both to identify or discuss claims and evidence for
-analysis, and to address wider questions relating to safety engineering
-processes. Where we work with another group on given topics, we may jointly
-present the results at an Elisa workshop.
+The group expects to collaborate with the LFSCS and other ELISA working groups,
+both to identify or discuss claims and evidence for analysis, and to address
+wider questions relating to safety engineering processes. Where we work with
+another group on given topics, we may jointly present the results at a workshop.
