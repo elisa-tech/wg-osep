@@ -51,35 +51,11 @@ https://www.baeldung.com/linux/kernel-stack-and-user-space-stack
     - During the syscall, the kernel stack of the running process is used
 * Size of the kernel stack is configured during compilation and remains fixed
 * Unlike the kernel stack, we can change the size of the userspace stack
-    - e.g. using ulimit
+    - using [setrlimit](https://man7.org/linux/man-pages/man2/setrlimit.2.html)
 
 ## Processes and threads
 https://www.baeldung.com/linux/process-vs-thread
 
 ## Stack protection mechanisms
 
-### User space stack protection
-
-Examples of kernel features supporting user space stack memory protection:
-
-* CONFIG_GCC_PLUGIN_STRUCTLEAK
-* CONFIG_GCC_PLUGIN_STRUCTLEAK_BYREF_ALL
-    - GCC plugin to initialize variables sent by reference to zero, leaving no
-      assumptions on the calling function
-* CONFIG_STACKPROTECTOR
-* CONFIG_STACKPROTECTOR_STRONG
-    - Turns on stack protection in GCC compiler
-
-### Kernel space stack protection
-
-Examples of kernel features supporting kernel space stack memory protection:
-
-* CONFIG_SCHED_STACK_END_CHECK
-    - Detects stack corruption on calls to schedule()
-* CONFIG_VMAP_STACK
-    - Add guard pages to virtually-mapped kernel stacks, allowing earlier
-      detection of kernel stack overflows
-* CONFIG_GCC_PLUGIN_STACKLEAK
-    - https://cateee.net/lkddb/web-lkddb/GCC_PLUGIN_STACKLEAK.html
-* CONFIG_THREAD_INFO_IN_STACK
-    - moves thread information off the stack and into the task struct for protection of task info, particularly during context switch).
+See [LFSCS notes](https://github.com/elisa-tech/wg-lfscs/blob/main/Kernel%20configurations%20for%20stack%20memory%20protection.md)
