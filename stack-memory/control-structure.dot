@@ -1,0 +1,48 @@
+digraph G {
+node [shape=box width=1.5 height=0.5 fontname=arial fontsize=18]
+graph [splines=ortho ranksep=0.8 nodesep=1]
+edge [fontname=arial fontsize=12]
+layout=dot; overlap=false; ordering=out;
+
+{rank=same
+    Developer [width=3]
+    Architect [label="System architect"] }
+
+Compiler [width=3.5]
+Build [label="System construction" width=6]
+
+subgraph cluster_0 { style=dotted margin=15
+                     label=<<i>System</i>> labelloc=b
+                     fontname="arial" fontsize=18
+    Scheduler [width=4]
+    { rank=same
+        Application [label="Safety application"]
+        Other [label="Other process"] }
+    ASub [label="Application subroutine"]
+    TSub [label="Subroutine"]
+    { rank=same
+        Hardware
+        Kernel [width=4] }
+    KSub [label="Kernel subroutine"]
+    }
+
+Developer -> Build [taillabel="\rBuild  \rapplication  \r" weight=2]
+Developer -> Compiler [dir=back style=dashed taillabel="\rErrors,  \rWarnings  \r"]
+Architect -> Build [taillabel="\rSpecify  \rsystem  \r"]
+Build -> Scheduler [taillabel="\rConfigure process  \rlaunch parameters  \r"]
+Build-> Kernel [taillabel="\rConfigure default  \rstack params  \r"]
+Build -> Compiler [taillabel="\rCompile  \rapplication  \r" weight=3]
+Compiler -> Application [taillabel="\rImplement stack  \rmemory operations  \r"]
+Compiler -> Scheduler [style=invis]
+Scheduler -> Application [taillabel="\rStart  \r" weight=4]
+Scheduler -> Other [taillabel="\rStart  \r"]
+Scheduler -> Kernel [taillabel="\rLaunch  \rprocess  \r"]
+Application -> ASub [taillabel="\r(Call)  \r"]
+
+ASub -> Kernel [taillabel="\r(System call)  \r"]
+Other -> TSub [taillabel="\r(Call)  \r"]
+TSub -> Kernel [taillabel="\r(System call)  \r"]
+Kernel -> KSub [taillabel="\r(Call)  \r"]
+Kernel -> KSub [dir=back style=dashed]
+Hardware -> Kernel[taillabel="\n  (IRQ)\n" ]
+}
