@@ -38,3 +38,6 @@ jobs:
       # Validate STPA files
       - name: Validate STPA files (STPA_DynMA)
         run: stpa-validate STPA_DynMA/*.yml
+        
+      - name: Validate STPA files
+        run: stpa-validate stack-memory/*.yml
