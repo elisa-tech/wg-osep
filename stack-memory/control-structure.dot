@@ -14,7 +14,7 @@ Build [label="System construction" width=6]
 subgraph cluster_0 { style=dotted margin=15
                      label=<<i>System</i>> labelloc=b
                      fontname="arial" fontsize=18
-    Scheduler [width=4]
+    Manager [label="System/Service Manager" width=4]
     { rank=same
         Application [label="Safety application"]
         Other [label="Other process"] }
@@ -29,14 +29,14 @@ subgraph cluster_0 { style=dotted margin=15
 Developer -> Build [taillabel="\rBuild  \rapplication  \r" weight=2]
 Developer -> Compiler [dir=back style=dashed taillabel="\rErrors,  \rWarnings  \r"]
 Architect -> Build [taillabel="\rSpecify  \rsystem  \r"]
-Build -> Scheduler [taillabel="\rConfigure process  \rlaunch parameters  \r"]
+Build -> Manager [taillabel="\rConfigure process  \rlaunch parameters  \r"]
 Build-> Kernel [taillabel="\rConfigure default  \rstack params  \r"]
 Build -> Compiler [taillabel="\rCompile  \rapplication  \r" weight=3]
 Compiler -> Application [taillabel="\rImplement stack  \rmemory operations  \r"]
-Compiler -> Scheduler [style=invis]
-Scheduler -> Application [taillabel="\rStart  \r" weight=4]
-Scheduler -> Other [taillabel="\rStart  \r"]
-Scheduler -> Kernel [taillabel="\rLaunch  \rprocess  \r"]
+Compiler -> Manager [style=invis]
+Manager -> Application [taillabel="\rStart  \r" weight=4]
+Manager -> Other [taillabel="\rStart  \r"]
+Manager -> Kernel [taillabel="\rLaunch  \rprocess  \r"]
 Application -> ASub [taillabel="\r(Call)  \r"]
 
 ASub -> Kernel [taillabel="\r(System call)  \r"]
