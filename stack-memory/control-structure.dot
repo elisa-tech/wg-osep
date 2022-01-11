@@ -1,48 +1,59 @@
 digraph G {
-node [shape=box width=1.5 height=0.5 fontname=arial fontsize=18]
-graph [splines=ortho ranksep=0.8 nodesep=1]
+node [shape=box width=2 height=0.5 fontname=arial fontsize=18
+      style=filled fillcolor=white]
+graph [splines=ortho ranksep=0.9 nodesep=1]
 edge [fontname=arial fontsize=12]
-layout=dot; overlap=false; ordering=out;
+layout=dot; overlap=false; compound=true;
 
 {rank=same
-    Developer [width=3]
+    Developer [width=3.5]
     Architect [label="System architect"] }
 
-Compiler [width=3.5]
-Build [label="System construction" width=6]
+Compiler [width=3]
+Build [label="System construction" width=5]
 
-subgraph cluster_0 { style=dotted margin=15
+subgraph cluster_0 { style=dotted margin=15 bgcolor=lightgrey
                      label=<<i>System</i>> labelloc=b
                      fontname="arial" fontsize=18
-    Manager [label="System/Service Manager" width=4]
+    Manager [label="System/Service Manager" width=5]
     { rank=same
         Application [label="Safety application"]
         Other [label="Other process"] }
     ASub [label="Application subroutine"]
-    TSub [label="Subroutine"]
-    { rank=same
-        Hardware
-        Kernel [width=4] }
+    TSub [label="Other subroutine"]
+    Interrupt [label="Interrupt source"]
+    Kernel [width=6]
     KSub [label="Kernel subroutine"]
     }
 
-Developer -> Build [taillabel="\rBuild  \rapplication  \r" weight=2]
-Developer -> Compiler [dir=back style=dashed taillabel="\rErrors,  \rWarnings  \r"]
-Architect -> Build [taillabel="\rSpecify  \rsystem  \r"]
-Build -> Manager [taillabel="\rConfigure process  \rlaunch parameters  \r"]
-Build-> Kernel [taillabel="\rConfigure default  \rstack params  \r"]
-Build -> Compiler [taillabel="\rCompile  \rapplication  \r" weight=3]
-Compiler -> Application [taillabel="\rImplement stack  \rmemory operations  \r"]
-Compiler -> Manager [style=invis]
+Developer -> Build [taillabel="\rBuild system  \rBuild component  \r" weight=2]
+Developer -> Compiler [dir=back style=dashed headlabel="\r(Errors,  \lwarnings)  \r\r"]
+Architect -> Build [taillabel="\rSpecify default stack params  \rSpecify launch params  \r"]
+
+Build -> Manager [taillabel="\rConfigure  \llaunch params  \r"]
+Build-> Kernel [taillabel="\rConfigure  \ldefault  \lstack params  \l"]
+Build -> Compiler [taillabel="\rCompile  \lcomponent  \r" weight=3]
+
+Compiler -> Manager [lhead=cluster_0 taillabel="\rImplement stack  \lmemory operations  \r"]
+
 Manager -> Application [taillabel="\rStart  \r" weight=4]
 Manager -> Other [taillabel="\rStart  \r"]
-Manager -> Kernel [taillabel="\rLaunch  \rprocess  \r"]
-Application -> ASub [taillabel="\r(Call)  \r"]
+Manager -> Kernel [taillabel="\r(Syscalls)  \r"]
+Manager -> Kernel [dir=back style=dashed]
 
-ASub -> Kernel [taillabel="\r(System call)  \r"]
-Other -> TSub [taillabel="\r(Call)  \r"]
-TSub -> Kernel [taillabel="\r(System call)  \r"]
-Kernel -> KSub [taillabel="\r(Call)  \r"]
+Application -> ASub [taillabel="\r(Calls)  \r"]
+Application -> ASub [dir=back style=dashed]
+
+ASub -> Kernel [taillabel="\r(Syscalls)  \r"]
+ASub -> Kernel [dir=back style=dashed]
+
+Other -> TSub [taillabel="\r(Calls)  \r"]
+Other -> TSub [dir=back style=dashed]
+
+TSub -> Kernel [taillabel="\r(Syscalls)  \r"]
+TSub -> Kernel [dir=back style=dashed]
+
+Kernel -> KSub [taillabel="\r(Calls)  \r"]
 Kernel -> KSub [dir=back style=dashed]
-Hardware -> Kernel[taillabel="\n  (IRQ)\n" ]
+Kernel-> Interrupt[dir=back style=dashed headlabel="\r(IRQ)  \r\r" ]
 }
