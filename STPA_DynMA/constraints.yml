@@ -9,72 +9,24 @@
 Constraints:
 
 - Identifier: SC-1
-	Text: >
-		If the kernel stops responding to external input, then such behavior must be 
-		detected and measures taken to restore the system to its operational state.
-	Hazards: [ H-1 ]
-
-  - Identifier: SC-1.1
-		Text: >
-			The kernel shall allocate memory for a safety critical application in less than TBD us.
-			Hazards: [ H-1.1, H-1.2 ]
-
-	- Identifier: SC-1.2
-		Text: >
-			The kernel shall deallocate memory for a safety critical application in less than TBD us.
-      Hazards: [ H-1.3, H-1.4 ]
+  Text: >
+    If the kernel stops responding to external input, then such behavior must be 
+    detected and measures taken to restore the system to its operational state.
+  Hazards: [ H-1 ]
 
 - Identifier: SC-2
-	Text: >
-		The integrity of the user space memory shall be maintained by the kernel.
-		Hazards: [ H-2 ]
-
-	- Identifier: SC-2.1
-		Text: >
-			The kernel must not allocate a memory space already 
-      allocated for another application.
-			Hazards: [ H-2.1 ]
-
-	- Identifier: SC-2.2
-		Text: >
-			The kernel must deallocate a memory space only
-      when the application finishes to work on it. 
-      Hazards: [ H-2.2 ]
-
-  - Identifier: SC-2.3 
-		Text: >
-			The kernel shall allocate entirely the requested user memory for a safety critical 
-      application.
-      Hazards: [ H-2.3 ]
+  Text: >
+    The integrity of the user space memory shall be maintained by the kernel.
+    Hazards: [ H-2 ]
 
 - Identifier: SC-3
-	Text: >
-		If the kernel data integrity is broken, such behavior must be detected 
+  Text: >
+    If the kernel data integrity is broken, such behavior must be detected 
     and measures taken to restore the system to its operational state.
-	Hazards: [ H-3 ]
-
-  - Identifier: SC-3.1
-		Text: >
-			The kernel must not allocate a memory space already allocated for itself. 
-      Hazards: [ H-3.1 ]
-
-	- Identifier: SC-3.2
-		Text: >
-			The kernel must deallocate a memory space only when finishes to work on it.
-      Hazards: [ H-3.2 ]
-
-  - Identifier: SC-3.3 
-		Text: >
-			The kernel shall allocate entirely the requested kernel memory for a safety critical 
-      application.
-      Hazards: [ H-3.3 ]
+  Hazards: [ H-3 ]
 
 - Identifier: SC-4
-	Text: >
-		The kernel must not violate its boundaries.
-	Hazards: [ H-4 ]
-
-	- Identifier: SC-4.1 
-		Text: >
-			The kernel must allocate only valid memory section. 
-      Hazards: [ H-4.1, H-4.2 ]
+  Text: >
+    If the kernel violates its boundaries, such behavior must be detected 
+    and measures taken to restore the system to its operational state.
+  Hazards: [ H-4 ]
