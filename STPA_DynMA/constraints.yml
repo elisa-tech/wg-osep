@@ -1,0 +1,32 @@
+#
+# A system-level constraint specifies system conditions or behaviors that need
+# to be satisfied to prevent hazards (and ultimately prevent losses)
+#
+# These constraints differ from controller constraints inasmuch as they
+# describe how components in the system need to work together in order
+# to prevent hazards.
+#
+Constraints:
+
+- Identifier: SC-1
+  Text: >
+    If the kernel stops responding to external input, then such behavior must be 
+    detected and measures taken to restore the system to its operational state.
+  Hazards: [ H-1 ]
+
+- Identifier: SC-2
+  Text: >
+    The integrity of the user space memory shall be maintained by the kernel.
+    Hazards: [ H-2 ]
+
+- Identifier: SC-3
+  Text: >
+    If the kernel data integrity is broken, such behavior must be detected 
+    and measures taken to restore the system to its operational state.
+  Hazards: [ H-3 ]
+
+- Identifier: SC-4
+  Text: >
+    If the kernel violates its boundaries, such behavior must be detected 
+    and measures taken to restore the system to its operational state.
+  Hazards: [ H-4 ]
