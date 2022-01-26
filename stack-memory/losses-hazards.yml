@@ -19,7 +19,7 @@ Hazards:
     used by a safety-critical function
   Losses: [L-1]
 
- Identifier: H-2
+- Identifier: H-2
   Text: >
     Unintended and incorrect data is written over safety-critical data or
     program control structures stored adjacent to allocated stack memory

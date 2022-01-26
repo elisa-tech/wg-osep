@@ -5,9 +5,9 @@ Components:
 
   Control Actions:
 
-    - Identifier: MAN-Start-APP
-      Text: Start safety application
-      Target: APP
+    - Identifier: MAN-Start-SAF
+      Text: Start process X
+      Target: SAF
 
     - Identifier: MAN-Start-OTH
       Text: Start other process
@@ -17,29 +17,14 @@ Components:
       Text: Launch process
       Target: KERN
 
-- Identifier: APP
-`    Text: Safety Application
+- Identifier: SAF
+  Text: Process X (with safety function)
 
   Control Actions:
 
-    - Identifier: APP-Call
-      Text: Call application subroutine
-      Target: ASUB
-
-- Identifier: ASUB
-  Text: Application Subroutine
-
-  Control Actions:
-
-    - Identifier: ASUB-Syscall
-      Text: System call
-      Target: KERN
-
-  Feedback:
-
-  - Identifier: ASUB-FB-01
-    Text: Returned data and call stack updates from application subroutine
-    Target: APP
+    - Identifier: SAF-Call
+      Text: Call to a LibC function
+      Target: LIBC
 
 - Identifier: OTH
   Text: Other Process
@@ -47,23 +32,38 @@ Components:
   Control Actions:
 
     - Identifier: OTH-Call
-      Text: Call to a subroutine
-      Target: OSUB
+      Text: Call to a LibC function
+      Target: LIBC
 
-- Identifier: OSUB
-  Text: Other Subroutine
-
-  Control Actions:
-
-    - Identifier: OSUB-Syscall
-      Text: System call
-      Target: KERN
+- Identifier: LIBC
+  Text: C Library (GLibC)
 
   Feedback:
 
-  - Identifier: OSUB-FB-01
-    Text: Returned data and call stack updates from other subroutine
+  - Identifier: LIBC-FB-01
+    Text: Returned data from call
+    Target: SAF
+
+  - Identifier: LIBC-FB-02
+    Text: Returned data from call
     Target: OTH
+
+  - Identifier: LIBC-FB-03
+    Text: Returned data from call
+    Target: MAN
+
+- Identifier: STACK
+  Text: X Call Stack
+
+  Feedback:
+
+  - Identifier: STACK-FB-01
+    Text: Returned stack frame
+    Target: SAF
+
+  - Identifier: STACK-FB-02
+    Text: Returned stack frame
+    Target: LIBC
 
 - Identifier: KERN
   Text: Linux Kernel
@@ -78,20 +78,7 @@ Components:
 
   - Identifier: KERN-FB-01
     Text: Returned data from system call (e.g. PID of new process)
-    Target: MAN
-
-  Feedback:
-
-  - Identifier: KERN-FB-02
-    Text: Returned data from system call, data from signal, etc
-    Target: ASUB
-
-  Feedback:
-
-  - Identifier: KERN-FB-03
-    Text: Returned data from system call, data from signal, etc
-    Target: OTH
-
+    Target: LIBC
 
 - Identifier: KSUB
   Text: Kernel Subroutine

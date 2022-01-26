@@ -6,23 +6,23 @@ edge [fontname=arial fontsize=12]
 layout=dot; overlap=false; compound=true;
 
 {rank=same
-    Developer [width=3.5]
+    Developer [width=4]
     Architect [label="System architect"] }
 
-Compiler [width=3]
-Build [label="System construction" width=5]
+Compiler [width=4]
+Build [label="System construction" width=6]
 
 subgraph cluster_0 { style=dotted margin=15 bgcolor=lightgrey
                      label=<<i>System</i>> labelloc=b
                      fontname="arial" fontsize=18
-    Manager [label="System/Service Manager" width=5]
+    Manager [label="System/Service Manager (systemd)" width=6.5]
     { rank=same
-        Application [label="Safety application"]
+        Application [label="Process X (with safety function)" width=4.5]
         Other [label="Other process"] }
-    ASub [label="Application subroutine"]
-    TSub [label="Other subroutine"]
+    LibC [label="C Library (GLibC)" width=6]
+    Stack [label="X Call stack" width=3]
     Interrupt [label="Interrupt source"]
-    Kernel [width=6]
+    Kernel [width=4]
     KSub [label="Kernel subroutine"]
     }
 
@@ -38,22 +38,26 @@ Compiler -> Manager [lhead=cluster_0 taillabel="\rImplement stack  \lmemory oper
 
 Manager -> Application [taillabel="\rStart  \r" weight=4]
 Manager -> Other [taillabel="\rStart  \r"]
-Manager -> Kernel [taillabel="\r(Syscalls)  \r"]
-Manager -> Kernel [dir=back style=dashed]
+Manager -> LibC [taillabel="\r(Calls)  \r"]
+Manager -> LibC [dir=back style=dashed]
 
-Application -> ASub [taillabel="\r(Calls)  \r"]
-Application -> ASub [dir=back style=dashed]
+Application -> Stack [taillabel="\rPush  \rPop  \r"]
+Application -> Stack [dir=back style=dashed]
+Application -> LibC [taillabel="\r(Calls)  \r" weight=4]
+Application -> LibC [dir=back style=dashed weight=4]
 
-ASub -> Kernel [taillabel="\r(Syscalls)  \r"]
-ASub -> Kernel [dir=back style=dashed]
+LibC -> Stack [taillabel="\rPush  \rPop  \r"]
+LibC -> Stack [dir=back style=dashed]
 
-Other -> TSub [taillabel="\r(Calls)  \r"]
-Other -> TSub [dir=back style=dashed]
+Other -> LibC [taillabel="\r(Calls)  \r"]
+Other -> LibC [dir=back style=dashed]
 
-TSub -> Kernel [taillabel="\r(Syscalls)  \r"]
-TSub -> Kernel [dir=back style=dashed]
+Stack -> LibC [style=invis]
+
+LibC -> Kernel [taillabel="\r(Syscalls)  \r"]
+LibC -> Kernel [dir=back style=dashed]
 
 Kernel -> KSub [taillabel="\r(Calls)  \r"]
 Kernel -> KSub [dir=back style=dashed]
-Kernel-> Interrupt[dir=back style=dashed headlabel="\r(IRQ)  \r\r" ]
+Kernel-> Interrupt[dir=back style=dashed headlabel="\r(IRQ)  \r\r" weight=2]
 }
