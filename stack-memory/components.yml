@@ -5,35 +5,35 @@ Components:
 
   Control Actions:
 
-    - Identifier: MAN-Start-SAF
-      Text: Start process X
-      Target: SAF
+  - Identifier: MAN-Start-SAF
+    Text: Start process X
+    Target: SAF
 
-    - Identifier: MAN-Start-OTH
-      Text: Start other process
-      Target: OTH
+  - Identifier: MAN-Start-OTH
+    Text: Start other process
+    Target: OTH
 
-    - Identifier: MAN-Launch
-      Text: Launch process
-      Target: KERN
+  - Identifier: MAN-Launch
+    Text: Launch process
+    Target: KERN
 
 - Identifier: SAF
   Text: Process X (with safety function)
 
   Control Actions:
 
-    - Identifier: SAF-Call
-      Text: Call to a LibC function
-      Target: LIBC
+  - Identifier: SAF-Call
+    Text: Call to a LibC function
+    Target: LIBC
 
 - Identifier: OTH
   Text: Other Process
 
   Control Actions:
 
-    - Identifier: OTH-Call
-      Text: Call to a LibC function
-      Target: LIBC
+  - Identifier: OTH-Call
+    Text: Call to a LibC function
+    Target: LIBC
 
 - Identifier: LIBC
   Text: C Library (GLibC)
@@ -70,9 +70,9 @@ Components:
 
   Control Actions:
 
-    - Identifier: KERN-Call
-      Text: Call to a kernel subroutine
-      Target: KSUB
+  - Identifier: KERN-Call
+    Text: Call to a kernel subroutine
+    Target: KSUB
 
   Feedback:
 

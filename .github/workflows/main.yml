@@ -2,7 +2,7 @@ name: CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the main branch
+  # Triggers the workflow on push or pull request events but only for main
   push:
     branches: [ main ]
   pull_request:
@@ -11,7 +11,7 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# A workflow run consists of one or more jobs, run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      STPATOOLS_VERSION: "42e07abc5510f5864aa102aa7ae1e8349911a620"
+      STPATOOLS_VER: "42e07abc5510f5864aa102aa7ae1e8349911a620"
       STPATOOLS_REPO: "https://gitlab.com/CodethinkLabs/stpatools.git"
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
+    # Steps represent a sequence of tasks to be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # Checks-out your repo under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
       # Check that YAML files are well-formed
@@ -33,11 +33,11 @@ jobs:
 
       # Install specific version of STPA tools from repo
       - name: Install STPA tools
-        run: pip3 install "git+${{env.STPATOOLS_REPO}}@${{env.STPATOOLS_VERSION}}"
+        run: pip3 install "git+${{env.STPATOOLS_REPO}}@${{env.STPATOOLS_VER}}"
 
       # Validate STPA files
       - name: Validate STPA files (STPA_DynMA)
         run: stpa-validate STPA_DynMA/*.yml
-        
+
       - name: Validate STPA files
         run: stpa-validate stack-memory/*.yml
