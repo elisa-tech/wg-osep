@@ -10,7 +10,7 @@ Constraints:
 
 - Identifier: SC-1
   Text: >
-    If the kernel stops responding to external input, then such behavior must be 
+    If the kernel stops responding to external input, then such behavior must be
     detected and measures taken to restore the system to its operational state.
   Hazards: [ H-1 ]
 
@@ -21,12 +21,12 @@ Constraints:
 
 - Identifier: SC-3
   Text: >
-    If the kernel data integrity is broken, such behavior must be detected 
+    If the kernel data integrity is broken, such behavior must be detected
     and measures taken to restore the system to its operational state.
   Hazards: [ H-3 ]
 
 - Identifier: SC-4
   Text: >
-    If the kernel violates its boundaries, such behavior must be detected 
+    If the kernel violates its boundaries, such behavior must be detected
     and measures taken to restore the system to its operational state.
   Hazards: [ H-4 ]

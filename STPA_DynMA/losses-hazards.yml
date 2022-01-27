@@ -1,12 +1,10 @@
 #
-# A system is a set of components that act together as a whole to achieve some 
+# A system is a set of components that act together as a whole to achieve some
 # common goal, objective, or end. A system may contain subsystems and may also
 # be part of a larger system.
 #
-
-SYSTEM:     Linux Kernel.
-Boundaries: Kernel API, kernel space memory.
-
+# SYSTEM:     Linux Kernel.
+# Boundaries: Kernel API, kernel space memory.
 #
 # A loss involves something of value to stakeholders. Losses may include a loss
 # of human life or human injury, property damage, environmental pollution, loss
@@ -15,12 +13,12 @@ Boundaries: Kernel API, kernel space memory.
 #
 
 Losses:
-- Identifier: L-1 
+- Identifier: L-1
   Text: Loss of or damage to elements outside the system (SW elements)
 - Identifier: L-2
-  Text: Loss of mission (the kernel does not provide correctly it services anymore) 
+  Text: Loss of mission (the kernel does not provide correctly it services anymore)
 - Identifier: L-3
-  Text: Loss of user satisfaction 
+  Text: Loss of user satisfaction
 
 #
 # A hazard is a system state or set of conditions that, together with a
@@ -48,7 +46,8 @@ Hazards:
   Losses: [L-1, L-2, L-3]
 
 #
-# One way to derive sub-hazards is to ask: What do we need to control to prevent this hazard?
-# In our case: allocation and deallocation of memory 
+# One way to derive sub-hazards is to ask: What do we need to control to prevent
+# this hazard?
+# In our case: allocation and deallocation of memory
 #
 # Note: Sub-hazards only for dynamic memory allocation
