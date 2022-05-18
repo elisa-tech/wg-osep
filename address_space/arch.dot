@@ -1,0 +1,28 @@
+digraph G {
+node [shape=box width=2 height=1 fontname=arial fontsize=24]
+graph [splines=ortho ranksep=1 nodesep=0.8]
+edge [fontname=arial fontsize=18]
+layout=dot; overlap=false;
+ordering=out;
+
+process [label="Userspace\nProcess"]
+subgraph cluster_kernel {
+  label="Linux kernel" labeljust=r margin=20 fontsize=20
+  rank=same{
+    mm [label="Memory\nmanagement"]
+    driver [label="Device\ndriver"]
+    kthread [label="Kernel\nThread"]
+    }
+  }
+firmware [label="Device\nfirmware"]
+mmu [label="MMU" width=5]
+device [label="Device" width=5]
+memory [label="Physical memory" width=7]
+iommu [label="IOMMU"]
+
+kthread -> mm
+process -> mm -> mmu -> memory
+driver -> device -> iommu -> memory
+driver -> mm
+firmware -> device
+}
