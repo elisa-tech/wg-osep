@@ -3,15 +3,15 @@
 This document describes the following:
 
 * [Background](#background): The motivation and objectives of the Linux- and safety-related studies undertaken and published by the ELISA project.
-* [Framework](#framework): The conceptual framework and underlying assumptions that are intended to inform these studies
-* [Guidance](#guidance): Guidance for individuals and organisations wishing to use the results of these studies in their own projects
+* [Framework](#framework): The conceptual framework and underlying assumptions that are intended to inform these studies, and guidance for individuals and organisations wishing to use the study results to inform their own projects
+* [Process](#process): ELISA's policies and procedures relating to the creation, review and publication of study results by working groups
 
 ## Glossary
 
 The following terms are used in this document with a specific meaning. Definitions with [IEC] link references correspond to the linked definitions, which are from the International Electrotechnical Commission's [glossary](https://std.iec.ch/terms/terms.nsf/welcome?OpenForm).
 
 * **component**: Discrete part of a *system*. A component may consist of software, hardware, or both.
-* **Linux**: Software source code and related materials provided by the [Linux project](https://www.kernel.org/)
+* **Linux**: Software source code and related materials provided by the [Linux kernel project](https://www.kernel.org/)
 * **other risk reduction measure**: [[IEC]](https://std.iec.ch/terms/terms.nsf/0/CC0395B48CDB99C8C125771F002F5900?OpenDocument) Measure to reduce or mitigate risk that is separate and distinct from, and does not use, *safety-related systems*
 * **safe state**: [[IEC]](https://std.iec.ch/terms/terms.nsf/0/EC58D06321CC96DEC125771F002F58E7?OpenDocument) State of the *target equipment* when safety is achieved
 * **safety**: [[IEC]](https://std.iec.ch/terms/terms.nsf/0/F260F3CEB4EE58E3C125771F002F58E5?OpenDocument) Freedom from unacceptable risk. In this context, this principally means 'functional safety' as defined by [IEC 61508](https://std.iec.ch/terms/terms.nsf/0/D9612D92E129AA06C125771F002F58E6?OpenDocument) and [ISO 26262](https://www.iso.org/obp/ui/#iso:std:iso:26262:-1:ed-2:v1:en:term:3.67)
@@ -75,10 +75,9 @@ TODO:
     - Standard disclaimers
     - Common document verification criteria
 
-## Framework Inputs
+## User Inputs and Responsibilities
 
-Organisations using the proposed framework must necessarily provide the
-following inputs, as these are context-specific.
+Organisations making use of ELISA's studies must necessarily provide the following inputs, as these are context-specific:
 
 * Project definition
     - What is the purpose of the system using Linux and what role does Linux
@@ -91,15 +90,18 @@ following inputs, as these are context-specific.
     - Other system components or inputs that inform the execution environment
       for applications that depend on the Linux implementation
 * Safety Concept
-    – Safety goals for the target system, and strategies or solutions to be
+    - Safety goals for the target system, and strategies or solutions to be
       provided by other processes, or components of the target system
 
-For ELISA's illustrative examples, we will document our assumptions about these
-inputs, to help organisations to understand how they may apply to their own
-target context.
+For ELISA's studies, we will document our assumptions about these inputs where relevant, to help organisations to understand how the results of the studies may inform their work or apply to their project context. However, organisations making use of the study results in this way are responsible for confirming their accuracy and suitability for the target context.
 
-# Guidance
+# Process
 
 TODO:
 
-*  How can others make use of what ELISA produces?
+* Define *ELISA’s* criteria and processes, *not* our recommendations for safety projects!
+* Working principles / policies
+    - e.g. Publish in Github, Accessible to all to comment on
+* Document formats / requirements?
+    - e.g. Written in English, written in form that people can read without special tools, text-based (to permit review in Github)
+
