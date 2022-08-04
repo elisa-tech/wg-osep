@@ -10,6 +10,7 @@ This document describes the following:
 
 The following terms are used in this document with a specific meaning. Definitions with [IEC] link references correspond to the linked definitions, which are from the International Electrotechnical Commission's [glossary](https://std.iec.ch/terms/terms.nsf/welcome?OpenForm).
 
+* **build environment**: The *system* within which the *target software* is constructed using the *toolchain*
 * **component**: Discrete part of a *system*. A component may consist of software, hardware, or both.
 * **Linux**: Software source code and related materials provided by the [Linux kernel project](https://www.kernel.org/)
 * **other risk reduction measure**: [[IEC]](https://std.iec.ch/terms/terms.nsf/0/CC0395B48CDB99C8C125771F002F5900?OpenDocument) Measure to reduce or mitigate risk that is separate and distinct from, and does not use, *safety-related systems*
@@ -22,7 +23,9 @@ The following terms are used in this document with a specific meaning. Definitio
     - is intended to achieve, on its own or with other *safety-related systems* and *other risk reduction measures*, the necessary *safety integrity* for the required *safety functions*
 * **system**: Combination of hardware and/or software that is intended to achieve a specific purpose. A system may contain subsystems, and may be part of a larger system.
 * **target equipment**: [[IEC]](https://std.iec.ch/terms/terms.nsf/0/B9C576C31B4E488DC125771F002F58E9?OpenDocument) the equipment, machinery, apparatus or plant for which *safety* is to be achieved
-* **target system**: The *safety-related system* (specific or assumed) under consideration. For the purposes of this document, this is assumed to include a *component* incorporating software based on *Linux*
+* **target software**: The software components of the *safety-related system* that we are considering
+* **target system**: The *safety-related system* (specific or assumed) under consideration. For the purposes of this document, this is assumed to include a *component* incorporating software based on *Linux* or used in conjunction with *Linux*
+* **toolchain**: The software used to construct the *target software*, including its dependencies. Note that in some cases (e.g. gcc) projects providing parts of the toolchain may also provide components (e.g. glibc) that could form part of the *target software*, or be replaced by equivalent components (e.g. musl)
 
 # Background
 
