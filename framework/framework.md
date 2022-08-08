@@ -53,7 +53,7 @@ The following terms are used in this document with a specific meaning. Definitio
 * **system**: A set of *components* or subsystems that relates at least a sensor, a controller, and an actuator with one another. (TODO -- Normalize with the above definition)
 * **systematic failure**: A *failure* related in a deterministic way to a certain cause, that can only be eliminated by a change of the design or of the manufacturing process, operational procedures, documentation or other relevant factors.
 * **systematic fault**: A *fault* whose *failure* is manifested in a deterministic way that can only be prevented by applying process or design measures.
-* **testing**: The process of planning, preparing, and operating or exercising an element to verify that it satisfies specified requirements, to detect safety anomalies, to validate that requirements are suitable in the given context and to create confidence in its behavior.
+* **testing**: The process of planning, preparing, and operating or exercising an *element* to verify that it satisfies specified requirements, to detect *safety anomalies*, to validate that requirements are suitable in the given context and to create confidence in its behavior.
 * **verification**: The determination whether or not an examined object meets its specified requirements.
 * **work product**: The documentation resulting from one or more associated requirements of the development process.
 
