@@ -46,6 +46,39 @@ The following terms are used in the context of ELISA's Studies with a specific m
 * **target system**: The *safety-related system* (specific or assumed) under consideration. For the purposes of this document, this is assumed to include a *component* incorporating software based on *Linux* or used in conjunction with *Linux*
 * **toolchain**: The software used to construct the *target software*, including its dependencies. Note that in some cases (e.g. gcc) projects providing parts of the toolchain may also provide components (e.g. glibc) that could form part of the *target software*, or be replaced by equivalent components (e.g. musl)
 
+### ISO 26262 Definitions
+
+* **architecture**: The representation of the structure of the *system* that allows identification of building blocks, their boundaries and interfaces, and includes the allocation of requirements to those building blocks.
+* **assessment**: The examination of whether or not a *system* achieves the safety objectives.
+* **audit**: The examination of an implemented process with regard to the process objectives.
+* **baseline**: The version of an approved set of one or more work products that serves as a basis for change.
+* **component**: A non-system level *element* that is logically or technically separable and is comprised of more than one hardware part or one or more software units. (TODO - Normalize this definition with the component above)
+* **configuration data**: The data that is assigned during element build and that controls the element build process. (TODO - Reword to make more comprehensible)
+* **element**: A system, hardware or software component, hardware part, or software unit.
+* **error**: The discrepancy between a computed, observed or measured value or condition, and the true, specified or theoretically correct value or condition.
+* **failure**: The termination of an intended behaviour of an element due to the manifestation of a fault.
+* **fault**: An abnormal termination that can cause an *element* to fail.
+* **fault tolerance**: The ability to deliver a specified functionality in the presence of one or more specified *faults*.
+* **fault tolerant time interval**: The minimum time-span from the occurrence of a *fault* to the possible occurrence of a hazardous event, if the safety mechanisms are not activated. (TODO -- Is there a better or more generic terminology for this?)
+* **inspection**: The examination of work products, following a formal procedure, to detect safety anomalies.
+* **latent fault**: A fault whose presence is not detected by a safety mechanism nor perceived by the driver within an appropriate time.
+* **malfunctioning behavior**: A *failure* or unintended behavior of an *element* with respect to its design intent.
+* **modified condition/decision coverage**: (MC/DC) A code coverage metric that indicates the percentage of single condition outcomes that independently affect a decision's outcome.  In addition, it expects that all code blocks and execution paths have been tested.
+* **quality management**: (QM) The coordinated activities to direct and control an organization with regards to quality.
+* **random hardware failure**: A failure that can occur unpredictably during the lifetime of a hardware element and that follows a probability distribution.
+* **regression strategy**: The strategy to verify that an implemented change did not affect the unchanged, existing and previously verified parts or properties of an *element*.
+* **robust design**: A design that can function correctly in the presence of invalid inputs or stressful environmental conditions.
+* **safety**: The absence of unreasonable risk.
+* **safety anomaly**: Any conditions that deviate from expectations and that can lead to harm.
+* **safety measure**: An activity or technical solution to avoid or control *systematic failures* and to detect or control *random hardware failures*, or mitigate their harmful effects
+* **software unit**: An atomic-level software *component* of the software architecture that can be subjected to stand-alone testing.
+* **system**: A set of *components* or subsystems that relates at least a sensor, a controller, and an actuator with one another. (TODO -- Normalize with the above definition)
+* **systematic failure**: A *failure* related in a deterministic way to a certain cause, that can only be eliminated by a change of the design or of the manufacturing process, operational procedures, documentation or other relevant factors.
+* **systematic fault**: A *fault* whose *failure* is manifested in a deterministic way that can only be prevented by applying process or design measures.
+* **testing**: The process of planning, preparing, and operating or exercising an *element* to verify that it satisfies specified requirements, to detect *safety anomalies*, to validate that requirements are suitable in the given context and to create confidence in its behavior.
+* **verification**: The determination whether or not an examined object meets its specified requirements.
+* **work product**: The documentation resulting from one or more associated requirements of the development process.
+
 # Background
 
 ## ELISA's mission
