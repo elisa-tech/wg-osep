@@ -1,14 +1,33 @@
 # ELISA Safety Studies Framework
 
-This document describes the following:
+## Introduction
 
-* [Background](#background): The motivation and objectives of the Linux- and safety-related studies undertaken and published by the ELISA project.
-* [Framework](#framework): The conceptual framework and underlying assumptions that are intended to inform these studies, and guidance for individuals and organisations wishing to use the study results to inform their own projects
-* [Process](#process): ELISA's policies and procedures relating to the creation, review and publication of study results by working groups
+The ELISA project is organised into a number of working groups, each with a different focus. Some of these groups focus on a domain or *vertical* for safety applications involving Linux (e.g. Automotive), while others focus on cross-domain aspects or *horizontals* of the associated work (e.g. Safety Architecture).
 
-## Glossary
+Contributors to these working groups work together to discuss and investigate various topics related to their focus. The purpose of this document is to define a common framework for conducting this work and publishing the results, to provide a coherent frame of reference for consumers of the published material and a consistent set of working practices for contributors.
 
-The following terms are used in this document with a specific meaning. Definitions with [IEC] link references correspond to the linked definitions, which are from the International Electrotechnical Commission's [glossary](https://std.iec.ch/terms/terms.nsf/welcome?OpenForm).
+The following Capitalised Terms are used in this document with a specific meaning
+
+* **Studies**: Collaborative activities undertaken by the ELISA working groups.
+* **Study Results**: Outputs of *Studies* that are shared in a working group's GitHub repository
+* **Study Framework**: The information and procedures in this document
+* **Published Results**: *Study Results* that have been subject to the review and publication procedures described in [Process](#process), which are published in:
+    - the `main` branch of a working group's GitHub repository, and/or
+    - in a generated format (e.g. a PDF, or as HTML via GitHub Pages or on https://elisa.tech/)
+
+Other common terms that have a specific meaning in the context of the *Studies* or *Study Results* are defined in the [Glossary](#glossary).
+
+This document is organised into the following sections:
+
+* [Glossary](#glossary): Definitions for a common set of safety- or Linux-related terms that have a specific meaning in the Studies and Study Results
+* [Background](#background): The overall motivation and objectives of ELISA and the Studies
+* [Framework](#framework): The conceptual framework and underlying assumptions that are intended to inform the Studies
+* [Guidance](#guidance): Information for individuals and organisations wishing to use the Study Results to inform their own projects
+* [Process](#process): ELISA's policies and procedures relating to the conduct of Studies and the creation, review and publication of Study Results by working groups
+
+# Glossary
+
+The following terms are used in the context of ELISA's Studies with a specific meaning. Definitions with [IEC] link references correspond to the linked definitions, which are from the International Electrotechnical Commission's [glossary](https://std.iec.ch/terms/terms.nsf/welcome?OpenForm).
 
 * **build environment**: The *system* within which the *target software* is constructed using the *toolchain*
 * **component**: Discrete part of a *system*. A component may consist of software, hardware, or both.
@@ -29,6 +48,8 @@ The following terms are used in this document with a specific meaning. Definitio
 
 # Background
 
+## ELISA's mission
+
 ELISA's mission (as stated on project [website](https://elisa.tech/) is "to make it easier for companies to build and certify Linux-based safety-critical applications – systems whose failure could result in loss of human life, significant property damage or environmental damage".
 
 To accomplish this, the [ELISA charter](https://elisa.tech/wp-content/uploads/sites/75/2020/08/elisa_technical_charter_082620.pdf) specified an intention to "define and maintain a common set of elements, processes and tools that can be incorporated into Linux-based, safety-critical systems amenable to safety certification."
@@ -45,13 +66,15 @@ TODO:
 ## Motivation
 
 TODO:
-* Why is 'traditional' approach from safety standards not feasible for Linux?
+* Why does ELISA only publish 'Studies' instead of making and maintaining a 'Safe Linux'?
+* Why is the 'traditional' approach from safety standards not feasible for Linux?
 * Why might someone want to use Linux in safety?
 
 ## Objectives
 
 TODO:
 
+* What are the Studies intended to achieve?
 * What methods / approaches are we exploring / developing?
     - Inferred design approach
       - Describe system behaviour needed and demonstrate it through testing
@@ -72,15 +95,17 @@ TODO:
 TODO:
 
 * What do we need to define as a common framework to inform / frame all ELISA studies?
-    - Terminology (e.g. this document's [glossary](#glossary))
+    - Terminology (e.g. this document's [Glossary](#glossary))
     - Standard set of assumptions
-      - If a study deviates from these, describe how
+      - If a study deviates from these, it must specify how and why
     - Standard disclaimers
     - Common document verification criteria
 
+# Guidance
+
 ## User Inputs and Responsibilities
 
-Organisations making use of ELISA's studies must necessarily provide the following inputs, as these are context-specific:
+Organisations making use of Published Results must necessarily provide the following inputs, as these are context-specific:
 
 * Project definition
     - What is the purpose of the system using Linux and what role does Linux
@@ -97,6 +122,10 @@ Organisations making use of ELISA's studies must necessarily provide the followi
       provided by other processes, or components of the target system
 
 For ELISA's studies, we will document our assumptions about these inputs where relevant, to help organisations to understand how the results of the studies may inform their work or apply to their project context. However, organisations making use of the study results in this way are responsible for confirming their accuracy and suitability for the target context.
+
+TODO:
+
+* Further guidance about using / validating Study Results, or repeating Studies in the user's specific context
 
 # Process
 
