@@ -20,3 +20,4 @@ collaborative work-in-progress (topic suggestions, notes, etc) in the project
 * [ELISA home page](https://elisa.tech/)
 * [OSEP mailing list and meeting calendar](https://lists.elisa.tech/g/osep)
 * [Meeting minutes (*Google Drive*)](https://docs.google.com/document/d/15oxDUVsvGFg0IIJ9RVympV8F9h0rKLAeAZCUi_L4ieY)
+* [Meeting minutes (*Web*)](https://docs.google.com/document/d/e/2PACX-1vSQ3yBsvrDBrOYOR9wA16ADaBjwQlE2EfGBmjzRBWBp9f6tU8--vGcohgPDAADm01uHggW2KeQYDK3N/pub)
