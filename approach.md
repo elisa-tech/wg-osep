@@ -10,9 +10,9 @@ Our objective is to specify a system context and an example set of safety goals 
 
 In ISO 26262 terminology, this is equivalent to defining the assumptions of use (AoU) for Linux (or any FOSS component, or integration of components) as a Safety Element out of Context (SEooC).
 
-Our purpose with this analysis is to describe and provide examples of a method for identifying and documenting the risks associated with using Linux in the given context, and to examine how its existing features may be used to help to identify, control and/or mitigate these risks.
+Our purpose with undertaking this kind of analysis in ELISA is to describe and provide examples of a method for identifying and documenting the risks associated with using Linux in a given context, and to examine how its existing features may be used to help to identify, control and/or mitigate these risks. The results of this analysis may then be used to derive the safety requirements that should apply for a system using Linux in such a context
 
-For example, certain Linux configurations may help to address some of the risks that we identify, while others - including default kernel configurations - may introduce additional and possibly unacceptable risks that are associated with performance optimisations. Some mitigations for these risks may be outside the scope of Linux, involving AoUs on applications using Linux or on other components integrated with Linux as part of an operating system.
+For example, certain Linux configurations may help to address some of the risks that we identify, while others - including default kernel configurations - may introduce additional and possibly unacceptable risks (e.g performance optimisations that may have unintended or unpredictable consequences). Some mitigations for these risks may be outside the scope of Linux, involving AoUs on applications using Linux or on other components integrated with Linux as part of an operating system.
 
 The outputs of this process are expected to be:
 
