@@ -14,7 +14,8 @@ collaborative work-in-progress (topic suggestions, notes, etc) in the project
 ## Project index
 
 * [Mission statement](mission.md)
-
+* [Safety analysis approach](safety-analysis/README.md)
+* [Meeting minutes (*Wiki*)](https://github.com/elisa-tech/wg-osep/wiki/minutes)
 ## External links
 
 * [ELISA home page](https://elisa.tech/)
