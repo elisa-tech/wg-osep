@@ -1,0 +1,30 @@
+digraph G {
+
+node [shape=box width=1 height=0.5
+      fontname=arial fontsize=16
+      style=filled fillcolor=white]
+graph [splines=ortho ranksep=0.5 newrank=true
+       nodesep=0.2 compound=true
+       fontname=arial fontsize=16]
+
+driver [label="Driver of\n vehicle"]
+subgraph cluster_vehicle {
+    label="Vehicle systems" style=rounded
+    source [label="Other\nSource"]
+    requester [label="Telltale\nSource"]
+    }
+cluster [label="Instrument\nCluster" style=bold width=2.5]
+display [label="Display" width=2]
+watchdog [label="Watchdog"]
+backlight [label="Display backlight"]
+
+{rank=same; driver;source}
+driver->display [dir=back style=dashed]
+source -> cluster
+requester -> cluster
+cluster -> watchdog
+cluster -> display
+cluster -> display [dir=back style=dashed]
+watchdog -> backlight
+display -> backlight [dir=back style=dashed]
+}
