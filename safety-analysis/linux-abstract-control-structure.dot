@@ -1,0 +1,88 @@
+digraph G {
+node [shape=box width=0.8 height=0.5 labelloc=c margin=0.1
+      fontname="Open Sans" fontsize=14 style=filled fillcolor=white]
+graph [splines=ortho ranksep=0.6 nodesep=0.6]
+edge [fontname="Open Sans" fontsize=12]
+layout=dot; overlap=false;
+ordering=out; compound=true; newrank=true;
+
+subgraph cluster_user {
+    label="Application workloads" labeljust=l color=lightgrey
+    fontname="Open Sans" fontsize=16 style=filled margin=10
+    rvc [label="Safety workloads" width=3.2 fillcolor=red fontcolor=yellow]
+    ivi [label="Other workloads" width=3.2]
+    }
+
+subgraph cluster_os {
+    label="OS" labeljust=l
+    fontname="Open Sans" fontsize=16 margin=15 style=filled color=lightgrey
+
+    subgraph cluster_services {
+    label="Services" color=grey labeljust=l labelloc=b margin=5
+        servman [label="Service manager" width=3.2]
+        services [label="Other\nservices" width=1.5]
+        safeserv [label="Safety-related\nservice(s)" width=1.5 fillcolor=red fontcolor=yellow]
+        }
+
+    subgraph cluster_kernel {
+        label="Kernel" color=grey labeljust=l labelloc=b margin=5
+        mman [label="Memory\nmanagement"]
+        acon [label="Access control" width=2.8]
+        dcon [label="Device\ncontrol"]
+        tcon [label="Task\ncontrol"]
+        dint [label="Device interfaces" width=2.8]
+        }
+    syscall [shape=circle width=0.3 height=0.3 fontsize=11
+        label="" xlabel="syscall,\nsysfs,\nprocfs,\n etc." fontcolor=darkgreen]
+    interrupt [shape=circle width=0.3 height=0.3 fontsize=11
+        label="" xlabel="IRQ, NMI\nException" fontcolor=darkgreen]
+    }
+
+subgraph cluster_hardware {
+    label="Hardware" style=filled color=lightgrey labelloc=t labeljust=l
+    fontname="Open Sans" fontsize=16 margin=11
+    memory [label="Memory"]
+    Watchdog [fillcolor=red fontcolor=yellow]
+    processor [label="CPU"]
+    GPU
+    Other
+    }
+
+{rank=same; rvc; ivi;}
+{rank=same; servman; syscall;}
+{rank=same; safeserv; services;}
+{rank=same; mman; dcon; tcon;}
+{rank=same; interrupt; dint}
+{rank=same; Other; GPU; memory; processor; Watchdog;}
+
+rvc -> servman [ltail=cluster_user lhead=cluster_services]
+rvc -> servman [dir=back style=dashed ltail=cluster_user lhead=cluster_services]
+ivi -> syscall [dir=none ltail=cluster_user]
+ivi -> acon [dir=back style=dashed ltail=cluster_user lhead=cluster_kernel]
+rvc -> ivi [dir=both color=blue]
+
+syscall -> mman [lhead=cluster_kernel]
+
+servman -> syscall [dir=none ltail=cluster_services weight=2]
+safeserv -> mman [dir=back style=dashed ltail=cluster_services lhead=cluster_kernel]
+
+servman -> safeserv
+servman -> safeserv [dir=back style=dashed]
+servman -> services
+servman -> services [dir=back style=dashed]
+safeserv -> services [dir=both color=blue]
+
+mman -> dcon [style=invis]
+acon -> dcon
+acon -> tcon [weight=3]
+dcon -> dint
+dcon -> dint [dir=back style=dashed]
+tcon -> dint
+tcon -> dint [dir=back style=dashed weight=2]
+
+interrupt -> GPU [dir=none lhead=cluster_hardware weight=1]
+interrupt -> dint [lhead=cluster_kernel weight=1]
+
+dint -> memory [lhead=cluster_hardware weight=1]
+dint -> memory [dir=back style=dashed lhead=cluster_hardware weight=1]
+}
