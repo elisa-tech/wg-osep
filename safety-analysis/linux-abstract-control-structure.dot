@@ -7,53 +7,67 @@ layout=dot; overlap=false;
 ordering=out; compound=true; newrank=true;
 
 subgraph cluster_user {
-    label="Application workloads" labeljust=l color=lightgrey
-    fontname="Open Sans" fontsize=16 style=filled margin=10
-    rvc [label="Safety workloads" width=3.2 fillcolor=red fontcolor=yellow]
-    ivi [label="Other workloads" width=3.2]
+    label="Application workloads running on the OS" labeljust=l penwidth=2 fillcolor=lightseagreen
+    fontname="Open Sans" fontsize=16 style=filled margin=15
+    rvc [label="Safety workloads" width=4 fillcolor=red fontcolor=yellow]
+    ivi [label="Other workloads" width=5.95]
     }
 
 subgraph cluster_os {
-    label="OS" labeljust=l
+    label="OS" labeljust=l fillcolor=lightblue
     fontname="Open Sans" fontsize=16 margin=15 style=filled color=lightgrey
 
     subgraph cluster_services {
-    label="Services" color=grey labeljust=l labelloc=b margin=5
-        servman [label="Service manager" width=3.2]
+    pencolor=black fillcolor=palegoldenrod penwidth=2
+    label="Services" labeljust=l labelloc=b margin=15
+        servman [label="Service manager" width=3.6]
         services [label="Other\nservices" width=1.5]
         safeserv [label="Safety-related\nservice(s)" width=1.5 fillcolor=red fontcolor=yellow]
         }
 
     subgraph cluster_kernel {
-        label="Kernel" color=grey labeljust=l labelloc=b margin=5
+        pencolor=black fillcolor=lightgreen penwidth=2
+        label="Linux Kernel" labeljust=l labelloc=b margin=15
+        inmman [label="" width=0 height=0 style=invis]
         mman [label="Memory\nmanagement"]
-        acon [label="Access control" width=2.8]
-        dcon [label="Device\ncontrol"]
-        tcon [label="Task\ncontrol"]
-        dint [label="Device interfaces" width=2.8]
+        outmman [label="" width=0 height=0 style=invis]
+        subgraph cluster_kernel_sub {
+            label=""
+            acon [label="Access control\n(user, groups, etc)" width=3.9]
+            dcon [label="Device control\n(drivers, etc)"]
+            tcon [label="Task control\n(processes, etc)"]
+            dint [label="Device interfaces\n(filesystems, etc)" width=3.9]
+            }
         }
-    syscall [shape=circle width=0.3 height=0.3 fontsize=11
+    syscall [shape=circle width=0.2 height=0.2 fontsize=11
         label="" xlabel="syscall,\nsysfs,\nprocfs,\n etc." fontcolor=darkgreen]
-    interrupt [shape=circle width=0.3 height=0.3 fontsize=11
+    interrupt [shape=circle width=0.2 height=0.2 fontsize=11
         label="" xlabel="IRQ, NMI\nException" fontcolor=darkgreen]
     }
 
 subgraph cluster_hardware {
-    label="Hardware" style=filled color=lightgrey labelloc=t labeljust=l
+    label="Hardware directly controlled by OS"
+    style=filled penwidth=2 fillcolor=lightgrey labelloc=t labeljust=l
     fontname="Open Sans" fontsize=16 margin=11
+    Storage [width=1.35]
     memory [label="Memory"]
-    Watchdog [fillcolor=red fontcolor=yellow]
+    Bus [label="External\nDevice Bus"]
     processor [label="CPU"]
-    GPU
+    GPU [label="Graphics"]
+    Network
     Other
     }
 
+xsystem [label="Other system"]
+Watchdog
+
 {rank=same; rvc; ivi;}
 {rank=same; servman; syscall;}
-{rank=same; safeserv; services;}
+{rank=same; safeserv; services; inmman; acon}
 {rank=same; mman; dcon; tcon;}
-{rank=same; interrupt; dint}
-{rank=same; Other; GPU; memory; processor; Watchdog;}
+{rank=same; interrupt; outmman; dint}
+{rank=same; Other; GPU; memory; processor; Bus; Network; Storage;}
+{rank=same; xsystem; Watchdog;}
 
 rvc -> servman [ltail=cluster_user lhead=cluster_services]
 rvc -> servman [dir=back style=dashed ltail=cluster_user lhead=cluster_services]
@@ -61,7 +75,7 @@ ivi -> syscall [dir=none ltail=cluster_user]
 ivi -> acon [dir=back style=dashed ltail=cluster_user lhead=cluster_kernel]
 rvc -> ivi [dir=both color=blue]
 
-syscall -> mman [lhead=cluster_kernel]
+syscall -> inmman [lhead=cluster_kernel weight=3]
 
 servman -> syscall [dir=none ltail=cluster_services weight=2]
 safeserv -> mman [dir=back style=dashed ltail=cluster_services lhead=cluster_kernel]
@@ -72,17 +86,25 @@ servman -> services
 servman -> services [dir=back style=dashed]
 safeserv -> services [dir=both color=blue]
 
-mman -> dcon [style=invis]
+inmman -> acon [dir=none lhead=cluster_kernel_sub]
+mman -> outmman [dir=none style=dashed]
+outmman -> dint [style=dashed lhead=cluster_kernel_sub]
+inmman -> mman
+
 acon -> dcon
-acon -> tcon [weight=3]
+acon -> tcon
 dcon -> dint
 dcon -> dint [dir=back style=dashed]
 tcon -> dint
-tcon -> dint [dir=back style=dashed weight=2]
+tcon -> dint [dir=back style=dashed]
 
-interrupt -> GPU [dir=none lhead=cluster_hardware weight=1]
-interrupt -> dint [lhead=cluster_kernel weight=1]
+interrupt -> Network [dir=none lhead=cluster_hardware weight=2]
+interrupt -> outmman [lhead=cluster_kernel weight=1]
 
 dint -> memory [lhead=cluster_hardware weight=1]
-dint -> memory [dir=back style=dashed lhead=cluster_hardware weight=1]
+dint -> memory [dir=back style=dashed lhead=cluster_hardware]
+
+Network -> xsystem [dir=both color=blue weight=2]
+xsystem -> Watchdog [style=invis]
+Bus -> Watchdog [weight=2]
 }
