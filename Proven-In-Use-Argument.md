@@ -1,6 +1,6 @@
 # Is Linux mature and proven enough for use in safety-critical applications?
 
-Linux has proven itself thousands, probably millions of times over in business-critical applications. So it makes sense to use Linux for safety-critical applications as well. Linux has many advantages 
+Linux has proven itself thousands, probably millions of times over in business-critical applications, so it may seem logical that we could use it for safety-critical applications as well. Linux has many advantages 
 
 * it runs on an enormously wide range of hardware
 * there are a large number of established vendors and service providers for the operating system and for additional (standard) software
