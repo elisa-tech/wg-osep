@@ -11,7 +11,7 @@ Linux has proven itself thousands, probably millions of times over in business-c
 
 Linux has obviously proven itself. So what is so difficult about safety-critical applications?
 
-First, it's useful to look briefly at what functional safety is actually about. At its core, it is about dangerous items: technical systems, devices, machines, vehicles and the like. Such items can harm the environment or people, and in the worst case can even kill people uninvolved in their operation.
+First, it's useful to look briefly at what functional safety is actually about. At its core, it is about potentially dangerous items: technical systems, devices, machines, vehicles and the like, which can harm the environment or people, and in the worst case can even kill people uninvolved in their operation.
 
 For obvious reasons, the dangers posed by an item must be reduced to an acceptable level before the item is put into operation or placed on the market. 
 Thus, to reduce the unavoidable risks from an item to an acceptable level, appropriate safeguards must be found and implemented at the design stage. These protective measures come into action under certain conditions and regulate the item in such a way that a previously identified and determined risk remains below a predetermined threshold. These protective measures are called safety functions. In certain situations, a safety function can put the item in a state recognized as safe, for example, by shutting the item down.
