@@ -5,5 +5,13 @@ compatible licenses, and peer-reviewed derived work, produced under the
 ELISA umbrella.
 
 ## Index
+* [Interference Scenarios for an ARM64 Linux System]('Interference Scenarios for an ARM64 Linux System.pdf')
+  (3rd party) Analysis of a reference system based on ARM64, running Linux.
+  It provides architectural elements, both SW and HW, which are then used
+  as reference for describing examples of interference that the system is
+  subject to.
+* [Interference Scenarios for an ARM64 Linux System]('Interference Scenarios for an ARM64 Linux System.md')
+  (3rd party) MarkDown version of same-named pdf, meant to undergo peer
+  review and eventually transition to community-backed status.
 
 ## External links
