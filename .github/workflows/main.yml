@@ -31,6 +31,10 @@ jobs:
       - name: YAML lint
         run: yamllint -d relaxed .
 
+      # Install specific version of ruamel.yaml required by STPAtools
+      - name: Install ruamel.yaml
+        run: pip3 install ruamel.yaml==0.16.7
+
       # Install specific version of STPA tools from repo
       - name: Install STPA tools
         run: pip3 install "git+${{env.STPATOOLS_REPO}}@${{env.STPATOOLS_VERSION}}"
