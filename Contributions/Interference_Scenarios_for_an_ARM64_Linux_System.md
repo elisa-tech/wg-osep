@@ -5,14 +5,23 @@
 ## Index
 
 [Documentation Control](#Documentation-Control)
+
 [Terms and Abbreviations](#Terms-and-Abbreviations)
+
 [References](#References)
+
 [Purpose of the document](#Purpose-of-the-document)
+
 [Structure of the document](#Structure-of-the-document)
+
 [Safety-Relevant System Features](#Safety-Relevant-System-Features)
+
 [Guidance on Safety Analysis and Mitigations](#Guidance-on-Safety-Analysis-and-Mitigations)
+
 [Sources of Interference](#Sources-of-Interference)
+
 [Exposure to Interference](#Exposure-to-Interference)
+
 [License: CC BY-SA 4.0](#License:-CC-BY-SA-4.0)
 
 ------------------------------------------------------------------------
