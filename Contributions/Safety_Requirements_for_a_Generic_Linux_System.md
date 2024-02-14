@@ -1,5 +1,22 @@
 # **Safety Requirements for a Generic Linux System**
 
+## Index
+
+[Terms and Abbreviations](#Terms-and-Abbreviations)
+
+[References](#References)
+
+[Purpose of the document](#Purpose-of-the-document)
+
+[Structure of the document](#Structure-of-the-document)
+
+[Requirements on the Generation of Binary Artefacts](#Requirements-on-the-Generation-of-Binary-Artefacts)
+
+[Components Safety Integrity Level](#Components-Safety-Integrity-Level)
+
+[Components FFI](#Components-FFI)
+
+[License: CC BY-SA 4.0](#License:-CC-BY-SA-4.0)
 
 ## **Terms and Abbreviations**
 
@@ -66,12 +83,11 @@ However, it makes sense to consider sub components if and only if it can be prov
    A user-space process typically executes in user-mode, however it needs sometimes to invoke the kernel, through syscalls, for performing activity at a higher level of privilege.
 The safety requirements assigned to the user-space process extend also to this condition, while it is executing a syscall in kernel mode.
 When addressing requirements allocated to a certain user-space process, also its kernel-mode execution must be accounted for.
-2. Safety requirements assigned to kernel drivers can extend to both kernel threads and work queues utilised: a device driver with safety requirements might need to execute work either through a kernel thread or a workqueue or similar means of work deferral.
+   2. Safety requirements assigned to kernel drivers can extend to both kernel threads and work queues utilised: a device driver with safety requirements might need to execute work either through a kernel thread or a workqueue or similar means of work deferral.
    Safety requirements assigned to such a device driver shall extend by default to any other forked execution path, should the decomposition determine that it is required.
 For example, the device driver might rely on a kernel thread to interact asynchronously with a hardware component that would otherwise introduce too much latency, if it was accessed synchronously.
 In case any safety requirements apply to said interaction, they will extend also to the kernel thread involved.
 Should the driver perform additional non safety-relevant activity (e.g. logging), the safety requirements will not need to apply to such activity, synchronous or not. In these cases, it is intended that said activity is not part of any safety mechanism or argumentation, for example because there are other means in place that are responsible for detecting and advertising safety-relevant anomalies.
-
   3. If/when considering the **“Proven in Use”** argumentation, it is important to substantiate the claims of equivalence between the system already in use, which is considered qualified as safe, and the system under analysis, which must be qualified.
    The burden of proof for any and all conditions associated with this sort of claim rests exclusively on the subject making the claim.
 Various perspectives need to be considered:
@@ -79,28 +95,23 @@ Various perspectives need to be considered:
         1. *Generation of Binary Artefacts*
    The current toolchain must match the qualifications of the old one. Ideally it would be the same, but equivalence, if proven, is sufficient.
 Furthermore, it must be used with parameters that yield equivalent binary artefacts (changing optimisation level between reference and target builds would significantly reduce the confidence of binary equivalence). Here too, the equivalence of the parameters used, between the reference system and the system under analysis, must be proven.
-         2. *Hardware Configuration*
+        2. *Hardware Configuration*
    The “proven in use” argumentation relies on historical data. Such data must have been obtained from a set of systems based on homogenous hardware, and there must be evidence of this. Similarly, the system under analysis must be sufficiently similar to the abovementioned fleet. This too must be proven. Lacking evidence for this uniformity, it is not possible to utilise whatever historical data might have been extracted from the flet during its operations.
-
-         3. *Source Code*
+        3. *Source Code*
    Just like there is a need for hardware homogeneity across the reference fleet and between the fleet and the system under analysis, the same need is extended to the software employed. Likewise, evidence must be provided for the equivalence.
-
-         4. *Timing Perspective*
+        4. *Timing Perspective*
    The need for homogeneity mentioned in the two previous points about hardware and source code extends to activation patterns and requirements as well: it must be proven that hardware and software of the system under analysis shall be excited in the same way as the reference configuration was. Or in a way that is proven to be equivalent.
 The equivalence refers to pattern, frequency, duration and overlapping of events. Not just events relevant to safety aspects, but any event that can affect the system.
 Furthermore, latency requirements must be equivalent.
-
-         5. *Memory Layout*
+        5. *Memory Layout*
    The following observations are particularly important in case there are no hard mechanisms to ensure either memory integrity or detection of memory corruption for safe components.
 The fact that the fleet of reference devices didn’t seem to exhibit memory corruption, even after extensive use, doesn’t automatically mean that it was free from corruption.
 Corruption might have happened even in the fleet of devices used as reference, but the specific memory layout of various allocations might have acted as a buffer toward components with safety requirements, *thus making the interference irrelevant to that specific scenario.*
 Lacking hard barriers, either it is proven that the memory layout of the new system is equivalent, or the **“proven in use argumentation” won’t be directly applicable**.
-
     4. Testing must adequately represent the use cases, as they are described.
    Any deviation from the use cases scenarios must be documented and justified.
 This is particularly relevant for the “Proven in use” argumentation, where the test cases of the reference implementation must be proven to be valid, representative and exhaustive of the new scenario.
 Any gap must be addressed, until the required test coverage is reached. Any intentional omission or deviation must be justified.
-
          1. An extensive amount of focused testing, designed according to safety cases, and intended as another way of obtaining a large body of empirical data, is another type of argumentation that requires special attention, similarly to “Proven in use”.
 While it can make more robust claims due to the likelihood of relying on data that is more aligned with present needs, it still shares some of the inherent deficiencies:
 
