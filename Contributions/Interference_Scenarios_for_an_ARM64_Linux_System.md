@@ -4,8 +4,6 @@
 
 ## Index
 
-[Documentation Control](#Documentation-Control)
-
 [Terms and Abbreviations](#Terms-and-Abbreviations)
 
 [References](#References)
