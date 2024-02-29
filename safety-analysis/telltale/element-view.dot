@@ -1,0 +1,45 @@
+digraph G {
+
+node [shape=box width=1 height=0.5
+      fontname=arial fontsize=16
+      style=filled fillcolor=white]
+graph [splines=ortho ranksep=0.8 newrank=true
+       nodesep=0.8 compound=true
+       fontname=arial fontsize=16]
+
+subgraph cluster_cluster {
+    label="Instrument Cluster" style=rounded labeljust=l margin=15
+    init [label="Init process" width=3]
+    subgraph cluster_processes {
+        label="Other processes" fontsize=12
+        style=rounded penwidth=0.5
+        margin=10 bgcolor=lightgrey
+        receiver [label="Dashboard\nManager" width=3.5]
+        checker [label="Telltale\nChecking" penwidth=3]
+        other [label="Other GUI\nprocesses"]
+        render [label="GUI\nRendering" width=3]
+        }
+    os [label="Linux\nKernel" width=5]
+    }
+can [label="Communications"]
+display [label="Display"]
+
+{rank=same; checker; render}
+
+init -> os
+init -> os [dir=back]
+init -> os [dir=back style=dashed]
+init -> receiver [lhead=cluster_processes]
+init -> receiver [dir=back style=dashed lhead=cluster_processes]
+receiver -> checker
+receiver -> render
+render -> os [ltail=cluster_processes]
+render -> os [dir=back style=dashed ltail=cluster_processes]
+other -> render
+render -> checker
+checker -> os
+receiver -> os [dir=back style=dashed]
+os -> can
+os -> can [dir=back style=dashed]
+os -> display
+}
