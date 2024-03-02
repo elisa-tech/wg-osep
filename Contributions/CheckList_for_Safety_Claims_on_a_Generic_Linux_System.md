@@ -55,7 +55,7 @@ The evaluation of the very same mitigation strategy can range from overkill to i
 
 
 ## **Structure of the document**
-- The next two sections are a brief - but necessary - premise about hardware and toolchains: Linux is a code-base, but what gets deployed is a combination of hardware and binary code. This aspect cannot be overlooked.
+- The next three sections are a brief - but necessary - premise about hardware, toolchains and other contexts: Linux is a code-base, but what gets deployed is a combination of hardware and binary code, and often it coexists with other contexts. These aspects cannot be overlooked.
 - In the following section, the actual list unfolds.
 
 
@@ -101,6 +101,24 @@ These examples show how converting source code into instructions that can actual
 And because of the variance in the output of the very same toolchain, based on the options selected and the associated values, it is thus necessary for the toolchain to be used with the same parameters that were used during its qualification.
 
 It is therefore necessary, as preliminary step, to verify that the toolchain is qualified accordingly to safety requirements, and used accordingly to its qualification. Lacking this, then it becomes necessary to identify an adequate mitigation strategy.
+
+
+## **Other Execution Contexts**
+
+This section is particularly tied to the hardware configuration that one might have chosen (see reference architecture document and related interference).
+On modern processors it is common to have additional hardware contexts, which expose low level functionality that is not available to the operating system.
+From a very high level perspective, these modes bring two capability:
+  * Hypervisor Mode: just as the operating system can run multiple applications in parallel, gating their access to certain features, isolating them from each other and abstracting the hardware, so the hypervisor can execute in parallel multiple operating systems, controlling their access to resources and abstracting the hardware. And, just as an application can do little to protect itself from the operating system, so an operating system can do very little to protect itself from the hypervisor.
+  * Secure Mode: Sometimes it is necessary to provide strong guarantees that certain data (e.g cryptographic private keys or other secrets) is not accessible to the rest of the system (which might be compromised); this ensures also that extra efforts can be put into developing the code that *does* have access. A secure mode ensures that a system designer can always rely on certain ground truths.
+
+The way these additional contexts are specified and implemented also grants them almost unfettered access to the kernel memory. The kernel might not even be aware of running on top of an hypervisor, or that a secure mode is mediating its access to certain memory.
+Needless to say, these privileges also provide an unbounded ability to interfere.
+
+**Can the kernel do anything to protect itself against this interference?** Possibly, but it would come very close to sprinkling checksums and redundancy all over. This would mean diverging significantly from a vanilla kernel *and* also introducing a noticeable overhead.
+
+**What else can be done?** It depends. One might attempt to rely on significant redundancy and then deploy some form of safe monitor, responsible for comparing the behaviour of the paired systems. Alternatively, one could qualify these additional contexts that have the ability to interfere. Considering that usually these contexts are already subject to a very rigorous process, because they can do so much damage if buggy, it might be easier to qualify them than to qualify the Linux kernel. Furthermore, they tend to be more specialised pieces of software, implementing less functionality, with less code, than a full-blown operating system.
+The choice lies with the system designer and integrator, however these listed here are probably the most common options available.
+Regardless, though, one should assess if interference can come from these additional contexts, and how to deal with it.
 
 ## **Linux Safety Checklist**
 
