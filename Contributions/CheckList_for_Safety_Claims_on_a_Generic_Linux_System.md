@@ -14,6 +14,8 @@
 
 [Toolchain](#Toolchain)
 
+[Additional Execution Contexts](#Additional-Execution-Contexts)
+
 [Linux Safety Checklist](#Linux-Safety-Checklist)
 
 [License: CC BY-SA 4.0](#License-CC-BY-SA-40)
@@ -103,7 +105,7 @@ And because of the variance in the output of the very same toolchain, based on t
 It is therefore necessary, as preliminary step, to verify that the toolchain is qualified accordingly to safety requirements, and used accordingly to its qualification. Lacking this, then it becomes necessary to identify an adequate mitigation strategy.
 
 
-## **Other Execution Contexts**
+## **Additional Execution Contexts**
 
 This section is particularly tied to the hardware configuration that one might have chosen (see reference architecture document and related interference).
 On modern processors it is common to have additional hardware contexts, which expose low level functionality that is not available to the operating system.
@@ -140,6 +142,7 @@ Some of the cases considered might appear as double-failure, which is usually ig
 **Items List:**
 
 * [Homogeneity of the test/validation/verification environment](#Homogeneity-of-the-test/validation/verification-environment)
+* [Interference from other hardware contexts](#Interference-from-other-hardware-contexts)
 * [Intra-kernel spatial interference](#Intra-kernel-spatial-interference)
 * [Inter-process interference for resources and side effects](#Inter-process-interference-for-resources-and-side-effects)
 
@@ -190,6 +193,42 @@ Some examples:
     * should the logging exceed the log buffer capacity, it might even cause the notification of important events to be dropped
     * having to power additional Hardware peripherals might force power rails and clock sources to stay active, hiding issues related to their timely wakeup
     * even subtler issues: leaving monitoring options enabled but not active, like a disconnected serial port, might cause ground lines to be floating and generate spurious interrupts that, again, might hide latency problems due to the system being kept active.
+
+### **Interference from other hardware contexts**
+
+As it is already mentioned in the section [Other Execution Contexts](#Other-Execution-Contexts), both the Linux kernel component and the applications running on top of it, can be exposed to undetectable interference originating from a different hardware context. The previously mentioned section, in particular, refers to hypervisor and trusted execution environment, which are special cases.
+
+They are special in the sense that in practice they use almost the same hardware used by linux, but made to execute a different stream of instructions, usually with some additional privilege. These examples can be generalised by considering what their effects might be.
+
+They can produce alterations in both data and execution flow, including ones that are recipients of safety requirements.
+
+Fundamentally, the interference can happen by altering one or more of:
+  * the content of a memory location, might be either data or code, kernel or application
+  * the content of a register
+  * the state of a peripheral (e.g. a coprocessor or an external IP block)
+
+Typically, the latter two targets are indeed affected mostly by hardware contexts that can: execute code, manipulate registers, and interact with peripherals.
+Just like the hypervisor or the trusted execution environment.
+
+However, the former target is not exclusively under threat from "execution" contexts.
+Interference with memory content can originate from any device that lives on the memory bus and can act as bus master.
+
+The typical example of this sort of device is a DMA controller, which is employed to offload from the CPU the task of trasfering bulks of data to/from one or more peripherals.
+Other devices can have similar capability, though (often implementing within their IP block their own DMA controllers): Graphic Processors, Network Cards and anything else that might be thrown in the mix. In safety applications it is not uncommon to even have ad-hoc extension cards with onboard intelligence, performing very specific operations and acting as hardware interface between custom sensor/actuators and a generic computer unit, through a dedicated memory area.
+
+The dangers represented by such components lies in the fact that they do not go through the permission chain that regular software running on the main processor is subject to (through the MMU). Instead, they have direct access to the physical memory.
+
+The typical solution in these cases, also from a security standpoint, is to have an I/O MMU component, which limits the access of said bus masters to very specific, pre-configured address ranges of physical memory, that are usually treated as exchange buffers.
+The configuration of the I/O MMU is left to the software running on the main processor, which has therefore the means to protect itself.
+
+But - in the safety analysis of a specific system - all of this must be evaluated:
+  * which hardware contexts can generate interference? Is any of them actually active?
+  * are they executing software that has been qualified for safety, at the level required by the specific use case?
+  * what sort of interference can they produce?
+  * can this interference affect components that are responsible for fulfilling safety requirements?
+  * can the interference be detected or even blocked (depending on availability requirements)?
+
+The questions above must be answered.
 
 ### **Intra-kernel spatial interference**
 
