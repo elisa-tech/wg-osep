@@ -14,6 +14,8 @@
 
 [Toolchain](#Toolchain)
 
+[Additional Execution Contexts](#Additional-Execution-Contexts)
+
 [Linux Safety Checklist](#Linux-Safety-Checklist)
 
 [License: CC BY-SA 4.0](#License-CC-BY-SA-40)
@@ -55,7 +57,7 @@ The evaluation of the very same mitigation strategy can range from overkill to i
 
 
 ## **Structure of the document**
-- The next two sections are a brief - but necessary - premise about hardware and toolchains: Linux is a code-base, but what gets deployed is a combination of hardware and binary code. This aspect cannot be overlooked.
+- The next three sections are a brief - but necessary - premise about hardware, toolchains and other contexts: Linux is a code-base, but what gets deployed is a combination of hardware and binary code, and often it coexists with other contexts. These aspects cannot be overlooked.
 - In the following section, the actual list unfolds.
 
 
@@ -102,6 +104,24 @@ And because of the variance in the output of the very same toolchain, based on t
 
 It is therefore necessary, as preliminary step, to verify that the toolchain is qualified accordingly to safety requirements, and used accordingly to its qualification. Lacking this, then it becomes necessary to identify an adequate mitigation strategy.
 
+
+## **Additional Execution Contexts**
+
+This section is particularly tied to the hardware configuration that one might have chosen (see reference architecture document and related interference).
+On modern processors it is common to have additional hardware contexts, which expose low level functionality that is not available to the operating system.
+From a very high level perspective, these modes bring two capability:
+  * Hypervisor Mode: just as the operating system can run multiple applications in parallel, gating their access to certain features, isolating them from each other and abstracting the hardware, so the hypervisor can execute in parallel multiple operating systems, controlling their access to resources and abstracting the hardware. And, just as an application can do little to protect itself from the operating system, so an operating system can do very little to protect itself from the hypervisor.
+  * Secure Mode: Sometimes it is necessary to provide strong guarantees that certain data (e.g cryptographic private keys or other secrets) is not accessible to the rest of the system (which might be compromised); this ensures also that extra efforts can be put into developing the code that *does* have access. A secure mode ensures that a system designer can always rely on certain ground truths.
+
+The way these additional contexts are specified and implemented also grants them almost unfettered access to the kernel memory. The kernel might not even be aware of running on top of an hypervisor, or that a secure mode is mediating its access to certain memory.
+Needless to say, these privileges also provide an unbounded ability to interfere.
+
+**Can the kernel do anything to protect itself against this interference?** Possibly, but it would come very close to sprinkling checksums and redundancy all over. This would mean diverging significantly from a vanilla kernel *and* also introducing a noticeable overhead.
+
+**What else can be done?** It depends. One might attempt to rely on significant redundancy and then deploy some form of safe monitor, responsible for comparing the behaviour of the paired systems. Alternatively, one could qualify these additional contexts that have the ability to interfere. Considering that usually these contexts are already subject to a very rigorous process, because they can do so much damage if buggy, it might be easier to qualify them than to qualify the Linux kernel. Furthermore, they tend to be more specialised pieces of software, implementing less functionality, with less code, than a full-blown operating system.
+The choice lies with the system designer and integrator, however these listed here are probably the most common options available.
+Regardless, though, one should assess if interference can come from these additional contexts, and how to deal with it.
+
 ## **Linux Safety Checklist**
 
 The items presented below are not necessarily coupled with each other, but they are loosely ordered, starting from the most fundamental ones, with the intention of creating a "base of safety" for each new one. This doesn't prevent a design where mitigation takes a different route.
@@ -122,6 +142,7 @@ Some of the cases considered might appear as double-failure, which is usually ig
 **Items List:**
 
 * [Homogeneity of the test/validation/verification environment](#Homogeneity-of-the-test/validation/verification-environment)
+* [Interference from other hardware contexts](#Interference-from-other-hardware-contexts)
 * [Intra-kernel spatial interference](#Intra-kernel-spatial-interference)
 * [Inter-process interference for resources and side effects](#Inter-process-interference-for-resources-and-side-effects)
 
@@ -172,6 +193,42 @@ Some examples:
     * should the logging exceed the log buffer capacity, it might even cause the notification of important events to be dropped
     * having to power additional Hardware peripherals might force power rails and clock sources to stay active, hiding issues related to their timely wakeup
     * even subtler issues: leaving monitoring options enabled but not active, like a disconnected serial port, might cause ground lines to be floating and generate spurious interrupts that, again, might hide latency problems due to the system being kept active.
+
+### **Interference from other hardware contexts**
+
+As it is already mentioned in the section [Other Execution Contexts](#Other-Execution-Contexts), both the Linux kernel component and the applications running on top of it, can be exposed to undetectable interference originating from a different hardware context. The previously mentioned section, in particular, refers to hypervisor and trusted execution environment, which are special cases.
+
+They are special in the sense that in practice they use almost the same hardware used by linux, but made to execute a different stream of instructions, usually with some additional privilege. These examples can be generalised by considering what their effects might be.
+
+They can produce alterations in both data and execution flow, including ones that are recipients of safety requirements.
+
+Fundamentally, the interference can happen by altering one or more of:
+  * the content of a memory location, might be either data or code, kernel or application
+  * the content of a register
+  * the state of a peripheral (e.g. a coprocessor or an external IP block)
+
+Typically, the latter two targets are indeed affected mostly by hardware contexts that can: execute code, manipulate registers, and interact with peripherals.
+Just like the hypervisor or the trusted execution environment.
+
+However, the former target is not exclusively under threat from "execution" contexts.
+Interference with memory content can originate from any device that lives on the memory bus and can act as bus master.
+
+The typical example of this sort of device is a DMA controller, which is employed to offload from the CPU the task of trasfering bulks of data to/from one or more peripherals.
+Other devices can have similar capability, though (often implementing within their IP block their own DMA controllers): Graphic Processors, Network Cards and anything else that might be thrown in the mix. In safety applications it is not uncommon to even have ad-hoc extension cards with onboard intelligence, performing very specific operations and acting as hardware interface between custom sensor/actuators and a generic computer unit, through a dedicated memory area.
+
+The dangers represented by such components lies in the fact that they do not go through the permission chain that regular software running on the main processor is subject to (through the MMU). Instead, they have direct access to the physical memory.
+
+The typical solution in these cases, also from a security standpoint, is to have an I/O MMU component, which limits the access of said bus masters to very specific, pre-configured address ranges of physical memory, that are usually treated as exchange buffers.
+The configuration of the I/O MMU is left to the software running on the main processor, which has therefore the means to protect itself.
+
+But - in the safety analysis of a specific system - all of this must be evaluated:
+  * which hardware contexts can generate interference? Is any of them actually active?
+  * are they executing software that has been qualified for safety, at the level required by the specific use case?
+  * what sort of interference can they produce?
+  * can this interference affect components that are responsible for fulfilling safety requirements?
+  * can the interference be detected or even blocked (depending on availability requirements)?
+
+The questions above must be answered.
 
 ### **Intra-kernel spatial interference**
 
