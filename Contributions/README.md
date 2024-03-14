@@ -5,25 +5,28 @@ compatible licenses, and peer-reviewed derived work, produced under the
 ELISA umbrella.
 
 ## Index
-* [Interference Scenarios for an ARM64 Linux System](Interference_Scenarios_for_an_ARM64_Linux_System.pdf)
-  (3rd party) Analysis of a reference system based on ARM64, running Linux.
-  It provides architectural elements, both SW and HW, which are then used
-  as reference for describing examples of interference that the system is
-  subject to.
-* [Interference Scenarios for an ARM64 Linux System](Interference_Scenarios_for_an_ARM64_Linux_System.md)
-  (3rd party) MarkDown version of same-named pdf, meant to undergo peer
-  review and eventually transition to community-backed status.
-  
-* [Safety Requirements for a Generic Linux System](Safety_Requirements_for_a_Generic_Linux_System.pdf)
-  (3rd party) Based on the previous document, this is a collection of
-  requirements meant to address Functional Safety in the above-mentioned
-  system, with focus on both Freedom From Interference and Availability.
-* [Safety Requirements for a Generic Linux System](Safety_Requirements_for_a_Generic_Linux_System.md)
-  (3rd party) MarkDown version of same-named pdf, meant to undergo peer
-  review and eventually transition to community-backed status.
-  
+These markdown documents are actively extended and reviewed, as part of safety-related work done within ELISA.
 
 * [CheckList for Safety Claims on a Generic Linux System](CheckList_for_Safety_Claims_on_a_Generic_Linux_System.md)
-  Based on the previous two documents, this is a non-exhaustive list of safety woes that can affect one's system qualification and should be explicitly addressed, in preparation to the qualification process.
+  (3rd party) Non-exhaustive list of safety woes that can affect one's system qualification and should be explicitly addressed, in preparation to the qualification process.
+  The rationale for including these, both from a FuSa and an architectural perspective, can be found in the two documents below.
+
+* [Safety Requirements for a Generic Linux System](Safety_Requirements_for_a_Generic_Linux_System.md)
+  (3rd party) Collection of requirements meant to address Functional Safety, with focus on both Freedom From Interference and Availability.
+  They take as reference a generic ARM64 system, running Linux. 
   
-## External links
+* [Interference Scenarios for an ARM64 Linux System](Interference_Scenarios_for_an_ARM64_Linux_System.md)
+  (3rd party) Analysis of a reference system based on ARM64, running Linux. It provides architectural elements, both SW and HW, which are then used
+  as reference for describing examples of interference that the system is subject to.
+  
+## Seminal Documents
+These pdf documents are provided as both reference and baseline. They represent the starting point for the work done within ELISA.
+They are not expected to evolve further.
+
+* [Safety Requirements for a Generic Linux System](Safety_Requirements_for_a_Generic_Linux_System.pdf)
+  (3rd party) Collection of requirements meant to address Functional Safety, with focus on both Freedom From Interference and Availability.
+  They take as reference a generic ARM64 system, running Linux. Original release.
+  
+* [Interference Scenarios for an ARM64 Linux System](Interference_Scenarios_for_an_ARM64_Linux_System.pdf)
+  (3rd party) Analysis of a reference system based on ARM64, running Linux. It provides architectural elements, both SW and HW, which are then used
+  as reference for describing examples of interference that the system is subject to. Original relese.
