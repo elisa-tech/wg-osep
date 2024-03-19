@@ -7,6 +7,10 @@ ELISA umbrella.
 ## Index
 These markdown documents are actively extended and reviewed, as part of safety-related work done within ELISA.
 
+* [Using Linux in a Safe System](Using_Linux_in_a_Safe_System.md)
+  (3rd party) Non-exhaustive list of engineering considerations and practices, that can help with designing a Safe System containing Linux.
+  It can be seen as a companion to the Checklist below.
+
 * [CheckList for Safety Claims on a Generic Linux System](CheckList_for_Safety_Claims_on_a_Generic_Linux_System.md)
   (3rd party) Non-exhaustive list of safety woes that can affect one's system qualification and should be explicitly addressed, in preparation to the qualification process.
   The rationale for including these, both from a FuSa and an architectural perspective, can be found in the two documents below.
