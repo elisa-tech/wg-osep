@@ -1,0 +1,99 @@
+Components:
+
+- Identifier: MAN
+  Text: System / Service Manager
+
+  Control Actions:
+
+  - Identifier: MAN-Start-SAF
+    Text: Start process X
+    Target: SAF
+
+  - Identifier: MAN-Start-OTH
+    Text: Start other process
+    Target: OTH
+
+  - Identifier: MAN-Launch
+    Text: Launch process
+    Target: KERN
+
+- Identifier: SAF
+  Text: Process X (with safety function)
+
+  Control Actions:
+
+  - Identifier: SAF-Call
+    Text: Call to a LibC function
+    Target: LIBC
+
+- Identifier: OTH
+  Text: Other Process
+
+  Control Actions:
+
+  - Identifier: OTH-Call
+    Text: Call to a LibC function
+    Target: LIBC
+
+- Identifier: LIBC
+  Text: C Library (GLibC)
+
+  Feedback:
+
+  - Identifier: LIBC-FB-01
+    Text: Returned data from call
+    Target: SAF
+
+  - Identifier: LIBC-FB-02
+    Text: Returned data from call
+    Target: OTH
+
+  - Identifier: LIBC-FB-03
+    Text: Returned data from call
+    Target: MAN
+
+- Identifier: STACK
+  Text: X Call Stack
+
+  Feedback:
+
+  - Identifier: STACK-FB-01
+    Text: Returned stack frame
+    Target: SAF
+
+  - Identifier: STACK-FB-02
+    Text: Returned stack frame
+    Target: LIBC
+
+- Identifier: KERN
+  Text: Linux Kernel
+
+  Control Actions:
+
+  - Identifier: KERN-Call
+    Text: Call to a kernel subroutine
+    Target: KSUB
+
+  Feedback:
+
+  - Identifier: KERN-FB-01
+    Text: Returned data from system call (e.g. PID of new process)
+    Target: LIBC
+
+- Identifier: KSUB
+  Text: Kernel Subroutine
+
+  Feedback:
+
+  - Identifier: KSUB-FB-01
+    Text: Returned data and call stack updates from kernel subroutine
+    Target: KERN
+
+- Identifier: ISRC
+  Text: Interrupt source
+
+  Feedback:
+
+  - Identifier: ISRC-FB-01
+    Text: Interrupt request (IRQ) from a hardware or software source
+    Target: KERN

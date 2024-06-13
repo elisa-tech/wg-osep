@@ -1,0 +1,34 @@
+#
+# A system-level constraint specifies system conditions or behaviors that need
+# to be satisfied to prevent hazards (and ultimately prevent losses)
+#
+# These constraints differ from controller constraints inasmuch as they
+# describe how components in the system need to work together in order
+# to prevent hazards.
+#
+Constraints:
+
+- Identifier: SC-1.1
+  Text: >
+    Coding practices that may result in the corruption of safety-critical data
+    or program control structures stored in stack memory must be detected and
+    remedied during software development
+  Hazards: [ H-1 ]
+
+- Identifier: SC-1.2
+  Text: >
+    Corruption of safety-critical data or program control structures stored in
+    stack memory must be detected during software execution
+  Hazards: [ H-1 ]
+
+- Identifier: SC-2.1
+  Text: >
+    Critical operating system data or program control structures must not be
+    stored adjacent to the memory allocated for the stack
+  Hazards: [ H-2 ]
+
+- Identifier: SC-3.1
+  Text: >
+    Safety-critical data and program control structures allocated on the stack
+    must be initialised before use
+  Hazards: [ H-3 ]

@@ -1,0 +1,11 @@
+Responsibilities:
+
+- Identifier: R-1
+  Text: Specify stack size when starting Safety application
+  Component: MAN
+- Identifier: R-2
+  Text: Manage the call stack for the current thread / process
+  Component: STACK
+- Identifier: R-3
+  Text: Allocate stack for new thread
+  Component: LIBC
