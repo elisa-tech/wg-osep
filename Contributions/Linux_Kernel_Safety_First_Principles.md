@@ -74,7 +74,7 @@ safety-qualified ones.
 5. The Linux Kernel is able to interfere with both itself and any part of user-space processes (linear map).
 6. No generic solution for very complex systematic corruption of any writable memory.
 7. Stress testing alone is not sufficient for supporting safety claims.
-8. Safety claims on the Linux Kernel require both positive testing and focused negative testing.
+8. Where safety claims involving the Linux Kernel are supported by testing, both positive, requirements-based testing and focused, analysis-led negative testing are required.
 9. Those security features which are based on randomisation decrease repeatability of testing (e.g. structure layout randomisation).
 10. Safety claims must be supported by components with the same-or-better safety level (e.g. a safety-qualified watchdog).
 11. Non safety qualified processes can interfere with safety qualified ones, indirectly, through the kernel (e.g. triggering memory management bugs).
