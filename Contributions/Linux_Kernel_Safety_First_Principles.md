@@ -82,7 +82,7 @@ safety-qualified ones.
 13. In a mixed-criticality scenario, all unqualified code represents a potential risk of interference, which grows with frequency of execution; this includes code (e.g. cgroups/containers, LSM/SELinux, etc.) that may be intended to manage aspects of that risk 
 14. HW enhancements are not a catch-all solution (e.g. ECC Memory doesn't prevent interference from non-safety-qualified SW).
 15. When there are many possible sources of interference in a system, we can only reliably model and detect it in the receiving context.
-16. Difficult to say when all necessary resources are allocated and if they will be retained (e.g. process memory pages).
+16. The precise timing of allocation (e.g. during system or process startup) and retention of dynamically managed shared resources (e.g. process memory pages) is difficult to predict in a Linux-based system
 
 
 ## **First Principles - Availability**
