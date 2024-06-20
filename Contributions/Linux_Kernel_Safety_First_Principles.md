@@ -81,7 +81,7 @@ safety-qualified ones.
 12. Using cgroups/containers/SELinux removes only certain simple types of user-space-induced interference.
 13. In a mixed-criticality scenario, all unqualified code represents a potential risk of interference, which grows with frequency of execution; this includes code (e.g. cgroups/containers, LSM/SELinux, etc.) that may be intended to manage aspects of that risk 
 14. HW enhancements are not a catch-all solution (e.g. ECC Memory doesn't prevent interference from non-safety-qualified SW).
-15. Detection of interference depends more on the recipient than the origin of the interference: too many sources, too difficult to model reliably.
+15. When there are many possible sources of interference in a system, we can only reliably model and detect it in the receiving context.
 16. Difficult to say when all necessary resources are allocated and if they will be retained (e.g. process memory pages).
 
 
