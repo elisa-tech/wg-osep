@@ -77,7 +77,7 @@ safety-qualified ones.
 8. Where safety claims involving the Linux Kernel are supported by testing, both positive, requirements-based testing and focused, analysis-led negative testing are required.
 9. Those security features which are based on randomisation decrease repeatability of testing (e.g. structure layout randomisation).
 10. If safety claims relating to one component are based on support by another, then the supporting component must have the same or better level of safety integrity (e.g. a safety-qualified watchdog).
-11. Non safety qualified processes can interfere with safety qualified ones, indirectly, through the kernel (e.g. triggering memory management bugs).
+11. Any other process could potentially interfere with a safety-qualified process, indirectly, through the kernel (e.g. a memory management bug could trigger interference between such processes).
 12. Using cgroups/containers/SELinux removes only certain simple types of user-space-induced interference.
 13. In a mixed-criticality scenario, non safety-qualified code represents a safety liability that grows with the frequency of execution (cgroups/containers, LSM/SELinux, etc.).
 14. HW enhancements are not a catch-all solution (e.g. ECC Memory doesn't prevent interference from non-safety-qualified SW).
