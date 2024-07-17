@@ -153,8 +153,8 @@ The following section presents a set of statements that can be objectively verif
       2. the main executable associated with the process
       3. the dynamic linker (optional but typically used for ELF files)
       4. linked libraries (e.g. glibc)
-4. when the kernel starts a process, it sets up mappings for all the virtual memory areas required to get it started,
-   but it doesnt actually allocate any memory: once the process is scheduled for execution, it will eventually be run 
+4. when the kernel starts a process from scratch (like with init), it sets up mappings for all the virtual memory areas required to get it started,
+   but it doesnt actually allocate almost any memory: once the process is scheduled for execution, it will eventually be run 
    for the first time, and as soon as the various areas are accessed, they will trigger page fault exceptions.
       1. when an address is accessed for the first time, it might require that a memory page is allocated to host whatever
          the associated content might be, but it is possible, especially when the process has just been started, that
@@ -164,8 +164,12 @@ The following section presents a set of statements that can be objectively verif
          1. no free pages are available (unusual but possible) and the kernel will have to try to obtain one, in one of
             the ways described above
          2. the content needs to be loaded from a file, and the operation is blocking, because the retrieval process is much slower.
+      3. the only exception, where pages are specifically allocated before the process is started, is the beginning of the stack; here process arguments and context are stored. 
       Either way, it is difficult to know if/when a process is not going to generate any more faults, and it is very much not deterministic.
-6. as also decribed in the previous point, the kernel uses various optimisations for dealing with processes on-demand mapping:
+5. creations of threads for an existing process reuses the process memory map almost entirely, however an additional stack is
+   allocated for each new thread, picking an address range between the live ends of heap and primary stack.
+   The sizes of these additional stacks are defined at creation time, but allocation of physical pages happens on-demand.
+6. as also decribed in the previous points, the kernel uses various optimisations for dealing with processes on-demand mapping:
    1. a physical page is allocated and mapped to a process only when the process accesses it, otherwise it might not be present:
       1. file backed pages are allocated/mapped only when read/written to
       2. anonymous pages are allocated only when written to
@@ -210,6 +214,9 @@ The following considerations are of a more deductive nature.
 5. the same considerations made about integrity vs. avaialbility for the kernel are valid here too: detecting
    interference doesn't help with keeping it under a certain threshold, and due to the complexity of the system,
    it is not possible to estimate the risk reliably.
+6. a single-thread process can interfere with itself, since typically most of its data is writable
+7. when dealing with a multi-threaded process, besides simple self interference, one must also consider cross-thread
+   interference, where each thread can corrupt not only its own stack, but also the stack of every other process.
    
 
 
