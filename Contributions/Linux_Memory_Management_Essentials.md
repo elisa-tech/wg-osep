@@ -54,7 +54,7 @@ Individual points are numbered for ease of reference, but the numbering is not m
 #### **Directly Verifiable Assertions**
 The following section presents a set of statements that can be objectively verified e.g. by inspecting the sources.
 
-1. unlike processes memory, kernel memory pages are not swapped, nor dropped silently by the kernel itself,
+1. Unlike processes memory, kernel memory pages are not dynamically swapped during normal (i.e. not low-power) operation, nor dropped silently by the kernel itself,
    although an hypervisor will do to a VM what the kernel does to a process (but this is beyond the control of the kernel)
 2. the kernel context (usually EL1 on ARM64) uses one single memory map (page tables) across all the cores
    executing in kernel mode
