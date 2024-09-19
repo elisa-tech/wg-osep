@@ -67,7 +67,7 @@ The following section presents a set of statements that can be objectively verif
       1. this type of access is limited to few functions, like copy_to_user()/copy_from_user() and put_user()/get_user()
       2. outside the execution of the functions mentioned, this type of access is not possible, because the userspace mappings are made available only while executing such functions
       3. the userspace memory map can implement HW protections against being misused by the kernel
-      4. the kernel is able to access process pages in the same sequence and with the same mappings as the process does
+      4. the kernel is able to access the pages of a user space process using the same translation mechanisms as the process (i.e. the process memory map), unless explicitly prevented by e.g. PAN or PXN
    2. through a memory buffer (e.g. a memory area where the kernel regularly needs to perform large amount of read/write operations, like a network buffer)
       1. the memory used by a buffer is well defined and delimited, rather than a generic area, and it is specifically reserved for this purpose
       2. the kernel uses own mappings in EL1, while the user space uses the EL0 ones
