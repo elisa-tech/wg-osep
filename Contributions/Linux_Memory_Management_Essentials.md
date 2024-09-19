@@ -83,7 +83,7 @@ The following section presents a set of statements that can be objectively verif
 6. Assertions about page "mobility", from different perspectives:
    1. employment of physical pages - observing a physical memory page (e.g. a 4kB chunk aligned on a 4kB boundary) and how it is employed: what sort of content it might host, over time.
       1. certain physical pages are put to use for a specific purpose, which is (almost) immutable, for the entire duration of the execution of the kernel:
-         1. kernel code from the monolithic portion (except for pages containing kernel init code, which are released after kernel init is completed)
+         1. kernel code from the boot image (except for pages containing kernel init code, which are released after kernel init is completed)
          2. kernel statically allocated data from the monolithic portion (except for pages containing kernel init data, which are released after kernel init is completed)
          3. some kernel dynamically allocated data, used by the kernel itself, and never released, due to the nature of its use (e.g. object caches, persistent buffers, etc.)
          4. memory used for loadable kernel modules (code, data) is tied to the permanence of the module in memory - this is typically stable through the entire duration of the execution. Some exceptions are modules loaded/unloaded as a consequence of certain peripherals (dis)appearing, e.g. USB ones.
