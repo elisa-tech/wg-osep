@@ -71,7 +71,7 @@ The following section presents a set of statements that can be objectively verif
    2. through a memory buffer (e.g. a memory area where the kernel regularly needs to perform large amount of read/write operations, like a network buffer)
       1. the memory used by a buffer is well defined and delimited, rather than a generic area, and it is specifically reserved for this purpose
       2. the kernel uses own mappings in EL1, while the user space uses the EL0 ones
-      3. very often the kernel doesn't actually access this area directly, but it rather configures a DMA controller to do the transfers, directly to the physical memory.
+      3. in many cases, the kernel does not access this area directly, but rather configures a DMA controller to complete the transfer directly to the physical memory (i.e. bypassing the MMU)
       4. misconfiguration of these peripherals that can access physical memory directly is a potential problem - a form of mitigation relies on using IOMMUs: hardware components that the kernel can configure as a firewall on the phisical memory bus, to limit what memory is accessible to each memory bus master device.
    3. through the EL1 mappings + linear map
       1. not the intended way for the kernel to access process context, because the intended way is one of the two previously described
