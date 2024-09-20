@@ -207,7 +207,7 @@ The following considerations are of a more deductive nature.
    questionable if it can be assessed when a (part of) a process memory content is actually present in the
    system physical memory.
 3. we cannot rule out the possibility that a process will be exposed to various types of interference from the kernel:
-   1. some of a more bening nature, like dropping of pages, or not allocation of not-yet-used one
+   1. some of a more benign nature, like dropping of pages, or not allocation of not-yet-used one
    2. some limited in extent, but hard or even practicaly impossible to detect, like a rogue write to process physical memory
    3. some of systemic nature, like some form of use-after free, where a process page is accidentally in use also by another component
    4. some of indirect nature, like for example when the page table of the process address space is somehow corrupted
