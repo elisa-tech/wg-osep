@@ -141,7 +141,7 @@ The following section presents a set of statements that can be objectively verif
    in a certain moment has also a physical backing, while it is being executed.
    It might be possible to introduce some additional certainties, for example by pinning down some memory allocations
    by marking the process as non-swappable. The presence of caching and other
-   optimisations like the zero-page make it very difficult to be assertive beyond this point.
+   optimisations, like the zero-page, make it very difficult to be assertive beyond this point.
 3. the management of memory pages associated with a process is handled through the process memory
    map, which consists of several virtual memory areas, representing address ranges within the
    process address space, that are put to some use.
