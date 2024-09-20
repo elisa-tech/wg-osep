@@ -7,6 +7,9 @@ ELISA umbrella.
 ## Index
 These markdown documents are actively extended and reviewed, as part of safety-related work done within ELISA.
 
+* [Linux Memory Management Essentials](Linux_Memory_Management_Essentials.md)
+  (3rd party) Summary of Memory Management features of the Linux Kernel that are also relevant for safety.
+  
 * [Using Linux in a Safe System](Using_Linux_in_a_Safe_System.md)
   (3rd party) Non-exhaustive list of engineering considerations and practices, that can help with designing a Safe System containing Linux.
   It can be seen as a companion to the Checklist below.
