@@ -160,7 +160,7 @@ The following section presents a set of statements that can be objectively verif
    for the first time, and as soon as the various areas are accessed, they will trigger page fault exceptions.
       1. when an address is accessed for the first time, it might require that a memory page is allocated to host whatever
          the associated content might be, but it is possible, especially when the process has just been started, that
-         even the associated page in he page table is missing.
+         even the associated page in the page table is missing.
       2. based on both availability of free pages and type of content asosciated, the access might cause the process
          to sleep; examples:
          1. no free pages are available (unusual but possible) and the kernel will have to try to obtain one, in one of
