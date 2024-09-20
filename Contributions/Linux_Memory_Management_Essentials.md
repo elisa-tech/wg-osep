@@ -213,7 +213,7 @@ The following considerations are of a more deductive nature.
    4. some of indirect nature, like for example when the page table of the process address space is somehow corrupted
 4. again, because of the extremely complex nature of the system, positive testing is not sufficient, but it needs to
    be paired also with negative testing, proving that it is possible to cope with interference and detect it, somehow.
-5. the same considerations made about integrity vs. avaialbility for the kernel are valid here too: detecting
+5. the same considerations made about integrity vs. availability for the kernel are valid here too: detecting
    interference doesn't help with keeping it under a certain threshold, and due to the complexity of the system,
    it is not possible to estimate the risk reliably.
 6. a single-thread process can interfere with itself, since typically most of its data is writeable; the kernel cannot be responsible for preventing this category of interference   
