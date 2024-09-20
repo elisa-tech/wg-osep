@@ -215,7 +215,7 @@ The following considerations are of a more deductive nature.
    be paired also with negative testing, proving that it is possible to cope with interference and detect it, somehow.
 5. the same considerations made about integrity vs. availability for the kernel are valid here too: detecting
    interference doesn't help with keeping it under a certain threshold, and due to the complexity of the system,
-   it is not possible to estimate the risk reliably.
+   it is not possible to reliably estimate the risk that availability criteria will not be achieved.
 6. a single-thread process can interfere with itself, since typically most of its data is writeable; the kernel cannot be responsible for preventing this category of interference   
 7. when dealing with a multi-threaded process, besides simple self interference, one must also consider cross-thread
    interference, where each thread can corrupt not only its own stack, but also the stack of every other process.
