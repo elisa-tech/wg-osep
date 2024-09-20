@@ -206,7 +206,7 @@ The following considerations are of a more deductive nature.
 2. The optimisations made by the kernel in providing physical backing to process memory make it very
    questionable if it can be assessed when a (part of) a process memory content is actually present in the
    system physical memory.
-3. by default, it is to be expected that a process will be exposed to various types of interference from the kernel:
+3. we cannot rule out the possibility that a process will be exposed to various types of interference from the kernel:
    1. some of a more bening nature, like dropping of pages, or not allocation of not-yet-used one
    2. some limited in extent, but hard or even practicaly impossible to detect, like a rogue write to process physical memory
    3. some of systemic nature, like some form of use-after free, where a process page is accidentally in use also by another component
