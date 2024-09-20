@@ -162,7 +162,7 @@ The following section presents a set of statements that can be objectively verif
          the associated content might be, but it is possible, especially when the process has just been started, that
          even the associated page in he page table is missing.
       2. based on both availability of free pages and type of content asosciated, the access might cause the process
-         to sleep; exaples:
+         to sleep; examples:
          1. no free pages are available (unusual but possible) and the kernel will have to try to obtain one, in one of
             the ways described above
          2. the content needs to be loaded from a file, and the operation is blocking, because the retrieval process is much slower.
