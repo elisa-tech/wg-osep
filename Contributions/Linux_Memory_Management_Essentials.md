@@ -126,7 +126,7 @@ The following considerations are of a more deductive nature.
 4. Still due to te complex interaction between processes, kernel drivers and other kernel code, it is practically impossible to qualify the kernel as safe through positive testing alone, because it is impossible to validate all the possible combinations, and it is equally impossible to assess the overall test coverage and the risk associated with not reaching 100%. The only reliable way to test is to use negative testing (simulating a certain type of interference) and confirming that the system response is consistent with expectations (e.g detect the interference, in case of ASILB requirements). And even then, the only credible claim that can be made is that, given the simulated type of interference, on the typology of target employed, the reaction is aligned with the requirements. Other types of targets will require further ad-hoc negative testing.
 5. Linux Kernel mechanisms like SELinux and cgroups/containers do not offer any protection against interference originating from the kernel itself.
 6. The Linux Kernel must be assumed to not be safe; possibly QM at best, unless specific subsystems are qualified through both positive and negative testing.
-7. Even after achieving the ability to make certain claims about the Kernel integrity (or detection of its loss), this doesn't guarrantees system availability: knowing that an interference has occurred doesn't help with ensuring a certain level of system availability.
+7. Claims about kernel integrity (or detection of its loss), do not guarantee system availability; safety arguments for a Linux-based system that rely upon a level of availability must separately show that this is supported.
 
 ### **User-space memory allocations**
 
