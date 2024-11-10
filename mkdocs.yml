@@ -1,0 +1,39 @@
+site_name: ELISA - Open Source Engineering Process
+repo_url: https://github.com/elisa-tech/wg-osep
+site_url: !ENV [BASE_URL, https://osep.elisa.tech/]
+site_dir: public
+
+theme:
+  name: material
+  logo: images/elisa-logo.svg
+  favicon: images/favicon.ico
+  icon:
+    repo: fontawesome/brands/github
+  font:
+    text: Open Sans
+    code: Fira Code
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - navigation.footer
+    - navigation.top
+
+extra_css:
+  - stylesheets/elisa.css
+
+use_directory_urls: false
+
+plugins:
+  - search
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.pathconverter:
+      absolute: true
+
+nav:
+  - ELISA: https://elisa.tech/
+  - OSEP:
+    - Home: index.md
+
+
