@@ -35,6 +35,7 @@ nav:
   - ELISA: https://elisa.tech/
   - OSEP:
     - Home: index.md
+    - Interference Scenarios (ARM64): 'Interference_Scenarios_for_an_ARM64_Linux_System.md'
   - Workshops: 'workshops/index.md'
 
 
