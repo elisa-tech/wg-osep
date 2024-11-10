@@ -35,5 +35,6 @@ nav:
   - ELISA: https://elisa.tech/
   - OSEP:
     - Home: index.md
+  - Workshops: 'workshops/index.md'
 
 
