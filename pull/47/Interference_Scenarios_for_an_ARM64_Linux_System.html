@@ -983,7 +983,7 @@ However, some peripherals might be (more) tightly coupled with certain cores tha
 <li>EL3, monitor mode, also known as secure mode, the highest privilege mode. Its presence is discretionary and the decision is left to the hardware designer.</li>
 </ol>
 <p>In ARM parlance, the secure mode is called Trust Zone, and it was designed for enabling the execution of a Trusted Execution Environment.</p>
-<p>When the security extensions are present, it introduces alternate versions of the previous exception levels, called Secure-ELn or S-ELn. And together they go under the moniker "Secure World", as opposed to the others, which are treated as Non-Secure.]{.c2}</p>
+<p>When the security extensions are present, it introduces alternate versions of the previous exception levels, called Secure-ELn or S-ELn. And together they go under the moniker "Secure World", as opposed to the others, which are treated as Non-Secure.</p>
 <p>The presence of an EL3 does not automatically imply the existence of all the S-ELn levels - the ARM specifications define many features as optional.</p>
 <p>If present, these secure world exception levels have their own separate set of system registers and they have access privilege over the non secure world. More on this later.</p>
 </li>
@@ -1009,7 +1009,7 @@ load/validate/execute programs at lower level of trust and so on.</p>
 </ol>
 <h3 id="memory-accesses-and-the-tzasc">Memory accesses and the TZASC</h3>
 <ol>
-<li>The TrustZone Address Space Controller acts like a firewall on the memory bus, preventing a core that is not in secure mode from accessing any of the memory zones that have been configured as    secure-only.</li>
+<li>The TrustZone Address Space Controller acts like a firewall on the memory bus, preventing a core that is not in secure mode from accessing any of the memory zones that have been configured as secure-only.</li>
 </ol>
 <p>The configuration is possible only from secure-mode.</p>
 <p>This filtering operates on physical addresses and is therefore unambiguous, disregarding any address translation regimen that might be in place, because the filtering happens on the output of whatever
@@ -1083,10 +1083,10 @@ However, at boot, prior to initialising the second stage address translation, it
 </ol>
 </li>
 <li>
-<p>The operation of translating from one address space to another is performed by the MMU, by using the starting address to navigate the associated tree of page tables, starting from the root (Page Global    Directory - PGD) and ending with a leaf (PTE - Page Table Entry)</p>
+<p>The operation of translating from one address space to another is performed by the MMU, by using the starting address to navigate the associated tree of page tables, starting from the root (Page Global Directory - PGD) and ending with a leaf (PTE - Page Table Entry)</p>
 </li>
 <li>
-<p>The MMU can be configured to use different page sizes, trading granularity for TLB optimisation. Sizes supported are  4kB, 16kB and 64kB, with 4kB being the typical choice.</p>
+<p>The MMU can be configured to use different page sizes, trading granularity for TLB optimisation. Sizes supported are 4kB, 16kB and 64kB, with 4kB being the typical choice.</p>
 </li>
 <li>
 <p>The page table can be up to 4 levels deep:</p>
@@ -1126,14 +1126,14 @@ Pointers are already translated.</p>
 <p>Performing a translation is an expensive operation, because the MMU needs to generate various memory accesses, navigating the page table tree.</p>
 </li>
 <li>
-<p>Translations are not always successful; for example an address might not have a backing memory page, or an operation might be incompatible with the property associated with the memory location     involved (ex: writing to a read-only page).
+<p>Translations are not always successful; for example an address might not have a backing memory page, or an operation might be incompatible with the property associated with the memory location involved (ex: writing to a read-only page).
 These events trigger exceptions, which are expected to be handled by the operating system.</p>
 </li>
 <li>
 <p>To mitigate the cost of a memory translation, each stage of the MMU implements a cache (TLB - Translation Lookaside Buffer) which can be implemented in various ways, however it always caches not just the translations, but also their associated properties, like write and execute permissions.</p>
 </li>
 <li>
-<p>Because of the caching, changes to a page table might not be visible, if a previous, different, translation is already present in the cache, and therefore the cache might need to be invalidated,     prior to relying on the updated translation rules.</p>
+<p>Because of the caching, changes to a page table might not be visible, if a previous, different, translation is already present in the cache, and therefore the cache might need to be invalidated, prior to relying on the updated translation rules.</p>
 </li>
 <li>
 <p>In EL1, the MMU supports having 2 sets of page tables programmed with different base addresses at the same time, for converting virtual to intermediate physical addresses, TTBR0_EL1 and TTBR1_EL1.</p>
@@ -1229,7 +1229,7 @@ When such an address is accessed, an exception is triggered and the exception ha
 </ol>
 </li>
 <li>
-<p>Almost all the memory the kernel sees as physical, which in reality corresponds to the IPA, is also mapped as VA, and it is referred to as "linear mapping", because it is mapped as contiguous in the VA     space as it is in the IPA space.</p>
+<p>Almost all the memory the kernel sees as physical, which in reality corresponds to the IPA, is also mapped as VA, and it is referred to as "linear mapping", because it is mapped as contiguous in the VA space as it is in the IPA space.</p>
 </li>
 <li>
 <p>Linux also supports HIGHMEM, which is physical memory that is not directly accessible by the kernel through the linear map. It is something that mostly impacts 32-bit systems, where physical memory can easily go beyond the size of the address space.
@@ -1238,13 +1238,13 @@ But certain choices of system design might make HIGHMEM necessary even in real l
 To manage high mem, the kernel is forced to create temporary mapping every time it needs to access a page belonging to high mem, because there would not be any readily available corresponding address. And the mapping would then have to be torn down, once the access is concluded.</p>
 </li>
 <li>
-<p>The free pages allocator picks free pages straight from the way they are represented in the linear mappings, operating on larger orders, and chopping and dicing large-order chunks to satisfy the     requests received.</p>
+<p>The free pages allocator picks free pages straight from the way they are represented in the linear mappings, operating on larger orders, and chopping and dicing large-order chunks to satisfy the requests received.</p>
 </li>
 <li>
 <p>The slub allocator obtains memory from the get_free_pages one, and then uses various mechanisms to further dice the pages, providing sub-page granularity, if needed. Furthermore, it also supports additional optimizations in the reuse of previous allocations, like the ability to support locality in a NUMA system.</p>
 </li>
 <li>
-<p>The virtual memory allocator is capable of providing large amounts of virtually contiguous memory, provided that there are sufficient (even non-contiguous) pages available. The allocator will create     alternate contiguous mappings, to make them all appear as if they were contiguous.</p>
+<p>The virtual memory allocator is capable of providing large amounts of virtually contiguous memory, provided that there are sufficient (even non-contiguous) pages available. The allocator will create alternate contiguous mappings, to make them all appear as if they were contiguous.</p>
 </li>
 <li>
 <p>Contiguous virtual memory allocations for both EL0 and EL1 are fundamentally identical, in the way they are performed, differing only in the chosen address range, which needs to be compatible for the receiving exception level.
@@ -1308,7 +1308,7 @@ Provided that all the changes are documented and proven to not introduce relevan
 </li>
 <li>
 <p>"Tested": a testing campaign is created, to generate sufficient evidence that the software operates as desired, empirically.
-It can be seen as an alternative to "proven in use", when lacking sufficient  historical evidence.</p>
+It can be seen as an alternative to "proven in use", when lacking sufficient historical evidence.</p>
 </li>
 </ol>
 <p>The following considerations are related to these empirical argumentation and the associated limitations.
@@ -1453,7 +1453,7 @@ unlikely that it can be corrected through the use of the canary values.</p>
 </li>
 <li>
 <p>Even by allowing the definition of protections to be broadened to include what is in fact detection, it needs to be rooted into a simple, easy to both prove and verify, mechanism.
-For example, a self-test diagnostic capable of detecting spatial interference in a certain component, by running  periodically and/or in event-driven mode, is still exposed to interference and it might not be
+For example, a self-test diagnostic capable of detecting spatial interference in a certain component, by running periodically and/or in event-driven mode, is still exposed to interference and it might not be
 easy to prove that such interference can at the very least be detected.
 However, by pairing it with a simpler mechanism, like a watchdog, then it can become easier to make claims about detecting the interference, because the detector can be designed in a way to fail to ping the watchdog, in case of its own corruption.</p>
 </li>
@@ -1477,7 +1477,7 @@ The burden of proof about completeness and effectiveness is on whoever might cho
 <h3 id="statistical-considerations">Statistical considerations</h3>
 <ol>
 <li>
-<p>In the light of previous observations, about hard barriers vs deductive argumentation and defect density, one should also consider the chances that a certain component might generate interference     (which depend also on its size and complexity) vs the frequency said component is exerted (assuming a periodic or quasi-periodic invocation).</p>
+<p>In the light of previous observations, about hard barriers vs deductive argumentation and defect density, one should also consider the chances that a certain component might generate interference (which depend also on its size and complexity) vs the frequency said component is exerted (assuming a periodic or quasi-periodic invocation).</p>
 </li>
 <li>
 <p>This leads to a qualitative evaluation of which components are more likely to cause interference and therefore deserve additional analysis, from multiple perspectives: complexity, frequency of execution, types of operations performed, detectability of interference it might generate, delays in the detection, etc.
@@ -1518,8 +1518,8 @@ And such interference is not always detectable, depending on which component it 
 hardware component will exhibit aberrant behaviour, when exposed to the supported stimuli.</p>
 <p>In other cases, should the previous assumption not be true, each HW component must be individually checked for safety qualification and those not matching safety requirements must be included in the list of sources of interference.</p>
 <h3 id="dma-capable-entities"><strong>DMA-capable entities</strong></h3>
-<p>Those components which sidestep the MMU-enforced memory protection, by generating  write operations on the memory bus through other bus-master devices than the MMU.</p>
-<p>The catch here is that, even if such access is performed by a separate DMA controller, the  programming and triggering of the write operation is performed by a device driver that is exposed to interference and can therefore cascade it (through either mis-configuration or mis-operation
+<p>Those components which sidestep the MMU-enforced memory protection, by generating write operations on the memory bus through other bus-master devices than the MMU.</p>
+<p>The catch here is that, even if such access is performed by a separate DMA controller, the programming and triggering of the write operation is performed by a device driver that is exposed to interference and can therefore cascade it (through either mis-configuration or mis-operation
 of the DMA controller).</p>
 <p><strong>Causes:</strong> The interference is possible because it originates from a component that is architecturally capable of generating it, but said component was not assigned sufficiently high safety requirements, that would account for such possibility. Nor a mechanism is in place to manage the interference.</p>
 <p><strong>Effects:</strong> Unpredictable corruption of the state of safety-relevant context. The extent of the corruption is highly dependent on local conditions that are not necessarily repeatable.</p>
@@ -1554,7 +1554,7 @@ A write operation will cause an interference that can affect any other component
 <p><strong>Detectability:</strong> Here HW-based detection through an IO/MMU or a memory firewall is not an option, because the source of interference is a core itself, going through the MMU.</p>
 <p><strong>Mitigation:</strong> Detection needs to rely on indirect effects that are not guaranteed to be noticed. A micro kernel would deal with this problem through MMU-enforced isolation, but Linux is a monolithic kernel and cannot do that.</p>
 <h3 id="partitioning-of-hardware-components-between-different-safety-integrity-levels-constraints-and-limitations"><strong>Partitioning of hardware components between different safety integrity levels: constraints and limitations</strong></h3>
-<p>This type of interference could be seen as a design flaw, but in practice one might not be able to implement as much hardware partitioning as the ideal case  would require.
+<p>This type of interference could be seen as a design flaw, but in practice one might not be able to implement as much hardware partitioning as the ideal case would require.
 The typical example is a shared hardware resource, for example a bus controller like I2C or SPI, where multiple external peripherals might be connected, and only some of them would belong to a safety scenario at a certain safety integrity level, while others would be at a lower safety integrity level.
 Another common example could be an interrupt controller with shared lines.</p>
 <p><strong>Causes:</strong> Even assuming spatial FFI between the lower safety kernel components and the driver for the shared resource, the lower safety components might mis-configure the shared resource (e.g. by
@@ -1663,7 +1663,7 @@ However, if it is required to ensure a set level of availability, pure detection
 </li>
 <li>
 <p>When dealing with interference, it boils down to two options:
-(<strong>Note:</strong> FuSA and FMEA jargon assign very specific meanings to the words below, when referring to failure modes. However, in this document, they are used with regard to the interference that might     introduce a failure mode, and therefore these words are to be intended exclusively with their plain meaning from the English vocabulary. See also their definitions in the section <em>Terms and
+(<strong>Note:</strong> FuSA and FMEA jargon assign very specific meanings to the words below, when referring to failure modes. However, in this document, they are used with regard to the interference that might introduce a failure mode, and therefore these words are to be intended exclusively with their plain meaning from the English vocabulary. See also their definitions in the section <em>Terms and
     Abbreviations</em>.</p>
 </li>
 <li>
@@ -1697,7 +1697,7 @@ But first it is necessary to assess whether the initial state is safe, or if it 
 But in case that was not possible, then there is a risk of interference, for any component of a certain level of safety, coming from lower safety integrity level ones.</p>
 <p><strong>Effects:</strong> The effects are specific to each individual component, however a lack of confidence that the system is within safe operating margins even before it begins active operations would void any further assumption about its continued safety.</p>
 <p><strong>Detectability:</strong> This is the base-line level of detection, that a component with an allocation of safety requirements is still safe according to its intended safety integrity level, at the very beginning of operations. It should always be possible to do so.
-Were it not possible, then it becomes questionable how it can be proven, later on, that it  is still operating according to its safety requirements.</p>
+Were it not possible, then it becomes questionable how it can be proven, later on, that it is still operating according to its safety requirements.</p>
 <ol>
 <li><strong>EL1 system registers</strong>
 Not all system registers are equal, some have special purposes that can deeply affect the flow of execution.</li>
@@ -1709,7 +1709,7 @@ Depending on the register type, they might be more or less exposed to interferen
 <p>Registers encoded within instructions are less likely to be accidentally accessed.</p>
 </li>
 <li>
-<p>Registers that are memory mapped in a parametric way are more     exposed to risks of interference (this is an ARM-specific problem: as a counter example, x86 uses special instructions for these sorts     of registers and therefore they do not belong to the same space as regular memory).</p>
+<p>Registers that are memory mapped in a parametric way are more exposed to risks of interference (this is an ARM-specific problem: as a counter example, x86 uses special instructions for these sorts of registers and therefore they do not belong to the same space as regular memory).</p>
 </li>
 </ul>
 <p><strong>Effects:</strong> This is not possible to be generalised, because each type of register can lead to different effects, if exposed to interference.
@@ -1882,7 +1882,7 @@ For example, the credentials structure is less likely to cause direct problems t
 <tr>
 <td style="text-align: center;">ASID</td>
 <td style="text-align: center;">Address Space Identifier</td>
-<td>Value set by the kernel and used by the MMU for           automatically tagging TLB entries belonging to different contexts. The MMU will use only TLB entries that are tagged with the currently active ASID.</td>
+<td>Value set by the kernel and used by the MMU for automatically tagging TLB entries belonging to different contexts. The MMU will use only TLB entries that are tagged with the currently active ASID.</td>
 </tr>
 <tr>
 <td style="text-align: center;">ASILn</td>
@@ -1902,12 +1902,12 @@ For example, the credentials structure is less likely to cause direct problems t
 <tr>
 <td style="text-align: center;">ELn</td>
 <td style="text-align: center;">Exception Level</td>
-<td>The execution context at which certain code is executed: <br/>  n = 0 means what is traditionally used for user-space <br/>n = 1 means what is traditionally used for the kernel <br/>n = 2 means what is traditionally used for the hypervisor <br/> n = 3 means what is traditionally used for the secure mode<br/> (not used in this document)</td>
+<td>The execution context at which certain code is executed: <br/> n = 0 means what is traditionally used for user-space <br/>n = 1 means what is traditionally used for the kernel <br/>n = 2 means what is traditionally used for the hypervisor <br/> n = 3 means what is traditionally used for the secure mode<br/> (not used in this document)</td>
 </tr>
 <tr>
 <td style="text-align: center;">Exception (ARM definition)</td>
 <td style="text-align: center;"></td>
-<td>Event which has the potential for diverting the execution flow. In ARM parlance, an exception can be  either synchronous or asynchronous. <br/><br/><em>Synchronous</em>: an event triggered by the regular execution flow. While it is not always certain that a specific action will result in an exception, it is at least expected that such an  event might happen (which is what in Linux is effectively called exception). <br/><br/><em>Asynchronous:</em> an event which is either triggered by a software error (still called exception, in Linux) or by an external hardware component, like either an IRQ, an FIQ or an NMI (in Linux called interrupt, fast interrupt and non maskable interrupt respectively)</td>
+<td>Event which has the potential for diverting the execution flow. In ARM parlance, an exception can be either synchronous or asynchronous. <br/><br/><em>Synchronous</em>: an event triggered by the regular execution flow. While it is not always certain that a specific action will result in an exception, it is at least expected that such an event might happen (which is what in Linux is effectively called exception). <br/><br/><em>Asynchronous:</em> an event which is either triggered by a software error (still called exception, in Linux) or by an external hardware component, like either an IRQ, an FIQ or an NMI (in Linux called interrupt, fast interrupt and non maskable interrupt respectively)</td>
 </tr>
 <tr>
 <td style="text-align: center;">Exception (Linux definition)</td>
@@ -1922,7 +1922,7 @@ For example, the credentials structure is less likely to cause direct problems t
 <tr>
 <td style="text-align: center;">FIQ</td>
 <td style="text-align: center;">Fast Interrupt Request</td>
-<td>It's a specialised type of interrupt which, in its hardware implementation, has a more direct path to the CPU, without being routed through  as many IP blocks  like a regular  interrupt, which  typically is routed  through an interrupt  controller. The FIQ is indeed faster, at the cost of occupying one hardware line that could be otherwise used for connecting e.g. an interrupt controller. The associated benefit is reduced latency, for applications where latency is critical.</td>
+<td>It's a specialised type of interrupt which, in its hardware implementation, has a more direct path to the CPU, without being routed through as many IP blocks like a regular interrupt, which typically is routed through an interrupt controller. The FIQ is indeed faster, at the cost of occupying one hardware line that could be otherwise used for connecting e.g. an interrupt controller. The associated benefit is reduced latency, for applications where latency is critical.</td>
 </tr>
 <tr>
 <td style="text-align: center;">FuSa</td>
