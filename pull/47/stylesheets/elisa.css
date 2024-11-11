@@ -45,3 +45,13 @@ th:last-child {
   float: right;
   padding-left: 10px;
 }
+
+.md-content__inner.md-typeset:before {
+    content: "DRAFT FROM PR";
+    -webkit-transform: rotate(351deg);
+    -moz-transform: rotate(351deg);
+    -o-transform: rotate(351deg);
+    transform: rotate(351deg);
+    font-size: 10em;
+    color: rgba(255, 5, 5, 0.17);
+  }
