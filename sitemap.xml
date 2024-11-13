@@ -2,7 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://osep.elisa.tech/index.html</loc>
-         <lastmod>2024-11-10</lastmod>
+         <lastmod>2024-11-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://osep.elisa.tech/workshops/index.html</loc>
+         <lastmod>2024-11-13</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
