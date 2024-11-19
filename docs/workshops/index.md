@@ -29,12 +29,30 @@
 | [Automotive WG Update - Tell tales an evolution use case towards driver assistance](2022-09-Virtual/2022-09-07_ELISA_Virtual_Summit_Automotive-WG_Update.pdf) | Philipp Ahmann | 2024-11-14 |
 | [~~Systems WG - Status and Roadmap~~](2022-09-Virtual/2022-09-07_ELISA_Virtual_Summit_Automotive-WG_Update.pdf) | Philipp Ahmann | 2024-11-14 outdated |
 
+[YouTube recordings](https://www.youtube.com/playlist?list=PLuDNrzTpK8zpi0wloINTrg_MXD82S2VYp)
 
 ## November 2021 (Virtual)
 
 | Title | Presenter(s) | Last revisited |
 | ----- | ------------ | -------------- |
 | [Certification using the New Approach to Safety](2021-11-Virtual/Certification-using-the-New-Approach-to-Safety.pdf) | Paul Albertella | 2024-11-13 |
+
+[YouTube recordings](https://www.youtube.com/playlist?list=PLuDNrzTpK8zr2Vlx_z5WJZKM3nZ3TS9g8)
+
+---
+
+## Additional workshops
+
+- April 2022 (Virtual) 
+    [YouTube recordings](https://www.youtube.com/playlist?list=PLuDNrzTpK8zplE90pYWqR0GIfzDmRePnp)
+- May 2021 (Virtual) 
+    [YouTube recordings](https://www.youtube.com/playlist?list=PLuDNrzTpK8zqeFPcWBLDvWfuo_fjT7ege)
+- February 2021 (Virtual)
+- September 2020 (Virtual)
+- May 2020 (Virtual)
+- January 2020 (Brussels)
+- September 2019 (Cambridge)
+- June 2019 (Munich)
 
 ---
 
