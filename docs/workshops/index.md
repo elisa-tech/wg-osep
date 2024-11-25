@@ -68,7 +68,7 @@ The following list contains results and work products from past ELISA workshops 
 [//]: # "We should put this section into another more formal place, 
 as it applies also to other material."
 
-When content gets contributed and added to the knowledge base following aspects should be considered.
+When content is contributed and added to the knowledge base, the following aspects should be considered.
 
 - Technical review of presentations to check for factual inaccuracies
 - Check that links included in the presentations are still accessible
