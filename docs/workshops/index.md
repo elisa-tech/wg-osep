@@ -1,6 +1,13 @@
 # Workshop presentation archive
 
-<span style="color:red">The following list contains results and work products from past ELISA workshops and meetings conducted over several years. Please note that due to the evolving nature of technology and knowledge, the accuracy and relevance of these results may change over time. The content provided should be considered as drafts or provisional, and users are advised to exercise caution and verify the information independently. The purpose of this list is to provide a historical record of outcomes and ease accessibility to the material, but it should not be relied upon as definitive or final. Any decisions or actions based on the information in this list should be made with careful consideration and further investigation as necessary.</span>
+The following list contains results and work products from past ELISA workshops and meetings, conducted over several years. 
+
+**Please note:** 
+
+* This workshop content should not be relied upon as definitive or final guidance from ELISA or the authors.
+* Due to the evolving nature of technology and our understanding of it, the accuracy and relevance of these results may change over time. The content provided should therefore be considered draft or provisional, and users are advised to exercise caution and verify the information independently.
+* This is not peer-reviewed content and it is intended only as a historical record of outcomes and discussions, to provide context for current ELISA activities. 
+* Any decisions or actions based on the information in the workshop content should be made with careful consideration and further investigation as necessary.
 
 ## June 2024 (Lund)
 
