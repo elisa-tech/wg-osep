@@ -30,6 +30,7 @@ markdown_extensions:
   - attr_list
   - pymdownx.pathconverter:
       absolute: true
+  - pymdownx.tilde
 
 nav:
   - ELISA: https://elisa.tech/
