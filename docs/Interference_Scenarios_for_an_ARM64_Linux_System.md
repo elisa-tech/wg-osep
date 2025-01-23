@@ -472,6 +472,16 @@ This is perfectly fine from the perspective of containing user-space, however, s
 frequency execution of a large amount of code which can cause either direct or indirect interference.
 And such interference is not always detectable, depending on which component it might affect.
 
+These means are usualy enabled in a mixed criticality scenario, when attempting to contain interference.
+The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosingthe lesser evil.
+Of course one could attemtp to qualify them, but then it is necessary to consider the fact that in reality it is necessary to qualify them together with the user-space-provided policies they will enact.
+Without being configured by user-space, neither SELinux nor cgroups are of any particular use.
+
+An alternative - possibly more costly - path could be to instead isolate more safety relevant loads from non safety relevant ones, introducing a second virtual machine, with an hypervisor underneath.
+The caveat is that now the hypervisor can be a source of interference. And it is also necessary to have HW capable to support an EL2.
+It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simpler than trying to qualify the Linux code.
+
+
 ## Sources of Interference
 It is useful to model the most probable causes for spatial interference, even if not exhaustively.
 
