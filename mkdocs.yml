@@ -34,8 +34,7 @@ markdown_extensions:
 
 nav:
   - ELISA: https://elisa.tech/
+  - Directory: https://directory.elisa.tech/
   - OSEP:
     - Home: index.md
-  - Workshops: 'workshops/index.md'
-
 
