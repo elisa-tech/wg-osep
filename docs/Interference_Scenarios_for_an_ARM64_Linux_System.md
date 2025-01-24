@@ -472,8 +472,8 @@ This is perfectly fine from the perspective of containing user-space, however, s
 frequency execution of a large amount of code which can cause either direct or indirect interference.
 And such interference is not always detectable, depending on which component it might affect.
 
-These means are usualy enabled in a mixed criticality scenario, when attempting to contain interference.
-The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosingthe lesser evil.
+These features are usually enabled in a mixed criticality scenario, when attempting to contain interference.
+The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosing the lesser evil.
 Of course one could attemtp to qualify them, but then it is necessary to consider the fact that in reality it is necessary to qualify them together with the user-space-provided policies they will enact.
 Without being configured by user-space, neither SELinux nor cgroups are of any particular use.
 
