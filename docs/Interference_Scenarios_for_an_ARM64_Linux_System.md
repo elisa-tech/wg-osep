@@ -479,7 +479,7 @@ Without being configured by user-space, neither SELinux nor cgroups are of any p
 
 An alternative - possibly more costly - path could be to instead isolate more safety-relevant loads from non-safety-relevant ones, introducing a second virtual machine, with a hypervisor underneath.
 The caveat is that now the hypervisor can be a source of interference. And it is also necessary to have HW capable to support an EL2.
-It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simpler than trying to qualify the Linux code.
+It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simple in comparison to qualifying the Linux code.
 
 
 ## Sources of Interference
