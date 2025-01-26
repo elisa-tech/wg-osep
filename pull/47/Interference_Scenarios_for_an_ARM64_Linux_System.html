@@ -1532,6 +1532,13 @@ frequency execution of a large amount of code which can cause either direct or i
 And such interference is not always detectable, depending on which component it might affect.</p>
 </li>
 </ol>
+<p>These features are usually enabled in a mixed criticality scenario, when attempting to contain interference.
+The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosing the lesser evil.
+Of course one could attemtp to qualify them, but then it is necessary to consider the fact that in reality it is necessary to qualify them together with the user-space-provided policies they will enact.
+Without being configured by user-space, neither SELinux nor cgroups are of any particular use.</p>
+<p>An alternative - possibly more costly - path could be to instead isolate more safety-relevant loads from non-safety-relevant ones, introducing a second virtual machine, with a hypervisor underneath.
+The caveat is that now the hypervisor can be a source of interference. And it is also necessary to have HW capable to support an EL2.
+It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simple in comparison to qualifying the Linux code.</p>
 <h2 id="sources-of-interference">Sources of Interference</h2>
 <p>It is useful to model the most probable causes for spatial interference, even if not exhaustively.</p>
 <p>Note: for the purpose of this document, the hardware is considered qualified up to the highest safety integrity level required by any use case. The qualification is to be intended at unit level, meaning that no
