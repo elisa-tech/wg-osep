@@ -221,8 +221,8 @@ The following considerations are of a more deductive nature.
    2. some limited in extent, but hard or even practicaly impossible to detect, like a rogue write to process physical memory
    3. some of systemic nature, like some form of use-after free, where a process page is accidentally in use also by another component
    4. some of indirect nature, like for example when the page table of the process address space is somehow corrupted
-4. again, because of the extremely complex nature of the system, positive testing is not sufficient, but it needs to
-   be paired also with negative testing, proving that it is possible to cope with interference and detect it, somehow.
+4. Because of the extremely complex nature of the system, positive testing alone is not sufficient: it must also be
+   paired with negative testing, to prove that it is possible to detect or cope with given types of interference.
 5. the same considerations made about integrity vs. availability for the kernel are valid here too: detecting
    interference doesn't help with keeping it under a certain threshold, and due to the complexity of the system,
    it is not possible to reliably estimate the risk that availability criteria will not be achieved.
