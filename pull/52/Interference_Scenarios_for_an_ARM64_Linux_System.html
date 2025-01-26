@@ -1,0 +1,2205 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://osep.elisa.tech/pull/52/Interference_Scenarios_for_an_ARM64_Linux_System.html">
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+      
+      <link rel="icon" href="images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
+    
+    
+      
+        <title>Interference Scenarios (ARM64) - ELISA - Open Source Engineering Process</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.732c4fb1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Open Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/elisa.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#interference-scenarios-for-an-arm64-linux-system" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="ELISA - Open Source Engineering Process" class="md-header__button md-logo" aria-label="ELISA - Open Source Engineering Process" data-md-component="logo">
+      
+  <img src="images/elisa-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ELISA - Open Source Engineering Process
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Interference Scenarios (ARM64)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elisa-tech/wg-osep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="ELISA - Open Source Engineering Process" class="md-nav__button md-logo" aria-label="ELISA - Open Source Engineering Process" data-md-component="logo">
+      
+  <img src="images/elisa-logo.svg" alt="logo">
+
+    </a>
+    ELISA - Open Source Engineering Process
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elisa-tech/wg-osep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://elisa.tech/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ELISA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://directory.elisa.tech/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OSEP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            OSEP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Interference Scenarios (ARM64)
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Interference_Scenarios_for_an_ARM64_Linux_System.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Interference Scenarios (ARM64)
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose-of-the-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose of the document
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-of-the-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure of the document
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-relevant-system-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety-Relevant System Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Safety-Relevant System Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soc-cores-and-exception-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      SoC, Cores and Exception Levels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-accesses-and-the-tzasc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory accesses and the TZASC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-accesses-and-the-mmu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory accesses and the MMU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-of-the-arm64-mmu-in-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of the ARM64 MMU in Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guidance-on-safety-analysis-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guidance on Safety Analysis and Mitigations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-the-self-protection-argumentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations of the self-protection argumentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mitigation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigation Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources-of-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources of Interference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sources of Interference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dma-capable-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      DMA-capable entities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-present-in-el1-with-lower-safety-integrity-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components present in EL1, with lower safety integrity level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partitioning-of-hardware-components-between-different-safety-integrity-levels-constraints-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partitioning of hardware components between different safety integrity levels: constraints and limitations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      System libraries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposure-to-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposure to Interference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exposure to Interference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criteria-for-evaluating-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criteria for evaluating interference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fundamental-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamental Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-susceptible-to-spatial-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components susceptible to spatial interference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terms-and-abbreviations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terms and Abbreviations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-cc-by-sa-40" class="md-nav__link">
+    <span class="md-ellipsis">
+      License: CC BY-SA 4.0
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="License: CC BY-SA 4.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deed" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEED
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution-sharealike-40-international" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attribution-ShareAlike 4.0 International
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose-of-the-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Purpose of the document
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-of-the-document" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure of the document
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#safety-relevant-system-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Safety-Relevant System Features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Safety-Relevant System Features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#soc-cores-and-exception-levels" class="md-nav__link">
+    <span class="md-ellipsis">
+      SoC, Cores and Exception Levels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-accesses-and-the-tzasc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory accesses and the TZASC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#memory-accesses-and-the-mmu" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memory accesses and the MMU
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#use-of-the-arm64-mmu-in-linux" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use of the ARM64 MMU in Linux
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guidance-on-safety-analysis-and-mitigations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Guidance on Safety Analysis and Mitigations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#limitations-of-the-self-protection-argumentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Limitations of the self-protection argumentation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mitigation-strategies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Mitigation Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#statistical-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Statistical considerations
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sources-of-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Sources of Interference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Sources of Interference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dma-capable-entities" class="md-nav__link">
+    <span class="md-ellipsis">
+      DMA-capable entities
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-present-in-el1-with-lower-safety-integrity-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components present in EL1, with lower safety integrity level
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#partitioning-of-hardware-components-between-different-safety-integrity-levels-constraints-and-limitations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Partitioning of hardware components between different safety integrity levels: constraints and limitations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#system-libraries" class="md-nav__link">
+    <span class="md-ellipsis">
+      System libraries
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#exposure-to-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exposure to Interference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Exposure to Interference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#criteria-for-evaluating-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Criteria for evaluating interference
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fundamental-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fundamental Considerations
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#components-susceptible-to-spatial-interference" class="md-nav__link">
+    <span class="md-ellipsis">
+      Components susceptible to spatial interference
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#terms-and-abbreviations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Terms and Abbreviations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-cc-by-sa-40" class="md-nav__link">
+    <span class="md-ellipsis">
+      License: CC BY-SA 4.0
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="License: CC BY-SA 4.0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deed" class="md-nav__link">
+    <span class="md-ellipsis">
+      DEED
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#attribution-sharealike-40-international" class="md-nav__link">
+    <span class="md-ellipsis">
+      Attribution-ShareAlike 4.0 International
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="interference-scenarios-for-an-arm64-linux-system">Interference Scenarios for an ARM64 Linux System</h1>
+<h2 id="purpose-of-the-document">Purpose of the document</h2>
+<p>This document describes some of the most relevant cases of interference that can happen within the Linux kernel and how they are associated with failure modes.</p>
+<p>It is common to define "safety integrity levels", referring to groups/layers of components - both software and hardware - which must meet similar classes of safety requirements.</p>
+<p>These requirements are not only functional, but they also influence related processes, such as design, testing, analysis and so on.</p>
+<p>The interference between software components can happen at both different and same safety integrity levels; however, it is expected, as part of the definition of said levels, that each level shall also dictate what considerations can be made about same-level interference between components. And even about self interference.</p>
+<p>In practice, a higher safety integrity level assigned to a component implies more rigorous qualification processes. Such higher rigour makes it less likely that it will interfere both with itself and with other
+components belonging to the same safety integrity level, than what can be expected from a different component, with lower safety requirements.</p>
+<p>However, these considerations rely on the assumption that inter-level interference is managed.</p>
+<p>Management of same level interference can translate to different practical effects, depending on a variety of factors, but it is expected that any sort of interference which is relevant for safety purposes will not be ignored, even if not all interference scenarios  might be approached in the same way.</p>
+<p>The document focuses on this kind of inter-level type of interference, which must be managed, as an enabler to making any further safety claims.</p>
+<p>While not exhaustive, it provides a core set of benchmarks for evaluating how a certain safety strategy might fare in dealing with hazards and related risk.</p>
+<p>The document will attempt to be as generic as possible, however, whenever an architecture or platform specific mechanism needs to be considered, it will refer to an ARM64 architecture with support for
+EL2.</p>
+<p>The safety analysis addresses both various upstream versions of unmodified Linux kernels and derived ones, like the LTS kernel versions; all of them prior to introducing any mitigation that might be deemed
+necessary for safety purposes.</p>
+<p>The notions about safety used here are compatible with various applications(aerospace, automotive, railways, robotics, etc.), even if the terminology and the process-oriented criteria might change from
+field to field.</p>
+<p>This document assumes that the Linux kernel can be either considered as a QM artefact, or that if deemed necessary, further actions can be taken to elevate it at QM state, such as performing code reviews, system analysis and testing.</p>
+<h2 id="structure-of-the-document">Structure of the document</h2>
+<ul>
+<li>The first section lists some basic characteristics of the hardware components involved in the safety analysis, and how Linux uses them. It is not meant to be a full explanation, but merely a reference for the considerations derived in later sections.<ul>
+<li>The first and second subsections focus on the hardware features.</li>
+<li>The third subsection describes memory management in Linux.</li>
+</ul>
+</li>
+<li>The second section provides considerations that should guide the analysis.</li>
+<li>The third section describes major sources of interference.</li>
+<li>
+<p>The fourth section shows how interference can affect the system
+    analysed.</p>
+<hr />
+</li>
+</ul>
+<h2 id="safety-relevant-system-features">Safety-Relevant System Features</h2>
+<p>For the purpose of this document, the following statements are made with respect to the cores which are treated as part of the primary system. Other cores might be present, each with its own SW stack, that effectively act as smart peripherals, within the SoC or anyways within the package. These are not taken into account in the following chapters, because this very same analysis could be applied iteratively to them.
+What follows is a description of the system under analysis, establishing some key facts and implications deriving from them, which will be useful when analysing failure modes, later on.</p>
+<h3 id="soc-cores-and-exception-levels">SoC, Cores and Exception Levels</h3>
+<ol>
+<li>
+<p>A SoC is the hardware component which contains one or more execution units capable of executing programs, and a number of peripheral devices, able to control other external components.
+A SoC can thus support multiple concurrent execution flows and control multiple external devices simultaneously.</p>
+</li>
+<li>
+<p>A core is an execution unit, inside a SoC, that executes programs.
+In some architectures, a core has more than one context of execution, and in such cases, when considering the number of parallel streams of execution within a SoC, the number of execution contexts should be considered instead of the number of cores. However, on ARM64, one core equals one hardware thread of execution.</p>
+</li>
+<li>
+<p>Cores are not necessarily homogeneous, at least from non-functional perspective, with certain cores being optimised for lower consumption, while others have been optimised for higher performance.</p>
+</li>
+<li>
+<p>Within a SoC, usually all the cores have identical access rights and capability, with regard to shared peripherals.
+However, some peripherals might be (more) tightly coupled with certain cores than with others.</p>
+</li>
+<li>
+<p>At low level, the core is a complex state machine which operates on a set of input, outputs and internal states. States are implemented mostly as registers; which the core can read and/or write.</p>
+<ol>
+<li>Directly, through the execution of specific instructions</li>
+<li>Indirectly, as result of other operations performed.</li>
+</ol>
+</li>
+<li>
+<p>On the ARM64 architecture, registers are accessible through 3 different mechanisms:</p>
+</li>
+<li>
+<p>Direct access: reserved for the registers contained within the core; the access is performed through dedicated instructions, which can refer to registers in two ways:</p>
+<ol>
+<li>implicit reference, used for certain special registers (e.g. the link register)</li>
+<li>explicit reference, used for general purpose registers (e.g. the operands of a mathematical operation)</li>
+</ol>
+</li>
+<li>
+<p>Coprocessor access: reserved for tightly coupled peripheral components, like the MMU, which have specific numerical IDs and are accessed through specific coprocessor-oriented instructions.</p>
+</li>
+<li>
+<p>Memory-mapped: certain non-core peripherals, which often are optional or can sometimes be present in multiple instances, are connected to the memory bus, so that they are accessible through the
+    same mechanisms used for reading/writing memory.</p>
+</li>
+<li>
+<p>Each core supports and can transition, independently from the other cores, between 4 exception levels:</p>
+<ol>
+<li>EL0, user-space</li>
+<li>EL1, operating system, typically has higher privileges than EL0</li>
+<li>EL2, hypervisor, typically has higher privileges than EL1</li>
+<li>EL3, monitor mode, also known as secure mode, the highest privilege mode. Its presence is discretionary and the decision is left to the hardware designer.</li>
+</ol>
+<p>In ARM parlance, the secure mode is called Trust Zone, and it was designed for enabling the execution of a Trusted Execution Environment.</p>
+<p>When the security extensions are present, it introduces alternate versions of the previous exception levels, called Secure-ELn or S-ELn. And together they go under the moniker "Secure World", as opposed to the others, which are treated as Non-Secure.</p>
+<p>The presence of an EL3 does not automatically imply the existence of all the S-ELn levels - the ARM specifications define many features as optional.</p>
+<p>If present, these secure world exception levels have their own separate set of system registers and they have access privilege over the non secure world. More on this later.</p>
+</li>
+<li>
+<p>Transitions between exception levels are either exceptions or interrupts.</p>
+</li>
+<li>
+<p>The instruction set includes means for an exception level to directly transition the flow of execution to a higher level (which will have its own handler, to process the invocation).</p>
+</li>
+<li>The invocation of EL1 services is a SVC (system call).</li>
+<li>The invocation of EL2 service is an HVC (hypervisor call).</li>
+<li>
+<p>The invocation of EL3 services is an SMC (secure mode call).</p>
+</li>
+<li>
+<p>Exceptions are serviced through dedicated stacks, while interrupts are serviced using the stack currently in use on the core receiving the signal at the time the interrupt is handled.</p>
+</li>
+<li>
+<p>While there may be custom deviations in some specific implementations, the typical (very simplified) boot sequence places the core first in EL3, to guarantee that the system state is not affected by any other software that might be running from a less trusted context.</p>
+<p>The EL3 can then proceed to initialise hardware peripherals,
+load/validate/execute programs at lower level of trust and so on.</p>
+</li>
+</ol>
+<h3 id="memory-accesses-and-the-tzasc">Memory accesses and the TZASC</h3>
+<ol>
+<li>The TrustZone Address Space Controller acts like a firewall on the memory bus, preventing a core that is not in secure mode from accessing any of the memory zones that have been configured as secure-only.</li>
+</ol>
+<p>The configuration is possible only from secure-mode.</p>
+<p>This filtering operates on physical addresses and is therefore unambiguous, disregarding any address translation regimen that might be in place, because the filtering happens on the output of whatever
+address translation that might have happened.</p>
+<h3 id="memory-accesses-and-the-mmu">Memory accesses and the MMU</h3>
+<ol>
+<li>
+<p>The MMU plays a central role in ensuring memory isolation between contexts under execution.</p>
+</li>
+<li>
+<p>During operational state, the MMU is active.
+   However, there is a short transient, at boot, during which the MMU is not yet enabled</p>
+</li>
+<li>
+<p>Memory is divided into pages, which are chunks of predefined size and matching alignment and properties. This definition attempts to be generic and therefore omits certain optional features, which can operate on smaller memory granules.</p>
+</li>
+<li>
+<p>The MMU performs address translations, converting between one memory address space to another, through the use of specialised data structures, called page tables.</p>
+</li>
+<li>
+<p>The MMU is able to make non-contiguous (sets of) memory pages appear as virtually contiguous, using a scatter-gather approach, through non-linear mappings.</p>
+</li>
+<li>
+<p>Page tables are a formalised type of sparse tree, with nodes themselves being pages.</p>
+</li>
+<li>
+<p>The MMU operates translation through (up-to) 2 stages:</p>
+</li>
+<li>
+<p>Stage 1: Virtual Address to Intermediate Physical Address</p>
+</li>
+<li>
+<p>Stage 2:</p>
+<ol>
+<li>For addresses originating from either EL0 or EL1: Intermediate Physical Address to Physical Address</li>
+<li>For addresses originating from EL2: Virtual Address to Physical Address</li>
+</ol>
+</li>
+<li>
+<p>VAs are the types of addresses that are regularly handled by the software during execution, while the PA is the address that goes on the memory bus.
+In reality complex systems can also have memory management engines that are in charge of orchestrating and optimising memory accesses issued by various cores to achieve optimal memory bus utilisation, however this part can be considered as fully transparent to the MMU.</p>
+</li>
+<li>
+<p>Each translation stage uses a dedicated page table.</p>
+</li>
+<li>
+<p>The first translation stage operates either from virtual addresses (EL0 or EL1 addresses) to IPA (EL2 addresses).
+      The Virtual addresses used in EL0 and EL1 are from non-overlapping ranges, and each range uses a separate page table.</p>
+</li>
+<li>
+<p>The second translation stage operates from IPA (EL2 addresses) to PA (MMU Bus addresses).</p>
+</li>
+<li>
+<p>Different exception levels</p>
+<ol>
+<li>
+<p>EL0 can only operate with VAs, using its own page table.</p>
+</li>
+<li>
+<p>EL1 operates mostly with VAs, and it also has its own page table.
+However, at boot, prior to initialising its own address translation stage in the MMU, it will use IPAs.
+Furthermore, besides using its own page table, it can perform EL0 accesses, through the EL0 page table, although this option is mostly kept disabled.</p>
+</li>
+<li>
+<p>EL2 operates mostly with its own VAs, through its own page table.
+However, at boot, prior to initialising the second stage address translation, it will operate on PAs. But it can also emulate both EL0 and EL1 memory accesses, through their respective page tables.</p>
+</li>
+<li>
+<p>However, if present and active, the second stage translation takes place also for addresses originating from EL0 and EL1; in this case it's the IPA to be converted to PA.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>The operation of translating from one address space to another is performed by the MMU, by using the starting address to navigate the associated tree of page tables, starting from the root (Page Global Directory - PGD) and ending with a leaf (PTE - Page Table Entry)</p>
+</li>
+<li>
+<p>The MMU can be configured to use different page sizes, trading granularity for TLB optimisation. Sizes supported are 4kB, 16kB and 64kB, with 4kB being the typical choice.</p>
+</li>
+<li>
+<p>The page table can be up to 4 levels deep:</p>
+<ol>
+<li>
+<p>Page Global Directory (PGD)
+While the non secure world does not have any particular constraint, the secure world requires that the PGD be chosen from a memory range that has been configured as safe in the TZASC</p>
+</li>
+<li>
+<p>Page Upper Directory (PUD)</p>
+</li>
+<li>
+<p>Page Middle Directory (PMD)</p>
+</li>
+<li>
+<p>Page Table Entry (PTE)</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Each level is composed of pointers to the next level - the pointers are the addresses of the pages of the next level.
+Pointers are already translated.</p>
+</li>
+<li>
+<p>To optimise the use of the TLB, it is possible to turn a branch into a leaf node representing the underlying destination range, provided that it is contiguous and aligned.</p>
+</li>
+<li>
+<p>The page tables also implement translation attributes, like the 'executable' property for code pages and write protection for read-only data.</p>
+</li>
+<li>
+<p>Attributes of leaf (the memory page being mapped) are set by the last node of the tree (typically a PTE entry).</p>
+</li>
+<li>
+<p>In practice, of the 64 bits available in the PTE entry, only a certain number is used for the actual address of the page being mapped, and the remaining bits are used for other purposes, including the colouring of the mapping.</p>
+</li>
+<li>
+<p>Performing a translation is an expensive operation, because the MMU needs to generate various memory accesses, navigating the page table tree.</p>
+</li>
+<li>
+<p>Translations are not always successful; for example an address might not have a backing memory page, or an operation might be incompatible with the property associated with the memory location involved (ex: writing to a read-only page).
+These events trigger exceptions, which are expected to be handled by the operating system.</p>
+</li>
+<li>
+<p>To mitigate the cost of a memory translation, each stage of the MMU implements a cache (TLB - Translation Lookaside Buffer) which can be implemented in various ways, however it always caches not just the translations, but also their associated properties, like write and execute permissions.</p>
+</li>
+<li>
+<p>Because of the caching, changes to a page table might not be visible, if a previous, different, translation is already present in the cache, and therefore the cache might need to be invalidated, prior to relying on the updated translation rules.</p>
+</li>
+<li>
+<p>In EL1, the MMU supports having 2 sets of page tables programmed with different base addresses at the same time, for converting virtual to intermediate physical addresses, TTBR0_EL1 and TTBR1_EL1.</p>
+</li>
+<li>
+<p>Each core supports having its own set of MMU page tables, as described above, independent from others, with independent TLBs that can also be maintained independently.</p>
+</li>
+<li>
+<p>The mapping mechanism is such that, at any translation stage, multiple source addresses can land on the same destination address.
+In a few cases this is the intended behaviour, and usually it has a transient nature, but in general it is unwanted.</p>
+</li>
+<li>
+<p>Since the mapping properties are associated with the source address, the same destination address can be accessed with different properties.</p>
+</li>
+<li>
+<p>The operating system executing in EL1 can manipulate both the core registers and the page tables used for EL0 so that multiple user-space programs can be run in time sharing on that core, without being aware of each other.</p>
+</li>
+<li>
+<p>Similarly, the hypervisor running in EL2 can manipulate both the core registers and the page tables used for EL1 so that multiple operating systems can run in time sharing on that core, without being aware of each other.</p>
+</li>
+<li>
+<p>Because performing page tables walks is expensive, and a suspended context (be it either in EL0 or in EL1) will resume in the same state it had when suspended, instead of allowing fully replacing of the TLB entries, it can be more effective to preserve them across context changes, as long as they are temporarily disabled.
+For this purpose, it is possible to automatically tag TLB entries of the suspended context, as they are generated, by using the ASID, which is programmed as contexts are activated.
+Each context is associated with an unique ASID and the MMU will ignore TLB entries tagged with an ASID that is different from the active one.</p>
+</li>
+<li>
+<p>Similarly, the EL2 TLB entries support VMIDs for tagging cached translations, obtained from different sets of page tables associated with either different VMs or with the hypervisor itself.</p>
+</li>
+<li>
+<p>When present, the secure world can limit memory access to selected ranges of physical pages by configuring the TZASC accordingly.
+The secure world has its own set of translation tables, that can be used to access memory configured as secure, as described.
+However, the Secure world is likely to require access to the non secure world as well. This need can be satisfied by grafting into the S translation tables branches of the NS ones. In such cases, the hardware
+implementation ensures that any grafted NS portion of translation tables cannot be made to point to pages in the S world.</p>
+</li>
+</ol>
+<h3 id="use-of-the-arm64-mmu-in-linux">Use of the ARM64 MMU in Linux</h3>
+<ol>
+<li>
+<p>The Virtual mapping address space is divided into 2 ranges, one used for EL0 mappings and one used for EL1 mappings.
+Each range is assigned a separate page table and both can be activated simultaneously (when in EL1), however under normal circumstances, on each core only one of them is active, at any given time.</p>
+</li>
+<li>
+<p>In Linux it is common to talk about "user-space" as opposite to "kernel-space" and "user-mode" as opposite to "kernel-mode".
+The "xxx-space" terms refer to the split of address ranges associated with user processes and kernel execution.
+The "xxx-mode" terms, on the other hand, refer to the exception level active on a certain core at a given time.</p>
+</li>
+<li>
+<p>The operation of copying/accessing data between kernel and user-space is the exception to the rule of having only one address-space active at any time, on a given core, since it needs both mappings simultaneously active.
+Therefore, a core can have simultaneous access to both user-space and kernel-space, but it cannot be both in user-mode and in kernel-mode at the same time.</p>
+</li>
+<li>
+<p>In Linux, the page tables can have a depth that is different from what is actually supported by the HW, for example by introducing loops on a page level, to simulate 2 levels by having a page pointing back to a different slot of itself.
+The use of build-time macros is a more common mechanism for collapsing levels which are formally used by the code, but will be compiled away, if unnecessary on a specific system.
+This is done, for example, when the HW has just one level, instead of the pair (PUD, PMD).</p>
+</li>
+<li>
+<p>The EL0 mappings are specific to each user-space process: each process has its own page table and is unable to interfere with other processes, as long as the underlying writable physical pages are kept assigned to one process, max.</p>
+</li>
+<li>
+<p>Threads belonging to the same user-space process share the same page table.</p>
+</li>
+<li>
+<p>Multiple user-space threads belonging to the same process can run in parallel on different cores, simultaneously, but they must employ techniques that ensure concurrent access to shared data will not     cause corruption.</p>
+</li>
+<li>
+<p>Each running user-space thread must have its own stack, though.</p>
+</li>
+<li>
+<p>Unless configured otherwise, user-space processes are swappable, meaning that least-used memory pages containing read-only code can be dropped, while least-used memory pages containing data can be dumped to a specialised swap file or partition, on disk, and then dropped.</p>
+</li>
+<li>
+<p>Linux uses on-demand loading for pages which have a valid virtual address but lack backing.
+When such an address is accessed, an exception is triggered and the exception handler will schedule the loading of the related content from storage, be it code or data.</p>
+</li>
+<li>
+<p>The EL1 mappings, instead, are shared among all the cores that run in EL1 mode.</p>
+</li>
+<li>
+<p>EL1 can also have multiple threads, each with its own stack, however they effectively act as if they belonged to the same "kernel process".</p>
+</li>
+<li>
+<p>And therefore, anything running within EL1 context can write into anything else within EL1, provided that it is mapped as writable.</p>
+</li>
+<li>
+<p>Kernel memory is not swappable: the kernel has no underlying mechanism that would alter EL1 memory allocations, moving them to disk or dropping them (if they are read-only pages).</p>
+<ol>
+<li>
+<p>Memory compaction is a partial exception: it works on virtually linear memory allocations, changing the underlying mapping, so that it can carve out larger chunks of contiguous physical memory, which is particularly prized in special use cases (e.g. allocating a large buffer for either a peripheral device or a DMA controller that supports only direct physical memory accesses).</p>
+</li>
+<li>
+<p>An underlying hypervisor could swap out either part or an entire VM, but that would not be controllable by the operating system (unless the hypervisor elected to let it have a say about it).</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Almost all the memory the kernel sees as physical, which in reality corresponds to the IPA, is also mapped as VA, and it is referred to as "linear mapping", because it is mapped as contiguous in the VA space as it is in the IPA space.</p>
+</li>
+<li>
+<p>Linux also supports HIGHMEM, which is physical memory that is not directly accessible by the kernel through the linear map. It is something that mostly impacts 32-bit systems, where physical memory can easily go beyond the size of the address space.
+In fact, usually, not even all the physical lines of the address bus are wired, because they would not be necessary.
+But certain choices of system design might make HIGHMEM necessary even in real life for ARM64, for example if it was decided to have a flatter page table with fewer levels.
+To manage high mem, the kernel is forced to create temporary mapping every time it needs to access a page belonging to high mem, because there would not be any readily available corresponding address. And the mapping would then have to be torn down, once the access is concluded.</p>
+</li>
+<li>
+<p>The free pages allocator picks free pages straight from the way they are represented in the linear mappings, operating on larger orders, and chopping and dicing large-order chunks to satisfy the requests received.</p>
+</li>
+<li>
+<p>The slub allocator obtains memory from the get_free_pages one, and then uses various mechanisms to further dice the pages, providing sub-page granularity, if needed. Furthermore, it also supports additional optimizations in the reuse of previous allocations, like the ability to support locality in a NUMA system.</p>
+</li>
+<li>
+<p>The virtual memory allocator is capable of providing large amounts of virtually contiguous memory, provided that there are sufficient (even non-contiguous) pages available. The allocator will create alternate contiguous mappings, to make them all appear as if they were contiguous.</p>
+</li>
+<li>
+<p>Contiguous virtual memory allocations for both EL0 and EL1 are fundamentally identical, in the way they are performed, differing only in the chosen address range, which needs to be compatible for the receiving exception level.
+EL0 mappings are also subject to active manipulation, due to on-demand paging and page eviction, driven by a need to provide addressable memory to other requestors.
+More in details:</p>
+<ol>
+<li>
+<p>On-demand loading: not all the pages are loaded from disk right away, some are loaded only upon access attempt.
+Till that moment, only the address range has been reserved, and even the backing physical page might be missing.</p>
+</li>
+<li>
+<p>Active dropping of physical pages: under memory pressure from other entities (other processes, the kernel itself), the kernel might drop the backing physical page for constant content.
+In case it is needed, it will be re-loaded. Heuristic decides which pages to target.</p>
+</li>
+<li>
+<p>Active swapping out of non constant data: pages which cannot be dropped are written to disk, to a block device that the kernel uses for swapping out content that is present only in memory.
+The reloading mechanism is similar to what described above, only in this case it happens from the swap device instead of from specific files in the file system.
+Here too heuristics decide which pages will be the victim.</p>
+</li>
+<li>
+<p>Page sharing: primarily during the forking of a process, most of the memory pages that do not require to be immediately copied and/or altered (like the stack) are dealt with in a lazy way, using COW: the page is shared, but mapped as read only by the process "borrowing it", so that any attempt to alter such page will trigger an exception.
+When the exception is handled, it creates a local, writable, replica of the page, and from this point onward the new process can write to it, because it's not accessing a shared page anymore.</p>
+</li>
+<li>
+<p>Page tables will evolve accordingly to the other phenomena described above, which means that they can also grow.</p>
+</li>
+<li>
+<p>Out of memory killer: this is a sort of extreme case, where an entire process is terminated, to recover the physical pages that it had been allocated.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>The activity of creating new mappings has an effect on the page tables themselves, which usually need to be expanded, to create new branches in the tree, to support the new nodes, unless branches (partially) already existed, due to previous allocations.</p>
+</li>
+<li>
+<p>Pure kernel threads are executed in EL1 context, while the user processes are primarily executed in EL0 context. However, sometimes user processes need to transition to executing in kernel/EL1 mode, when the operations they require are limited to be executed in EL1 mode.
+This is implemented through syscalls, which are a way for EL0 to invoke an handler in EL1.
+The execution in EL0 relies on a call stack which is mapped in EL0, however a separate call stack is used when running in EL1 mode, due to the different page table in use.
+The syscall will execute a specific service, as requested by EL0, and then return the execution to EL0 mode, once there is no further need of EL1 privileges.</p>
+</li>
+</ol>
+<h3 id="guidance-on-safety-analysis-and-mitigations">Guidance on Safety Analysis and Mitigations</h3>
+<ol>
+<li>
+<p><strong>Code generation</strong>
+The safety analysis must include the parameters used to generate additional code that might be introduced by the tool chain (which must be qualified too).
+For example, enabling CFI mitigations has an effect on function calls that must neither be forgotten nor ignored.
+<strong>It is not sufficient to use a tool chain that claims to be qualified; it is also necessary to confirm that it is being used within the limits of the qualification, in case only certain portions have been approved.</strong>
+<strong>This is particularly important when the toolchain might produce binary executables which are not an exact product of the source code, because they might introduce a grey area of functionality that has not been validated, for example through source code analysers / linters.
+In such a case, believing that one can rely on analysis of the source code alone is mostly wishful thinking.</strong></p>
+</li>
+<li>
+<p><strong>Limitations of both the "Tested" and the "Proven in use" argumentations</strong>
+This section is not about testing as it is typically intended during any development and integration process. It refers to approaches that might be proposed as a replacement for rigorous analysis and
+implementation of countermeasures / mitigations:</p>
+</li>
+<li>
+<p>"Proven in use": the software has been already deployed over a large fleet of devices, for a very long time, with sufficiently similar use cases, both in terms of the actual hardware used and the way the software is exerted, to support the claim that the space of all plausible inputs has been exhausted, a very high number of times, with sufficient evidence to document that operations have happened within the expected operational parameters.
+The documenting aspect is particularly important in building the argumentation.
+Provided that all the changes are documented and proven to not introduce relevant alterations, the "proven in use" argumentation can provide exemption from more rigorous work.</p>
+</li>
+<li>
+<p>"Tested": a testing campaign is created, to generate sufficient evidence that the software operates as desired, empirically.
+It can be seen as an alternative to "proven in use", when lacking sufficient historical evidence.</p>
+</li>
+</ol>
+<p>The following considerations are related to these empirical argumentation and the associated limitations.
+Even if "proven in use" and "tested" are different approaches, they are both exposed to variations in the conditions under which data is gathered, which tend to lead to comparable considerations.
+   1. Empirical data collected from extensive utilisation must prove to be relevant to the case at hand.
+    From this point of view, extensive utilisation in the field can be seen as equivalent to execution of a campaign of particularly well focused testing.</p>
+<ol>
+<li>
+<p>In order to leverage the results of empirical data, it must be proven that it is representative of the actual operating conditions that will be found in real life, during the utilisation of the product in the field.</p>
+</li>
+<li>
+<p>In the case of historical data, it is necessary for the use case(s) that were leveraged to collect said data, to be also compatible with the intended new use, having similar fields of application and use cases.</p>
+</li>
+<li>
+<p>To be credible, any empirical argumentation must survive this non-exhaustive list of invalidating objections:</p>
+<ol>
+<li>
+<p><strong>Timing:</strong></p>
+<ol>
+<li>
+<p>Exerting the code in the field, under a certain set of old conditions, can be significantly different from doing it still in the field, but under a new set of conditions. Or from doing it in an artificial setup.
+This applies to both microprocessor-level operating conditions and macro level operating conditions, described as ODD.</p>
+</li>
+<li>
+<p>Changes to the way the code is exerted can expose behaviour (and defects) that are significantly different from what emerged during either previous appraisal or testing campaigns.</p>
+<p>Some causes:</p>
+<ol>
+<li>Variation in the build parameters, for example enabling/disabling debug options</li>
+<li>Variations in HW builds, where different HW revisions have different timing</li>
+<li>Variations in the code itself, for example a device driver changing from polling to interrupt-driven.
+This applies both to changes that might take place over a long period of time, for the "proven in use" argumentation, and to changes that might take place during development, for a testing campaign that takes place in parallel to the development of the product.</li>
+<li>Variations in the user-space payload, especially if it comes with RealTime constraints, since they can - and often will - preempt the operating systems in ways that are also affected by the payloads themselves.</li>
+<li>Variations in the memory pressure, coming both from kernel and user space.
+For example, a new version of a product might have additional applications, or the applications might require more memory, or change the pattern at which they allocate memory (ex: going from individual allocations to bursts).
+Or the Linux system might be running as one of the partitions managed by an hypervisor, and the other partitions would alter their behaviour, without the hypervisor enforcing any form of capping.</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Memory layout:</strong>
+Changes to the order that data and code appear in memory can expose different components to never-detected-before defects.
+For example:</p>
+<ol>
+<li>Changes to the layout used by the linker</li>
+<li>Changes to the sizes of buffers from old to new builds</li>
+<li>Changes to the set of device drivers in use, with consequent alteration of the memory occupation</li>
+<li>
+<p>Changes to the order of the initialisation sequence of SW components, including device drivers.
+For example:</p>
+<ol>
+<li>Adding a new driver that registers an init function of whatever type (late, early, etc) will perturbate the sequence associated to the init functions of that specific init type (late, early, etc.)</li>
+<li>Changing the init priority of a device driver (ex: from late to early init) will affect the timing of all the types involved, and possibly also of the types in between them.</li>
+</ol>
+<p>Here is a very simple example.</p>
+<p>A defect in the use of a statically allocated buffer causes an occasional overflow, which trashes the adjacent memory. But the memory happens to belong to a variable that is never used after the overflow happens.</p>
+<p>Or maybe it is padding for optimised aligned access.
+Then something changes; for example the variable being overwritten is turned into constant, and moved to a different segment.</p>
+<p>Then, the same memory will be overwritten, but it might now be assigned to some data which is still referred to, after the trashing.</p>
+<p><strong>Even very effective testing or extensive use cannot rule out the presence of defects; it can only prove that there are no observable defects.</strong></p>
+<p><strong>Perturbing the structure of the system voids the validation</strong></p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>Equivalence of binary code:</strong>
+changes to the build parameters and toolchains are likely to affect the actual executable code, with effects comparable to what discussed above. This refers to "live" binary, once loaded in memory and executed, rather than binary executables as they are in the file storage, where they might contain debug symbols and other data which does not affect what is loaded in ram and run.</p>
+</li>
+<li>
+<p>Changes of toolchain are likely to invalidate the "proven in use" argumentation.
+Evidence (like regression testing performed by the toolchain vendor) that the new toolchain produces similar binary artefacts can help in supporting the continued validity of the argumentation, however they should be supported also by additional testing of the code base under qualification.</p>
+</li>
+<li>
+<p><strong>Generic effects of the observation on the system observed:</strong>
+Unless the observation is proven to be completely non-invasive, it is expected that it will bring changes to the system, which will alter its behaviour.
+Examples:</p>
+<ol>
+<li>Need to allocate more memory for local storage of measurements performed during the testing.</li>
+<li>Network bandwidth required or telemetry, where applicable.</li>
+<li>Cpu used for performing the measurements (especially if polling-based) and transmitting them.</li>
+</ol>
+<p>While it might be tempting to refer to unit-test, this should not be taken as a reference, because it is very unlikely to be able to reliably reproduce the full spectrum of events that can be encountered in a
+field-testing situation. And it would be anyways yet another equivalence that would have to be proven, while the whole point of the testing is to ensure that the right real-life conditions are met.</p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>To make any reasonable claim of "empirically validated", regardless if it is "proven in use" or "tested", it is necessary to:</strong></p>
+<ol>
+<li>
+<p>Identify all the system-level use cases</p>
+</li>
+<li>
+<p>For each system-level use case to be ignored, provide evidence that the use case cannot cause interference, under any circumstances that are expected to be met during intended use. This requirement means that <strong>it is not acceptable to omit a use case without having analysed it, and proven that it is acceptable to omit it.</strong></p>
+</li>
+<li>
+<p>For each system-level use case to be considered, document if anything has been omitted from the testing plan in any capacity, and prove that they are acceptable from the perspective of safety analysis.
+This refers to, for example, testing only for sub-ranges of certain parameters, or ruling out that one phenomenon might affect another, thus avoiding the test of combinations/permutations of parameters belonging to different subsystems ("equivalence classes", in ISO26262 parlance), for the sake of reducing time/cost associated with testing.</p>
+</li>
+<li>
+<p>For the remaining scenarios, prove that all the permutations of the relevant operating parameters have been exerted sufficiently (and justify what is deemed to be sufficient).
+This is called, in the world of Functional Safety "Input triggers Space".
+Since Linux is a very complex system, it might not be feasible to achieve such a level of analysis that it would cover all the possible scenarios.
+<strong>This would, obviously, invalidate any "proven in use" claim and it would require, instead, a qualification campaign.</strong></p>
+</li>
+<li>
+<p><strong>Empirical evidence must be intended as proof of the inability to trigger errors, rather than as proof of their absence.
+This is a fundamental concept, because it means that a change in the operating conditions - with consequent adjustment of the utilisation scenarios, can expose latent defects that have always been present.
+It shows how "proven in use" argumentation really hinges on proving not only that previous use was not exposing problems, but also that the future use will happen in a very controlled environment, that is proven to be equivalent to the previous one. And, similarly, that "tested" was so exhaustive to cover all the plausible scenarios.</strong></p>
+</li>
+</ol>
+</li>
+<li>
+<p><strong>To make any reasonable claim of either "proven in use" or "tested", it is necessary to:</strong></p>
+<ol>
+<li>
+<p>Identify all the differences against the system configuration(s) that generated the empirical data.</p>
+</li>
+<li>
+<p>For each of them, assess the impact on the argumentation.</p>
+</li>
+<li>
+<p>For each difference that is negligible, provide evidence that indeed it can be ignored.</p>
+</li>
+<li>
+<p>For each difference that is <strong>not</strong> negligible, provide analysis and, if needed, new, additional evidence that the future utilisation is safe.</p>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="limitations-of-the-self-protection-argumentation">Limitations of the self-protection argumentation</h3>
+<ol>
+<li>
+<p>Since the self protection actuated by the kernel is primarily implemented through the page tables, which are exposed to interference, it is questionable how well the kernel can be expected to protect itself, without relying on an external component with a sufficiently high safety integrity level, and typically shielded from interference that might happen either within the kernel or as manifestation of them.</p>
+</li>
+<li>
+<p>Similarly, in case specific features/mechanisms (for example redundancy of certain data parameters) are introduced and used as part of the safety argumentation, they first need to be demonstrated to have the required safety integrity level.
+The challenge with these additional mechanisms is to prove that they are sufficiently simple to not have dependency on the very same context they are trying to protect (similar to the concept of Technical Independence).
+It needs also to be clarified what it is really meant with "protection", because, strictly speaking, protection requires either the ability to dodge interference or the ability to recover from it both sufficiently and timely.
+For example, using canary values on the call stack can probably be sufficiently good for detection of certain types of interference, like stack smashing, however, once an interference is detected, it is
+unlikely that it can be corrected through the use of the canary values.</p>
+</li>
+<li>
+<p>Even by allowing the definition of protections to be broadened to include what is in fact detection, it needs to be rooted into a simple, easy to both prove and verify, mechanism.
+For example, a self-test diagnostic capable of detecting spatial interference in a certain component, by running periodically and/or in event-driven mode, is still exposed to interference and it might not be
+easy to prove that such interference can at the very least be detected.
+However, by pairing it with a simpler mechanism, like a watchdog, then it can become easier to make claims about detecting the interference, because the detector can be designed in a way to fail to ping the watchdog, in case of its own corruption.</p>
+</li>
+</ol>
+<h3 id="mitigation-strategies">Mitigation Strategies</h3>
+<p>It is a fact that there is almost no defects-free code, and the Linux kernel is certainly not an exception, therefore any analysis/mitigation that relies on proving that the Linux kernel is safe, should also come
+with a self evaluation of its own vulnerability to unforeseen failures, based on how exposed it might be to some assumptions turning out to be false, including assumptions about testing coverage, for example.
+In other words, there are 2 paths, when assessing the effectiveness of countermeasures for interference on a target:</p>
+<ol>
+<li>
+<p>The typical path: identify the type(s) of interference and introduce countermeasures which are independent from the possible source.
+This approach ensures that, even in the presence of an incomplete analysis of the sources of interference, the countermeasures will still be effective, provided that all the types of interference have adequate countermeasures.</p>
+</li>
+<li>
+<p>The alternative path: identify all the sources of interference, for all the types of interference that are meaningful, and introduce a countermeasure for each of these sources.
+This approach is theoretically equivalent to the previous one, but it relies on having an absolutely exhaustive list of sources of interference, each of them paired with an acceptable countermeasure, or
+proof that a countermeasure is not necessary.
+The burden of proof about completeness and effectiveness is on whoever might choose this path.</p>
+</li>
+</ol>
+<h3 id="statistical-considerations">Statistical considerations</h3>
+<ol>
+<li>
+<p>In the light of previous observations, about hard barriers vs deductive argumentation and defect density, one should also consider the chances that a certain component might generate interference (which depend also on its size and complexity) vs the frequency said component is exerted (assuming a periodic or quasi-periodic invocation).</p>
+</li>
+<li>
+<p>This leads to a qualitative evaluation of which components are more likely to cause interference and therefore deserve additional analysis, from multiple perspectives: complexity, frequency of execution, types of operations performed, detectability of interference it might generate, delays in the detection, etc.
+This is not a small task, but it is critical in understanding the price to pay for utilising the inductive method, and failing to do so will introduce the risk of having a system that both lacks physical barriers and has not been properly analysed.
+There is also a feasibility problem: linux is ever evolving and there is no official bug tracking system. At most some 3rd party might keep track of defects related to security and vulnerability, however that is far from being the full picture.
+One might be tempted to use mathematical models that attempt to model the software in terms of bug density, severity, etc. and use said model to predict the probability of interference from a certain component.
+While this approach might work with components that are fully owned by a single organisation / entity and tracked appropriately to support said approach, it is very easy to see how the concept would fall apart, when applied to Linux.
+One might be tempted to fork Linux, to make it fall back in the fully-owned software scenario, however this approach would be unfeasible, because it would rapidly become unmanageable, with need of backporting an increasingly number of patches such as security fixes, and the local fork diverging from upstream, effectively losing most of the advantages brought by the use of Linux.</p>
+</li>
+<li>
+<p>Such consideration points to the fact that certain mechanisms which can be seen as supportive of integrity (and thus safety) in user-space are a double-edged sword, since they can get invoked quite frequently and can be fairly large and complex, in terms of size of code. In a way that cannot be reliably handled.</p>
+</li>
+</ol>
+<p>Some examples:</p>
+<ol>
+<li>
+<p>cpu/memory/network cgroups</p>
+</li>
+<li>
+<p>security frameworks, like the Linux Security Module and SELinux.
+They are particularly relevant because their behaviour is strongly affected by entities considered hostile or at the very least not friendly, like non-safety relevant processes attempting to generate large amounts of cpu load / memory pressure / network traffic or file accesses.</p>
+</li>
+<li>
+<p>Even system activity such as unrestrained patterns of memory allocation / release cycles is more likely to trigger problems.
+These allocations can happen at high frequency, while the underlying system changes its state rapidly, producing a large variety of permutations in the code paths being followed for achieving the very
+same results; for example the previous allocation patterns, triggered also by unrelated processes, can lead to different ways of procuring the pages required.
+In some cases it might be necessary to stall and invoke the buddy allocator, in others it might be possible to just pluck the memory from the queue implemented by the slub allocator for the local core.
+Taking as example a non-safety relevant application which generates many events such as allocating/releasing memory / opening and closing sockets and files / spawning and starting and stopping threads, it will trigger associated high frequency execution of code paths within SELinux
+and cgroups, to validate the legitimacy of said actions.
+This is perfectly fine from the perspective of containing user-space, however, since neither SELinux nor cgroups are by default safety qualified, it also means that within the kernel there will be a high
+frequency execution of a large amount of code which can cause either direct or indirect interference.
+And such interference is not always detectable, depending on which component it might affect.</p>
+</li>
+</ol>
+<p>These features are usually enabled in a mixed criticality scenario, when attempting to contain interference.
+The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosing the lesser evil.
+Of course one could attemtp to qualify them, but then it is necessary to consider the fact that in reality it is necessary to qualify them together with the user-space-provided policies they will enact.
+Without being configured by user-space, neither SELinux nor cgroups are of any particular use.</p>
+<p>An alternative - possibly more costly - path could be to instead isolate more safety-relevant loads from non-safety-relevant ones, introducing a second virtual machine, with a hypervisor underneath.
+The caveat is that now the hypervisor can be a source of interference. And it is also necessary to have HW capable to support an EL2.
+It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simple in comparison to qualifying the Linux code.</p>
+<h2 id="sources-of-interference">Sources of Interference</h2>
+<p>It is useful to model the most probable causes for spatial interference, even if not exhaustively.</p>
+<p>Note: for the purpose of this document, the hardware is considered qualified up to the highest safety integrity level required by any use case. The qualification is to be intended at unit level, meaning that no
+hardware component will exhibit aberrant behaviour, when exposed to the supported stimuli.</p>
+<p>In other cases, should the previous assumption not be true, each HW component must be individually checked for safety qualification and those not matching safety requirements must be included in the list of sources of interference.</p>
+<h3 id="dma-capable-entities"><strong>DMA-capable entities</strong></h3>
+<p>Those components which sidestep the MMU-enforced memory protection, by generating write operations on the memory bus through other bus-master devices than the MMU.</p>
+<p>The catch here is that, even if such access is performed by a separate DMA controller, the programming and triggering of the write operation is performed by a device driver that is exposed to interference and can therefore cascade it (through either mis-configuration or mis-operation
+of the DMA controller).</p>
+<p><strong>Causes:</strong> The interference is possible because it originates from a component that is architecturally capable of generating it, but said component was not assigned sufficiently high safety requirements, that would account for such possibility. Nor a mechanism is in place to manage the interference.</p>
+<p><strong>Effects:</strong> Unpredictable corruption of the state of safety-relevant context. The extent of the corruption is highly dependent on local conditions that are not necessarily repeatable.</p>
+<p><strong>Detectability/Mitigation:</strong> This sort of interference is practically impossible to detect, without HW means, like an IO/MMU, a memory firewall, or some form of redundancy.
+Lacking any of that, it is only possible to try to detect side-effects, without guarantees on the timing.</p>
+<h3 id="components-present-in-el1-with-lower-safety-integrity-level"><strong>Components present in EL1, with lower safety integrity level</strong></h3>
+<p>Any code running in EL1 has unbridled write access to any non-write-protected memory pages in EL1.
+   <strong>Any SW component which runs in EL1 with any safety integrity level, is to be considered as a source of interference to any other EL1 component with higher safety integrity level.</strong></p>
+<p>Typically, this would include the entirety of the Linux code base, as it is obtained from upstream, unless it has been adequately reviewed and fixed, or it is used in a way that mitigates its intrinsic low safety integrity level.</p>
+<p><strong>Causes:</strong> The lower safety code must be assumed to contain defects that will generate interference which cannot be claimed to be mitigated purely by the rigorous development process.
+They can be either low level defects, or conceptual defects.</p>
+<p><strong>Typical defects:</strong>
+   - Functional defects
+Can be anything, literally, however, even assuming a reasonable amount of unit test, extensive integration testing is what can make the difference between qualification at different safety integrity
+levels.</p>
+<ul>
+<li>
+<p>Races
+Possibly a specialised case of the previous point, it is a type of fault which can emerge from missing to consider all the possible execution paths, especially when factoring-in unrelated asynchronous and
+synchronous events, caused by memory pressure, I/O, task migration, underlying presence of other partitions managed by an hypervisor, etc.
+All of this can contribute to diverging from the expected (and intended) execution flow, if concurrence was not taken into account properly.</p>
+</li>
+<li>
+<p>Use-after-free
+This is a source of interference that can be hard to detect in a subset of cases.
+Primarily, it affects memory pages which are accessed through the linear mapping, provided by kmalloc/get_free_pages, then get released and eventually re-allocated, possibly also through different allocation mechanisms.
+And then the previous reference is used again, after being released.
+A write operation will cause an interference that can affect any other component that received the memory allocation, in an unpredictable way.</p>
+</li>
+</ul>
+<p><strong>Effects:</strong> <strong><em>Any data within the EL1 context is automatically downgraded to the lowest safety integrity level present within EL1. Any memory used for EL0 is mapped in EL1, so also anything user-space is equally exposed, both code and data, constant or not.</em></strong></p>
+<p><strong>Detectability:</strong> Here HW-based detection through an IO/MMU or a memory firewall is not an option, because the source of interference is a core itself, going through the MMU.</p>
+<p><strong>Mitigation:</strong> Detection needs to rely on indirect effects that are not guaranteed to be noticed. A micro kernel would deal with this problem through MMU-enforced isolation, but Linux is a monolithic kernel and cannot do that.</p>
+<h3 id="partitioning-of-hardware-components-between-different-safety-integrity-levels-constraints-and-limitations"><strong>Partitioning of hardware components between different safety integrity levels: constraints and limitations</strong></h3>
+<p>This type of interference could be seen as a design flaw, but in practice one might not be able to implement as much hardware partitioning as the ideal case would require.
+The typical example is a shared hardware resource, for example a bus controller like I2C or SPI, where multiple external peripherals might be connected, and only some of them would belong to a safety scenario at a certain safety integrity level, while others would be at a lower safety integrity level.
+Another common example could be an interrupt controller with shared lines.</p>
+<p><strong>Causes:</strong> Even assuming spatial FFI between the lower safety kernel components and the driver for the shared resource, the lower safety components might mis-configure the shared resource (e.g. by
+interfering with a channel assigned to a different peripheral) or hog it to the point of affecting the operations of the higher safety ones .</p>
+<p><strong>Effects:</strong> Higher safety components depending on the shared resource might be unable to use it as intended, being starved, or their use might be disrupted in other ways, either corrupting the state of the
+shared device or of other components that are proxied by the shared device.</p>
+<p><strong>Detectability/Mitigation:</strong> As long as it is possible to set expectations about the temporal evolution of the systems whose safety is being analysed, it might be possible to rely on a timeout-based detection system, however, purely asynchronous events, like a safety-relevant peripheral attempting to request servicing through an interrupt, could go completely unnoticed.</p>
+<h3 id="system-libraries"><strong>System libraries</strong></h3>
+<p>The Linux kernel provides a large number of libraries implementing basic functions, both specific to an operating system and others that replace what would be part of the compiler libraries. In Linux the
+compiler is used in free-standing mode and therefore even basic I/O like the support for printing to console is not available by default.
+These libraries can be invoked from both highest integrity and lower integrity contexts, which means that they need to be validated and managed according to the integrity level depending on them.
+Examples: list management, locking.</p>
+<p><strong>Causes:</strong> The library is used against safety-relevant data, and it needs to be qualified for doing so.</p>
+<p><strong>Effects:</strong> Lack of adequate safety integrity level can cause undetectable interference in the data that the library operates on. Or, even worse, on data which happens to be writable by the library, even if it is unrelated.</p>
+<p><strong>Detectability/Mitigation:</strong> This sort of interference is practically impossible to detect, and the only option left is to qualify the libraries to the required safety integrity level.</p>
+<h2 id="exposure-to-interference">Exposure to Interference</h2>
+<h3 id="criteria-for-evaluating-interference">Criteria for evaluating interference</h3>
+<p>The Linux kernel is a very complex SW component, which has tight integration with the HW components of the system it happens to run on.</p>
+<p>Even limiting the analysis to spatial interference, there is a broad range of elements which can suffer from it and cause various degrees of failure in the system.</p>
+<p>Depending on the use cases/expectations, certain failures might be relevant from a safety point of view, or not. It is therefore impossible to assert in absolute terms what constitutes a safety-relevant interference, without referring to a specific system.</p>
+<p>However, it is possible to produce a set of high level considerations, to be used when analysing a specific system.</p>
+<p>Even the outcome of the evaluation is subordinate to the requirements set ad-hoc for a specific application: the very same interference can be seen as acceptable, under certain requirements, and unacceptable under stricter requirements.</p>
+<h3 id="fundamental-considerations">Fundamental Considerations</h3>
+<p>Nevertheless, it is possible to conjure some considerations that will apply to any analysis of a system based on Linux, even if they will lead to conclusions which are specific to certain use-cases.</p>
+<ol>
+<li>
+<p>No matter how a system might be partitioned for facilitating its analysis, the only true boundaries to interference are those enforced by either the MMU or some other, equivalent, HW component (e.g. a HW Memory Firewall), defining a memory context.
+Other methods might give the illusion of providing partitioning, but it rapidly becomes even harder to prove their correctness.
+Formal verification might be tempting, but it would not be practical, when applied to a complex OS that was not designed from the ground up for it, not to mention the fact that - lacking any control whatsoever on the OS release process, and the content of said releases, it becomes hopelessly unpredictable to anticipate the amount of work required for refreshing the verification on new OS releases.
+Chosen a target for interference, there are several ways the interference might happen:</p>
+</li>
+<li>
+<p>Self interference, where the component does not behave according to expectations and compromises its own safety, due to defects in one or more of design, implementation, integration.</p>
+</li>
+<li>
+<p>Interference from other components which are indeed expected to interact with it, but for some reason are not acting according to expectations.</p>
+</li>
+<li>
+<p>Interference from other components that are not expected to interact at all with it, yet they do it.</p>
+</li>
+</ol>
+<p><strong>The latter is particularly troublesome, because, lacking hard boundaries, anything can interfere with anything else.</strong></p>
+<p>As long as the target for interference is exposed to other components which have the same or higher safety integrity level, the exposure is acceptable, even if not desirable.</p>
+<p>However it is normally the case that different components have different qualifications.</p>
+<ol>
+<li>
+<p>Attempting to rely on induction for introducing a "soft" partitioning doesn't work too well either, because it would require:</p>
+</li>
+<li>
+<p>Hard evidence that the reasoning is completely exhaustive of all possible interactions (omitting something due to ignorance is not acceptable, because it doesn't prove that it was a valid simplification).</p>
+</li>
+<li>
+<p>Re-assessment of the induction every time the system is updated with new SW that can potentially interfere, till it is proven otherwise.
+This approach either rapidly becomes unsustainable, or it imposes very harsh limitations on the frequency for introducing updates.
+Frequency that might not be acceptable, if it doesn't meet the minimum requirements of delivering updates to a product.
+Security updates are a perfect example of a situation where, even in presence of a release plan, critical vulnerability can require out-of-cycle releases. And the security fixes have the potential of voiding precedent safety assessments.</p>
+</li>
+<li>
+<p>Risking to state the obvious, there is one exception to having HW-enforced partitioning: <strong>time-enforced partitioning.</strong></p>
+</li>
+</ol>
+<p>If it can be proven that a certain component will cease operations past a well established watershed moment, then it is possible to consider that time boundary as an effective isolation.</p>
+<p>However, it is still necessary to prove that, after the aforementioned watershed, no interference has been found, which makes this argumentation far less trivial to implement than it might appear.</p>
+<p>The Linux kernel init phase is a major opportunity for this sort of argumentation, because Linux supports even wiping and reusing the memory initially assigned to "__init" data and code segments.</p>
+<p>Other operations might equally benefit from a similar argumentation, provided that it can be proven that:
+   - They are employed only during init.
+   - Their effect can be verified right after init has completed.</p>
+<ol>
+<li>
+<p>Every subsystem relies on memory, allocated in various ways, to manage its internal states.
+The internal states of any subsystem are exposed to potential interference from any other code that happens to be executed within the same memory map.</p>
+</li>
+<li>
+<p>When considering means for mitigation to interference, it must be considered how they operate:</p>
+</li>
+<li>
+<p><em>"Passive" means:</em> they are based on redundancy or similar principles.
+They can be equally exposed to interference, but this is acceptable, as long as it is proven that they are sufficiently resilient (ex: use of self-correcting encoding, like CRCs).
+These means are less invasive, because they only need to be hooked into the execution flow, but they do not alter it substantially.
+When subject to interference, they - most likely - do not affect the component that they are trying to protect.
+This approach doesn't introduce correlation between the target for the mitigation and the mitigation itself, therefore it can be considered sufficiently trustworthy to detect a single interference.
+However, it is expensive to handle any form of redundancy on a large scale.
+For this approach, it must be proven that, given a certain target for instrumentation, the specific implementation of the redundancy is sufficient.</p>
+</li>
+<li>
+<p><em>"Active" means:</em> they introduce restrictions or anyways alter the way that the system behaves.
+For example, they can introduce runtime restrictions, dynamically limiting the space of possible actions to those which are allowed, by design, at any given time.
+In practice, anything which is not explicitly allowed becomes forbidden and can raise some form of exception, to notify that an illegal operation was attempted and possibly performed.
+This approach aims at restricting what can happen silently when a component goes out of its expected operational zone, but without compromising what happens within the legitimate operating parameters
+values.
+Therefore, because of the tighter integration, "active" means have a potential for becoming a source of interference themselves, causing cascaded interference, if not adequately treated.
+<strong>It must be proven that they are themselves protected from interference (technical independence), or else the argument is moot.</strong>
+The advantage they have over the passive type is that they can scale up better, because the underlying mechanism doesn't have to be applied to each individual parameter to be protected, but rather rely, for example, on establishing memory regions and boundaries.</p>
+</li>
+<li>
+<p>Depending on the subsystem analysed, the very same interference can
+    require different types of mitigations.
+For example, assuming that it's acceptable to perform polling and validation on a system where the amount of data to monitor is small, the same approach might not be suitable for another system where the amount of critical data to monitor would be so large that the polling and validation activity would generate an excessive overhead, where the meaning of "excessive" is subject to the specific system and
+requirements.
+Similarly, on another system, there might be a relatively small amount of data to poll and monitor, but it might be changing so rapidly that the associated polling would, again, cause excessive overhead, because it would have to happen with comparable rapidity.</p>
+</li>
+<li>
+<p>The requirements will affect as well what sort of mitigation might be necessary.
+For example, minimal or no mitigation might be required, if the only goal is to detect interference in selected subsystems and prevent effects from spreading in an uncontrolled fashion.
+However, if it is required to ensure a set level of availability, pure detection might not be an option, and prevention would become necessary, with all the associated implications.</p>
+</li>
+<li>
+<p>When dealing with interference, it boils down to two options:
+(<strong>Note:</strong> FuSA and FMEA jargon assign very specific meanings to the words below, when referring to failure modes. However, in this document, they are used with regard to the interference that might introduce a failure mode, and therefore these words are to be intended exclusively with their plain meaning from the English vocabulary. See also their definitions in the section <em>Terms and
+    Abbreviations</em>.</p>
+</li>
+<li>
+<p><strong>Prevention (of an interference)</strong>
+    The act of denying a potential interference the possibility of actually manifesting itself.
+Prevention is harder to implement, but it ensures that the relevant context will not be compromised, and thus doesn't come with a timing constraint, enabling higher levels of availability.</p>
+<ol>
+<li><strong>Detection (of an interference)</strong>
+The act of identifying an interference that has already happened, either directly or indirectly.
+Detection, on the other hand, doesn't require the creation of any barrier, provided that there are mechanisms in place that can sense that an interference has happened.
+However, it does put a strain on the sensing, because it needs to happen sufficiently fast to satisfy the timing specified by the related safety requirements.</li>
+</ol>
+</li>
+<li>
+<p>Obviously, there would be a third option: <em>removing any source of interference from components at lower safety integrity levels.</em>
+In this case, <em>everything</em> which is within a memory boundary needs to be qualified at sufficient safety integrity level, to avoid also indirect interference of secondary order or higher, through cascading.
+<em>This level of blanketing, very broad qualification is very unlikely to achieve and even more fleeting, given how it would rely on every single component to remain qualified.</em></p>
+</li>
+<li>
+<p>When it comes to interference, as long as detection is a viable option, it's not so much about how catastrophic the interference might be, but how likely it is that it might go undetected and take the system out of its operational parameters in a way that is not mitigated (or even considered), and what the effects would be.</p>
+</li>
+</ol>
+<h3 id="components-susceptible-to-spatial-interference">Components susceptible to spatial interference</h3>
+<p>The following is a minimal, non-exhaustive, set that should be considered in a safety checklist.</p>
+<ol>
+<li><strong>ASIL components at system initialisation</strong>
+While freedom from interference is meant to be a "live", persistent property, with any violation detected timely, some of the mechanisms employed rely on detecting unexpected evolution in their state.
+But first it is necessary to assess whether the initial state is safe, or if it has already been compromised during its initialisation phase.</li>
+</ol>
+<p><strong>Exposure:</strong> Such an assessment could be avoided, if it was possible to prove that all the mechanisms employed for the initialisation are safe, and that unrelated unsafe components cannot interfere.
+But in case that was not possible, then there is a risk of interference, for any component of a certain level of safety, coming from lower safety integrity level ones.</p>
+<p><strong>Effects:</strong> The effects are specific to each individual component, however a lack of confidence that the system is within safe operating margins even before it begins active operations would void any further assumption about its continued safety.</p>
+<p><strong>Detectability:</strong> This is the base-line level of detection, that a component with an allocation of safety requirements is still safe according to its intended safety integrity level, at the very beginning of operations. It should always be possible to do so.
+Were it not possible, then it becomes questionable how it can be proven, later on, that it is still operating according to its safety requirements.</p>
+<ol>
+<li><strong>EL1 system registers</strong>
+Not all system registers are equal, some have special purposes that can deeply affect the flow of execution.</li>
+</ol>
+<p><strong>Exposure:</strong> Within a certain exception level, most registers are writable directly, without any form of protection.
+Depending on the register type, they might be more or less exposed to interference:</p>
+<ul>
+<li>
+<p>Registers encoded within instructions are less likely to be accidentally accessed.</p>
+</li>
+<li>
+<p>Registers that are memory mapped in a parametric way are more exposed to risks of interference (this is an ARM-specific problem: as a counter example, x86 uses special instructions for these sorts of registers and therefore they do not belong to the same space as regular memory).</p>
+</li>
+</ul>
+<p><strong>Effects:</strong> This is not possible to be generalised, because each type of register can lead to different effects, if exposed to interference.
+Obviously, those related to control flow have a bigger potential to lead to unsafe behaviour.</p>
+<p><strong>Detectability:</strong> The only way to perform direct verification would be to have some sort of twin system evolving in parallel. In certain SoCs there is indeed a lock-step mode where a shadow twin is connected, and it mirrors every action, to validate it, assuming that the interference is not happening systematically on both.</p>
+<p>Up to a certain point, the shadow twin could be emulated with a hypervisor and a "shadow VM", but that would create a large overhead, and also pose the questions of which synch points to use and how often to perform the comparison of the registers.</p>
+<p>Entry / exit points of function calls might be good candidates, but since some of the Linux operational parameters are intentionally randomised, it should be proven - for each individual use - that it's either reproduced or irrelevant for safety purposes.</p>
+<p>A simpler approach would instead define checkpoints based on design and expected behaviour, and monitor that such checkpoints are reached timely.</p>
+<p>But the caveat is in ensuring that checkpoints are defined correctly and that they are sufficient. Which then needs to be proven.</p>
+<p><strong>Prevention is an easier argument to support, if it can be substantiated.</strong></p>
+<ol>
+<li>
+<p><strong>EL1 Safety-relevant Call Stacks</strong> used for:</p>
+</li>
+<li>
+<p>Safety-relevant kernel threads.</p>
+</li>
+<li>
+<p>Safety-relevant processes.</p>
+</li>
+<li>
+<p>Exception handlers
+Same stack is used for both safety-relevant and non safety-relevant exceptions.</p>
+</li>
+</ol>
+<p><strong>Exposure:</strong> They are mapped in regular EL1 memory and they are writable.</p>
+<p><strong>Effects:</strong> The registers saved on the call stack can be corrupted in ways that are not easy to detect, and cause an uncontrolled drift in the operating parameters outside of their admissible values.</p>
+<p><strong>Detectability:</strong> Direct detection is possible only through introduction of mitigations, like canary values, and even that is not 100% reliable. Indirect detection is even more difficult to implement,
+because of the wide range of possible effects.</p>
+<ol>
+<li><strong>EL0 Safety-relevant Processes Memory</strong>
+These processes represent the typical high-level use-cases encountered in a system with safety requirements.
+Their overall safety depends on multiple factors, which can be monitored with different levels of success, however this specific point refers to their freedom from spatial interference.</li>
+</ol>
+<p><strong>Exposure:</strong>
+   - <strong>The physical memory (IPAs, if considering also EL2) mapped in EL0 for processes to use is also part of the linear mapping in EL1 and fully addressable and writable.</strong></p>
+<ul>
+<li>The memory used for the page table of the EL0 process is equally exposed to interference originating within EL1.</li>
+</ul>
+<p><strong>Effects:</strong> Depending on the chance, either data, code, or both, including stacks, belonging to the process can be corrupted in any unpredictable way.
+This path of interference can also affect constant data and code belonging to the process, because their write protection exists only in the EL0 mapping, not in the EL1 mapping, where they are completely
+vulnerable.
+One can assume that alterations to the page tables would be less likely to pass unnoticed,since it's extremely unlikely that any corruption would point to another memory page with content that would not cause the MMU to throw an exception about a malformed page table entry.
+But that would be an educated guess, rather than an objective fact.</p>
+<p><strong>Detectability:</strong> Here too, the interference can assume a very wide range of effects, only the most blatant of them easily detectable.
+For example, corruption of a table of constant data would require a periodic verification through either checksum or similar measures.
+Corruption of code would be far more easily detectable.
+Some types of interference can be spotted far more easily than others.</p>
+<ol>
+<li><strong>EL0 Shared Memory / Pipes for Safety-relevant Processes</strong>
+Conceptually similar to the previous point, however possibly subject to a different mitigation strategy, it is listed separately to ensure visibility.</li>
+</ol>
+<p><strong>Exposure:</strong> Like any other memory mapped in EL0, it is exposed to interference from EL1 through the linear map.</p>
+<p><strong>Effects:</strong> Data exchange between user processes can be corrupted.</p>
+<p><strong>Detectability:</strong> Processes can implement some form of checksumming for detecting corruption. This can become burdensome for them.</p>
+<ol>
+<li><strong>EL1 Memory Managers - Buddy Allocator - get_free_pages()</strong></li>
+</ol>
+<p>The Buddy allocator is at the heart of almost any runtime allocation performed in a Linux system, including both the creation and whole lifetime support of memory allocations for user space processes.</p>
+<p><strong>Exposure:</strong> The allocator relies on its own internal data structures, which are supportive of keeping track of which memory pages are available, which are in use and the exact way they have been partitioned.
+These data structures have their own life cycle and are sourced from the very same physical pages that are used also for satisfying the allocation requests from various memory users.
+This includes both memory used for safety-relevant use cases and for non safety-relevant use cases.
+<strong>The data is fully writable by any code running in EL1.</strong></p>
+<p><strong>Effects:</strong> Any corruption in this set of internal data structures can cause cascaded interference on safety-related data, for example by handing over, as usable, the memory pages already reserved for a
+safety-relevant process.
+This would cause the pages to be overwritten, with a wide spectrum of possible outcomes.</p>
+<p><strong>Detectability:</strong> Anyone's guess. Depends on the specific case, but it must be assumed that it would not be detectable in more cases than it would be acceptable.
+<strong>Or else, evidence must be produced, to claim otherwise.</strong></p>
+<p>Certainly, the interference cannot be detected directly, but only through 2nd or 3rd order side effects that might not always be easily detected.</p>
+<p><strong>One should either assume the worst, and detect/prevent it, or provide evidence about why the worst would be unlikely to happen, in case the mitigations are not extensive.</strong></p>
+<p><strong>Considerations:</strong> Unless proven that the memory manager is:
+   - Of adequate safety integrity level (the highest required between EL0 / EL1)</p>
+<ul>
+<li>Free From Interference for what concerns its own metadata</li>
+</ul>
+<p>It is not sufficient to prove at runtime that safety-relevant allocations have happened in a successful way (for example doing them at init and verifying post-init that they were correct), because:</p>
+<ul>
+<li>
+<p>If the memory manager is QM, it can still cause interference to the existing allocations in use by components with safety requirements, for example by lending a memory page that is already and still in use by a safe component.</p>
+</li>
+<li>
+<p>if the metadata of the memory manager is still exposed to kernel QM components, it can still be corrupted and lead to the same type of problems mentioned in the previous point.</p>
+</li>
+<li>
+<p><strong>EL1 Memory Managers - Slub allocator - kmalloc()</strong></p>
+</li>
+</ul>
+<p>The slub allocator is the go-to allocator for typical runtime needs of allocating memory at runtime, both because it is more efficient, especially when dealing with per_cpu allocations, and because it is
+capable of dishing out sub-page allocations. It is widely used within EL1, but it doesn't have direct effects on EL0 processes.
+It specialises in optimising finer grained allocations than the buddy allocator, including their lifecycle and caching.</p>
+<p><strong>Exposure:</strong> The slub allocator has a compounded exposure, since it uses the buddy allocator as backend, but it also has its own set of internal data structures, which is writable by any code with EL1 write capability.</p>
+<p><strong>Effects:</strong> The effects are comparable to those caused by a corruption of the buddy allocator, minus the effect on EL0 processes.</p>
+<p><strong>Detectability:</strong> Similar to the detectability of the buddy allocator.</p>
+<p><strong>Considerations:</strong> Similar to those made for the buddy allocator.</p>
+<ol>
+<li><strong>EL1 Memory Managers - VMALLOC - vmalloc()</strong>
+Vmalloc too has its own set of internal data structures (for keeping track of a large variety of runtime parameters), and it is involved with both EL1 allocations and with the creation and backing of EL0 processes.
+Compared to the previous allocators, vmalloc adds one more layer of complexity due to the fact that it also needs to keep track of address ranges and physical backing of reserved addresses.</li>
+</ol>
+<p><strong>Exposure:</strong> The exposure is even more compounded by the fact that vmalloc relies on both the buddy allocator and the slub allocator for its internal data structures.
+Furthermore it relies even on itself for allocating housekeeping memory of a certain type, in case the amount of memory required is so large that it cannot be satisfied by kmalloc.</p>
+<p><strong>Effects:</strong> Very unpredictable, but they can certainly lead to the corruption of safety-relevant context.</p>
+<p><strong>Detectability:</strong> Similar to the detectability of the buddy allocator.</p>
+<p><strong>Considerations:</strong> Similar to those made for the buddy allocator.</p>
+<ol>
+<li><strong>EL1 Memory Managers - others</strong>
+While they might not be as broadly known and used as the ones previously
+listed, the Linux kernel does provide a host of other allocators which
+are meant to support the management of special memory.
+Examples: genalloc, memblock, cma_alloc.</li>
+</ol>
+<p><strong>Exposure:</strong> also these allocators rely on metadata they need for housekeeping, typically obtained from kmalloc/vmalloc, therefore they are equally exposed to interference coming from anything else with lower safety integrity level.</p>
+<p><strong>Effects:</strong> In case the device drivers using these allocators must meet safety requirements, the effects of interference can be even worse than on other allocators, because in some cases these
+allocators are used for keeping track of free/used blocks in storage devices, like I2C/SPI permanent memories.
+<strong>A corruption of the bitmap tracking free/used blocks can easily lead to permanent obliteration of some/all of the data stored.</strong></p>
+<p><strong>Detectability:</strong> This is a sort of problem that might not be trivial to detect, without ad-hoc mitigations.</p>
+<ol>
+<li><strong>EL1 PageTables Integrity</strong>
+The EL1 page tables are relevant not only to safety contexts; far from it.
+However, their integrity is a necessary condition for the integrity of the safety contexts.
+At the very least, one must consider the portion of the page tables which supports safety-relevant mappings.
+Indirectly, though, also the rest of the mappings is relevant, to ensure that a safety-relevant page is not mapped also elsewhere.</li>
+</ol>
+<p><strong>Exposure:</strong> The memory pages comprising the page tables are writable from within EL1 context.</p>
+<p><strong>Effects:</strong> In the best case, corruption won't cause noticeable problems, however it can cause anything from crashes to subtle corruptions, depending on what might cause the interference.
+In the next-best case, the effects will be so massive that they can be detected immediately.</p>
+<p><strong>Detectability:</strong> Also in this case, direct detection is unlikely, and indirect detection is based on the ability of modelling the most probable side effects.</p>
+<ol>
+<li><strong>EL1 PageTables Consistency - Double Mapping Prevention</strong>
+Albeit it could be seen as a sub-case of integrity of the page table, consistency should be considered separately, because it is not a problem of the page tables themselves, but of what information is stored in them, in the first place.
+It consists of the same page being mapped at two or more different addresses, and for different purposes. It can be caused either by a defect in the management of free pages, similar to what described earlier, or by the corruption of the metadata that a page-based memory
+manager maintains for housekeeping purposes.</li>
+</ol>
+<p><strong>Exposure:</strong> A memory page used for safe content - even if mapped as read-only at a certain address - can be mapped as writable (and written!) at another address, completely unrelated.</p>
+<p><strong>Effects:</strong> In the best case, corruption won't cause noticeable problems, however it can cause anything from crashes to subtle corruptions, depending on what might cause the interference.
+In the next-best case, the effects will be so massive that they can be detected immediately.</p>
+<p><strong>Detectability:</strong> Also in this case, direct detection is unlikely, and indirect detection is based on the ability of modelling the most probable side effects.</p>
+<ol>
+<li>
+<p><strong>EL1 Task Execution</strong>
+This represents a host of features that are in charge of juggling tasks; for example:</p>
+</li>
+<li>
+<p>Management of related data structures (tasks and cred structures, stacks, etc).</p>
+</li>
+<li>
+<p>Management of threads; creation, destruction.</p>
+</li>
+<li>
+<p>Work queues.</p>
+</li>
+<li>
+<p>Timers / scheduling.</p>
+</li>
+</ol>
+<p><strong>Exposure:</strong> Any of the features mentioned can be affected by interference, in some form.</p>
+<p><strong>Effects:</strong> Not all the features are equally affected, from a safety perspective.
+For example, the credentials structure is less likely to cause direct problems to safety.</p>
+<p><strong>Detectability:</strong> Provided that the timing constraints for periodic events is known, external monitors can be deployed, to confirm that the task is being executed accordingly to the expected timing constraints.</p>
+<h2 id="terms-and-abbreviations">Terms and Abbreviations</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;">Acronym</th>
+<th style="text-align: center;">Term(s)</th>
+<th>Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;">ASID</td>
+<td style="text-align: center;">Address Space Identifier</td>
+<td>Value set by the kernel and used by the MMU for automatically tagging TLB entries belonging to different contexts. The MMU will use only TLB entries that are tagged with the currently active ASID.</td>
+</tr>
+<tr>
+<td style="text-align: center;">ASILn</td>
+<td style="text-align: center;">Automotive Safety Integrity Level n</td>
+<td>The qualification of integrity used to define in a standardised way a set of properties of a system, in the Automotive industry. They go from ASIL D, more restrictive, to ASIL A, less stringent.</td>
+</tr>
+<tr>
+<td style="text-align: center;">CFI</td>
+<td style="text-align: center;">Control Flow Integrity</td>
+<td>Mechanism used (nowadays in Linux through compiler extensions) to thwart attacks based on Return Oriented Programming or Jump Oriented Programming</td>
+</tr>
+<tr>
+<td style="text-align: center;">Detection</td>
+<td style="text-align: center;"></td>
+<td>This term has a certain meaning in Fusa Context, however here it represents the ability to take notice of an interference affecting a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level.</td>
+</tr>
+<tr>
+<td style="text-align: center;">ELn</td>
+<td style="text-align: center;">Exception Level</td>
+<td>The execution context at which certain code is executed: <br/> n = 0 means what is traditionally used for user-space <br/>n = 1 means what is traditionally used for the kernel <br/>n = 2 means what is traditionally used for the hypervisor <br/> n = 3 means what is traditionally used for the secure mode<br/> (not used in this document)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Exception (ARM definition)</td>
+<td style="text-align: center;"></td>
+<td>Event which has the potential for diverting the execution flow. In ARM parlance, an exception can be either synchronous or asynchronous. <br/><br/><em>Synchronous</em>: an event triggered by the regular execution flow. While it is not always certain that a specific action will result in an exception, it is at least expected that such an event might happen (which is what in Linux is effectively called exception). <br/><br/><em>Asynchronous:</em> an event which is either triggered by a software error (still called exception, in Linux) or by an external hardware component, like either an IRQ, an FIQ or an NMI (in Linux called interrupt, fast interrupt and non maskable interrupt respectively)</td>
+</tr>
+<tr>
+<td style="text-align: center;">Exception (Linux definition)</td>
+<td style="text-align: center;"></td>
+<td>Synchronous transition between execution contexts, from lower to higher privilege, driven by the execution flow.</td>
+</tr>
+<tr>
+<td style="text-align: center;">FFI</td>
+<td style="text-align: center;">Freedom From Interference</td>
+<td>See definition 3.65 from ISO 26262 Part 1 - Vocabulary</td>
+</tr>
+<tr>
+<td style="text-align: center;">FIQ</td>
+<td style="text-align: center;">Fast Interrupt Request</td>
+<td>It's a specialised type of interrupt which, in its hardware implementation, has a more direct path to the CPU, without being routed through as many IP blocks like a regular interrupt, which typically is routed through an interrupt controller. The FIQ is indeed faster, at the cost of occupying one hardware line that could be otherwise used for connecting e.g. an interrupt controller. The associated benefit is reduced latency, for applications where latency is critical.</td>
+</tr>
+<tr>
+<td style="text-align: center;">FuSa</td>
+<td style="text-align: center;">Functional Safety</td>
+<td><em>Functional Safety</em> is the part of the overall safety of a system or piece of equipment that depends on automatic protection operating correctly in response to its inputs or failure in a predictable manner (fail-safe). The automatic protection system should be designed to properly handle likely human errors, systematic errors,hardware failures and operational/environmental stress. <a href="https://en.wikipedia.org/wiki/Functional_safety">Detailed definition.</a></td>
+</tr>
+<tr>
+<td style="text-align: center;">Hazard</td>
+<td style="text-align: center;"></td>
+<td>See definition 3.75 from ISO 26262 Part 1 - Vocabulary</td>
+</tr>
+<tr>
+<td style="text-align: center;">I2C</td>
+<td style="text-align: center;">Inter-Integrated Circuit</td>
+<td>Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively slow peripherals.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Interference</td>
+<td style="text-align: center;"></td>
+<td>See FFI / Freedom From Interference</td>
+</tr>
+<tr>
+<td style="text-align: center;">IPC</td>
+<td style="text-align: center;">Inter Process Communication</td>
+<td>Generic reference to the mechanism (there can be multiple implementations) used by processes to communicate with one another; it can refer to synchronisation primitives, message passing, signalling.</td>
+</tr>
+<tr>
+<td style="text-align: center;">IRQ</td>
+<td style="text-align: center;">Interrupt Request</td>
+<td>Asynchronous transition between execution contexts, usually from lower to higher privilege, but also within same privilege, as long as it is sufficient, driven by the hardware events. It can still be controlled by software, though, if the software has the ability to mask/unmask the fact that a certain interrupt has occurred.</td>
+</tr>
+<tr>
+<td style="text-align: center;">IPA</td>
+<td style="text-align: center;">Intermediate Physical Address</td>
+<td>The address outputted by the first stage translation of the MMU and inputted into the second stage translation.</td>
+</tr>
+<tr>
+<td style="text-align: center;">LTS</td>
+<td style="text-align: center;">Long Term Support</td>
+<td>Special versions of the Linux kernel which are chosen to be the targets for backporting selected (mostly bugfix/security) patches. They are meant to be used for actual products, which might require sticking to a certain "stable" version for long periods of time, with the intent of preventing such products from becoming targets for unpatched vulnerability and exploits.</td>
+</tr>
+<tr>
+<td style="text-align: center;">MMU</td>
+<td style="text-align: center;">Memory Management Unit</td>
+<td>Component inside the SoC that primarily performs translations operations between virtual addresses and intermediate or physical ones, in support of various memory management techniques, like virtual contiguity and on-demand paging.</td>
+</tr>
+<tr>
+<td style="text-align: center;">NMI</td>
+<td style="text-align: center;">Non Maskable Interrupt</td>
+<td>Interrupt line that the CPU cannot ignore by disabling it. Depending on the application, different types of sources can be connected. In safety applications it can be exploited for treating exceptional events which cannot be ignored.</td>
+</tr>
+<tr>
+<td style="text-align: center;">ODD</td>
+<td style="text-align: center;">Operational Design Domain</td>
+<td>A set of operating conditions for an automated system, often used in the field of autonomous vehicles. These operating conditions include environmental, geographical and time of day constraints, traffic and roadway characteristics. The ODD is used by manufacturers to indicate where their product will operate safely.</td>
+</tr>
+<tr>
+<td style="text-align: center;">OS</td>
+<td style="text-align: center;">Operating System</td>
+<td>An operating system (OS) is system software that manages computer hardware and software resources, and provides common services for computer programs.</td>
+</tr>
+<tr>
+<td style="text-align: center;">PA</td>
+<td style="text-align: center;">Physical Address</td>
+<td>The address output to the second stage translation of the MMU, which is placed on the memory bus.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Prevention</td>
+<td style="text-align: center;"></td>
+<td>This term has a certain meaning in Fusa Context, however here it represents the ability either to suppress or to prevent from happening, an interference, so that it doesn’t affect a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level.</td>
+</tr>
+<tr>
+<td style="text-align: center;">QM</td>
+<td style="text-align: center;">Quality Managed</td>
+<td>Refers to the classification of non-ASIL systems, which are still developed according to a set of processes and verification criteria, less restrictive than anything rated ASIL.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Risk</td>
+<td style="text-align: center;"></td>
+<td>See definition 3.128 from ISO 26262 Part 1 - Vocabulary</td>
+</tr>
+<tr>
+<td style="text-align: center;">SILn</td>
+<td style="text-align: center;">Safety Integrity Level</td>
+<td>The qualification of integrity used to define in a standardised way a set of properties of a system, in a wide range of industry fields: aerospace, railways, etc. They go from SIL 4, more restrictive, to SIL 1, less stringent.</td>
+</tr>
+<tr>
+<td style="text-align: center;">SoC</td>
+<td style="text-align: center;">System on a Chip</td>
+<td>The shorthand for the entirety of the HW components that constitute the collective of the cores, busses, and the integrated peripherals.</td>
+</tr>
+<tr>
+<td style="text-align: center;">SPI</td>
+<td style="text-align: center;">Serial Peripheral Interface</td>
+<td>Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively fast peripherals.</td>
+</tr>
+<tr>
+<td style="text-align: center;">TEE</td>
+<td style="text-align: center;">Trusted Execution Environment</td>
+<td>Optional execution mode of ARM cores that creates a separate context where certain features typically related to trusted computing are enabled.</td>
+</tr>
+<tr>
+<td style="text-align: center;">Toolchain</td>
+<td style="text-align: center;"></td>
+<td>The set of software tools that support the generation of executable binary artefacts. The actual content varies, depending on the programming language used for the source code. However, in the Linux case, at minimum it consists of: preprocessor, compiler, assembler, linker. But it is common to have additional utilities, like object files manipulation and debugging.</td>
+</tr>
+<tr>
+<td style="text-align: center;">TLB</td>
+<td style="text-align: center;">Translation Lookaside Buffer</td>
+<td>Cache of address translations present within the MMU, that avoids incurring in the penalty of generating multiple memory accesses, when translating an address that had been translated recently. It also caches information about access permissions, like the read, write and execute permissions.</td>
+</tr>
+<tr>
+<td style="text-align: center;">TZASC</td>
+<td style="text-align: center;">Trust Zone Address Space Controller</td>
+<td>ARM ip block which is controllable from safe mode and allows the configurations of memory zones which are exclusively accessible from a cpu core that is in secure mode.</td>
+</tr>
+<tr>
+<td style="text-align: center;">VA</td>
+<td style="text-align: center;">Virtual Address</td>
+<td>The address in input to the first stage translation of the MMU.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes:</strong>
+-   ARM and Linux attribute different meanings to the term "Exception", but this document will use the Linux one.</p>
+<hr />
+<h2 id="references">References</h2>
+<ol>
+<li>Seminal document by NVIDIA: <a href="contributions/Interference_Scenarios_for_an_ARM64_Linux_System.pdf">Interference_Scenarios_for_an_ARM64_Linux_System.pdf</a></li>
+<li><a href="https://developer.arm.com/documentation/101811/latest">ARM64 Memory Management</a></li>
+<li><a href="https://docs.kernel.org/admin-guide/mm/index.html">Linux Memory Management</a></li>
+<li>
+<p><a href="https://www.iso.org/obp/ui/#iso:std:iso:26262:-1:ed-2:v1:en">ISO 26262 Part 1 - Road Vehicles FuSa Vocabulary</a></p>
+<p><strong>Note:</strong> The Vocabulary refers to Road Vehicles, but the concepts used in the present document utilise terms that are applicable also to other safety contexts.</p>
+</li>
+<li>
+<p><a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0 Deed | Attribution-ShareAlike 4.0 International | Creative Commons License</a></p>
+</li>
+</ol>
+<hr />
+<h2 id="license-cc-by-sa-40"><strong>License: CC BY-SA 4.0</strong></h2>
+<h3 id="deed"><strong>DEED</strong></h3>
+<h3 id="attribution-sharealike-40-international"><strong>Attribution-ShareAlike 4.0 International</strong></h3>
+<p>Full License text: <a href="https://creativecommons.org/licenses/by-sa/4.0/">https://creativecommons.org/licenses/by-sa/4.0/</a></p>
+<p><strong>You are free to:</strong></p>
+<ul>
+<li>
+<p><strong>Share</strong> — copy and redistribute the material in any medium or format for any purpose, even commercially.</p>
+</li>
+<li>
+<p><strong>Adapt</strong> — remix, transform, and build upon the material for any purpose, even commercially.</p>
+</li>
+</ul>
+<p>The licensor cannot revoke these freedoms as long as you follow the license terms.</p>
+<p><strong>Under the following terms:</strong></p>
+<ul>
+<li>
+<p><strong>Attribution</strong> — You must give appropriate credit , provide a link to the license, and indicate if changes were made . You may do so in any reasonable manner, but not in any way that suggests the licensor endorses you or your use.</p>
+</li>
+<li>
+<p><strong>ShareAlike</strong> — If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
+</li>
+<li>
+<p><strong>No additional restrictions</strong> — You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.</p>
+</li>
+</ul>
+<p><strong>Notices:</strong></p>
+<p>You do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation .
+No warranties are given. The license may not give you all of the permissions necessary for your intended use. For example, other rights such as publicity, privacy, or moral rights may limit how you use the material.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "content.code.annotate", "navigation.footer", "navigation.top"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.5cfa9459.min.js"></script>
+      
+    
+  </body>
+</html>
