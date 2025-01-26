@@ -207,12 +207,12 @@ The following section presents a set of statements that can be objectively verif
 #### **Safety-Oriented consideration**
 The following considerations are of a more deductive nature.
 
-1. a process that is supposed to support safety requirements should  not have pages swapped out / dropped / missing,
-   because this would introduce:
-   1. uncertainty in the timing required to recover the content, if not immediately available
-   2. additional risk, involving the userspace paging mechanisms in the fulfilling of the safety requirements
-   3. additional dependency on runtime linking, in case the process requires it, and code pages have been
-      discarded - reloading them from disk will not be sufficient
+1. For a process intended to support safety requirements, having pages swapped out, dropped or missing
+   creates additional risk, because it introduces:
+   1. Uncertainty in the timing required to recover the content, if it is not immediately available.
+   2. Reliance on userspace paging mechanisms for the fulfilment of applicable safety requirements
+   3. Additional dependency on runtime linking: where code pages have been discarded, reloading 
+      them from disk can cause a process to violate its applicable timing requirements.
 2. The optimisations made by the kernel in providing physical backing to process memory make it very
    questionable if it can be assessed when a (part of) a process memory content is actually present in the
    system physical memory.
