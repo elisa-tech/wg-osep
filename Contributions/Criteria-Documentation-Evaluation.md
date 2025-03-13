@@ -2,7 +2,7 @@
 
 | Desirable Property | Explanation |
 | :---- | :---- |
-| Clear | Documents must be unambiguously clear to the intended readers (not to anyone, just to the relevant people) |
+| Clear | Documents must be unambiguously clear to the intended readers (not to anyone, just to the people active on the project) |
 | Comprehensible | A document is comprehensible if the stakeholders and consumers of the document understand its meaning |
 | Detail | Documents must detail complex concepts as a set of elementary measurable concepts |
 | Scale | Documents must specify a scale of measure to define the concept  |
@@ -15,14 +15,21 @@
 | Reproducible | Reproducibility is specifically about what a document is referencing.  When a document describes a project sufficiently that it can be recreated, the document is considered reproducible. |
 | Compliant | A document is compliant when it is being used to satisfy a standard.  The standard can be from a public source, such as IEC or ISO, or it can be a regulation as from a government, such as FMVSS.  |
 | Maintainable | A document is maintainable when it can be modified or extended, e.g. by the introduction of new versions or by adding/removing sections. |
-| Grammatical | A document is grammatical when it is well formed.  The document is in accordance with the productive rules of the grammar of a language.  Because there is variation in what is expected, so the grammatical rules followed for a given document should be specified before the document is created. For example, a requirements document could be specified to conform to the syntactic rules of EARS (Easy Approach to Requirement Syntax.) |
+| Grammatical | A document is grammatical when it is well formed.  The document is in accordance with the productive rules of the grammar of a language.  Because there is variation in what is expected, the grammatical rules followed for a given document should be specified before the document is created. For example, a requirements document could be specified to conform to the syntactic rules of EARS (Easy Approach to Requirement Syntax.) |
 
 ### File metadata
 
 | Metadata | Explanation |
 | :---- | :---- |
 | Major Version | X(.0)  |
-| Minor Version | Example: X(.1 to .6) – Minor version can be an indicator of the maturity of the version X.1 – Initial version 🡪 Send for peer review X.2 – Peer review feedback received 🡪 Mark as X.2, incorporate feedback X.3 – Feedback incorporated 🡪 Mark as X.3, send for expert review X.4 – Expert feedback received 🡪 Mark as X.4, incorporate feedback X.5 – Feedback incorporated 🡪 Mark as X.5, send for acceptance review X.6 – Acceptance review received 🡪 Mark as X.6, incorporate feedback (X+1).0 – Feedback incorporated 🡪 Mark as next Major version (.0), release |
+| Minor Version | Example: X(.1 to .6) – Minor version can be an indicator of the maturity of the version |
+|| X.1 – Initial version 🡪 Send for peer review |
+|| X.2 – Peer review feedback received 🡪 Mark as X.2, incorporate feedback |
+|| X.3 – Feedback incorporated 🡪 Mark as X.3, send for expert review |
+|| X.4 – Expert feedback received 🡪 Mark as X.4, incorporate feedback |
+|| X.5 – Feedback incorporated 🡪 Mark as X.5, send for acceptance review |
+|| X.6 – Acceptance review received 🡪 Mark as X.6, incorporate feedback |
+|| (X+1).0 – Feedback incorporated 🡪 Mark as next Major version (.0), release |
 | ID | GUID? |
 | Status | (See below) |
 
@@ -41,17 +48,17 @@
 | Metadata | Explanation |
 | :---- | :---- |
 | Title | Title of the document |
-| Author | Author of the document Can be multiple authors |
-| Lead Reviewer | Person responsible for reviewing, gathering feedback and providing feedback to the author |
-| Reviewers | Reviewer of the document, should have relevant experience |
-| Date | Date of the current version of the document Note that this can differ from the file date |
+| Author | Author of the document. Can be multiple authors. |
+| Lead Reviewer | Person responsible for reviewing, gathering feedback and providing feedback to the author. |
+| Reviewers | Reviewer of the document, should have relevant experience. |
+| Date | Date of the current version of the document. Note that this can differ from the file date. |
 
 ## Document review process:
 
 Entry Conditions:
 
-* Documents should be numbered either using headings or line numbers enabled for ease of feedback references.
-* Documents should have change tracking enabled
+* An enumeration method (e.g. headings, line numbers, etc.) should be available for ease of review document feedback references.
+* A mechanism should be available for tracking changes to a review document.
 * Author requests the review
   * Author can use the review criteria to determine if the document is mature enough to be reviewed
   * The Author fills out the file metadata
