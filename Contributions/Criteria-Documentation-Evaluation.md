@@ -53,6 +53,16 @@
 | Reviewers | Reviewer of the document, should have relevant experience. |
 | Date | Date of the current version of the document. Note that this can differ from the file date. |
 
+### Review Ratings (Example only)
+
+| Rating | Explanation |
+| :---- | :---- |
+| Critical  | Showstopper, the document is fundamentally incorrect in its current state and should be reworked.  Must be fixed immediately. |
+| Severe | Major problem with the document.  Must be addressed or fixed before the document can be considered for further review. |
+| Minor | Problem with the document, should be corrected, but review can continue. |
+| Observation | Comment from the reviewer to the author about how something might be improved.  Not a problem with the document. |
+| Question | Could be considered as a minor also.  This is a question from the reviewer to the author to elaborate or clarify something that is unclear.  Could also be considered as a violation of the Clear, Comprehensible, or Detail property. |
+
 ## Document review process:
 
 Entry Conditions:
