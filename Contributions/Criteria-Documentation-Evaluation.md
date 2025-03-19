@@ -62,6 +62,7 @@
 | Minor | Problem with the document, should be corrected, but review can continue. |
 | Observation | Comment from the reviewer to the author about how something might be improved.  Not a problem with the document. |
 | Question | Could be considered as a minor also.  This is a question from the reviewer to the author to elaborate or clarify something that is unclear.  Could also be considered as a violation of the Clear, Comprehensible, or Detail property. |
+| Not Applicable | It does not make sense to use this criterion for this evaluation. |
 
 ## Document review process:
 
@@ -77,7 +78,7 @@ Entry Conditions:
 * Reviewers are selected by the review lead
 * Relevant documents are made available
   * Perform review
-    * Violations should be noted as: Critical (C), Severe (S), Minor (M), Observation (O), Question (Q)
+    * Violations should be noted as: Critical (C), Severe (S), Minor (M), Observation (O), Question (Q), Not Applicable (N)
   * Mark feedback according to criteria
   * Feedback should be included as comments unless the change is minor
   * Feedback should be assigned to the author to address
@@ -93,9 +94,21 @@ Exit Condition:
 
 | Review ID | Criterion | Reference | Rating | Comments |
 | :---- | :---- | :---- | :---- | :---- |
-| ID\_01 | Is the document unambiguously clear to the target audience? | Location(s) of the violation of the criterion | C, S, M, O, Q  | Feedback on what the problem is and a suggested correction. |
+| ID\_01 | Is the document unambiguously clear to the target audience? | Location(s) of the violation of the criterion | C, S, M, O, Q, N  | Feedback on what the problem is and a suggested correction. |
 | ID\_02 | Do the stakeholders and consumers of the document understand its meaning? |  |  |  |
 | ID\_03 | Is there sufficient detail? |  |  |  |
 | ID\_04 | Are complex concepts described as measurable elementary concepts? |  |  |  |
 | ID\_05 | Is there a scale defined for any measurable concepts? |  |  |  |
-| ID\_06 | … |  |  |  |
+| ID\_06 | Are there benchmarks defined for any quantitative references? |  |  |  |
+| ID\_07 | Are there targets defined for any quantitative references? |  |  |  |
+| ID\_08 | If there are any performance ratings, does the document specify when those ratings are applicable? |  |  |  |
+| ID\_09 | Does the document sufficiently describe the capabilities and characteristics it is intended to cover? |  |  |  |
+| ID\_10 | Is the document accurate? |  |  |  |
+| ID\_11 | Is the document free from error? |  |  |  |
+| ID\_12 | Does the document contain any contradictions? |  |  |  |
+| ID\_13 | Can all of any assertions in the document be reproduced? |  |  |  |
+| ID\_14 | Are there any hypotheses in the document? |  |  |  |
+| ID\_15 | Does the document specify the project sufficiently such that it can be reproduced? |  |  |  |
+| ID\_16 | Is the document compliant with any applicable standards? |  |  |  |
+| ID\_17 | Is the document organized such that it can be modified or extended? |  |  |  |
+| ID\_18 | Is the document compliant with the intended target language? |  |  |  |
