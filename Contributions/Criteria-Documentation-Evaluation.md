@@ -11,7 +11,7 @@
 | Complete | A complete document is clear without further elaboration because it sufficiently describes the capability and characteristics it is intended to cover. |
 | Correct | A document is correct when it is either free from error or it is accurate. |
 | Consistent | A document is consistent if it contains no contradictions. |
-| Verifiable | A document is verifiable if it is possible to demonstrate that all assertions in the document can be reproduced. There are no hypotheses in the document. The assertions can be verified by either demonstration, observation or review. |
+| Verifiable | A document is verifiable if it is possible to demonstrate that all assertions in the document can be reproduced. There are no unsupported hypotheses in the document. The assertions can be verified by either demonstration, observation or review. Claims or hypotheses must be backed by references to the associated source code or published documentation (ideally in the public domain), with specific, reproducible tests to demonstrate or confirm the claim. |
 | Reproducible | Reproducibility is specifically about what a document is referencing.  When a document describes a project sufficiently that it can be recreated, the document is considered reproducible. |
 | Compliant | A document is compliant when it is being used to satisfy a standard.  The standard can be from a public source, such as IEC or ISO, or it can be a regulation as from a government, such as FMVSS.  |
 | Maintainable | A document is maintainable when it can be modified or extended, e.g. by the introduction of new versions or by adding/removing sections. |
@@ -30,7 +30,7 @@
 || X.5 – Feedback incorporated 🡪 Mark as X.5, send for acceptance review |
 || X.6 – Acceptance review received 🡪 Mark as X.6, incorporate feedback |
 || (X+1).0 – Feedback incorporated 🡪 Mark as next Major version (.0), release |
-| ID | GUID? |
+| ID | UUID |
 | Status | (See below) |
 
 ### Status (Example only)
@@ -111,4 +111,4 @@ Exit Condition:
 | ID\_15 | Does the document specify the project sufficiently such that it can be reproduced? |  |  |  |
 | ID\_16 | Is the document compliant with any applied standards? |  |  |  |
 | ID\_17 | Is the document organized such that it can be modified or extended? |  |  |  |
-| ID\_18 | Is the document compliant with the intended target language? |  |  |  |
+| ID\_18 | Is the document compliant with the applicable rules of syntax or grammar? (e.g. The Trustable Software Framework rules about Statements.) |  |  |  |
