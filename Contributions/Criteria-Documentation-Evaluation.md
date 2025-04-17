@@ -97,7 +97,7 @@ Exit Condition:
 | ID\_01 | Is the document unambiguously clear to the target audience? | Location(s) of the violation of the criterion | C, S, M, O, Q, N  | Feedback on what the problem is and a suggested correction. |
 | ID\_02 | Do the stakeholders and consumers of the document understand its meaning? |  |  |  |
 | ID\_03 | Is there sufficient detail? |  |  |  |
-| ID\_04 | Are complex concepts described as measurable elementary concepts? |  |  |  |
+| ID\_04 | Are complex concepts described as quantifiable elementary concepts? |  |  |  |
 | ID\_05 | Is there a scale defined for any measurable concepts? |  |  |  |
 | ID\_06 | Are there benchmarks defined for any quantitative references? |  |  |  |
 | ID\_07 | Are there targets defined for any quantitative references? |  |  |  |
@@ -107,8 +107,8 @@ Exit Condition:
 | ID\_11 | Is the document free from error? |  |  |  |
 | ID\_12 | Does the document contain any contradictions? |  |  |  |
 | ID\_13 | Can all of any assertions in the document be reproduced? |  |  |  |
-| ID\_14 | Are there any hypotheses in the document? |  |  |  |
+| ID\_14 | Are there any unsupported hypotheses in the document? |  |  |  |
 | ID\_15 | Does the document specify the project sufficiently such that it can be reproduced? |  |  |  |
-| ID\_16 | Is the document compliant with any applicable standards? |  |  |  |
+| ID\_16 | Is the document compliant with any applied standards? |  |  |  |
 | ID\_17 | Is the document organized such that it can be modified or extended? |  |  |  |
 | ID\_18 | Is the document compliant with the intended target language? |  |  |  |
