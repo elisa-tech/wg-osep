@@ -1,4 +1,4 @@
-# Criteria for documentation evaluation
+# Criteria for Open-Source Documentation Evaluation
 
 | Desirable Property | Explanation |
 | :---- | :---- |
@@ -112,3 +112,5 @@ Exit Condition:
 | ID\_16 | Is the document compliant with any applied standards? |  |  |  |
 | ID\_17 | Is the document organized such that it can be modified or extended? |  |  |  |
 | ID\_18 | Is the document compliant with the applicable rules of syntax or grammar? (e.g. The Trustable Software Framework rules about Statements.) |  |  |  |
+
+This work is licensed under CC BY 4.0
