@@ -1,0 +1,995 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://osep.elisa.tech/pull/54/Criteria-Documentation-Evaluation.html">
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+      
+      <link rel="icon" href="images/favicon.ico">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
+    
+    
+      
+        <title>Document Evaluation - ELISA - Open Source Engineering Process</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.732c4fb1.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i%7CFira+Code:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Open Sans";--md-code-font:"Fira Code"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="stylesheets/elisa.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#criteria-for-open-source-documentation-evaluation" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="." title="ELISA - Open Source Engineering Process" class="md-header__button md-logo" aria-label="ELISA - Open Source Engineering Process" data-md-component="logo">
+      
+  <img src="images/elisa-logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ELISA - Open Source Engineering Process
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Document Evaluation
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/elisa-tech/wg-osep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="." title="ELISA - Open Source Engineering Process" class="md-nav__button md-logo" aria-label="ELISA - Open Source Engineering Process" data-md-component="logo">
+      
+  <img src="images/elisa-logo.svg" alt="logo">
+
+    </a>
+    ELISA - Open Source Engineering Process
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/elisa-tech/wg-osep" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://elisa.tech/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ELISA
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://directory.elisa.tech/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Directory
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OSEP
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            OSEP
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Home
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Document Evaluation
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="Criteria-Documentation-Evaluation.html" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Document Evaluation
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#file-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      File metadata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-header-metadata-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      File header metadata (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-ratings-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Ratings (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-review-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document review process:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Checklist
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#file-metadata" class="md-nav__link">
+    <span class="md-ellipsis">
+      File metadata
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#status-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Status (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#file-header-metadata-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      File header metadata (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-ratings-example-only" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Ratings (Example only)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#document-review-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      Document review process:
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-checklist" class="md-nav__link">
+    <span class="md-ellipsis">
+      Review Checklist
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="criteria-for-open-source-documentation-evaluation">Criteria for Open-Source Documentation Evaluation</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Desirable Property</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Clear</td>
+<td style="text-align: left;">Documents must be unambiguously clear to the intended readers (not to anyone, just to the people active on the project)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Comprehensible</td>
+<td style="text-align: left;">A document is comprehensible if the stakeholders and consumers of the document understand its meaning</td>
+</tr>
+<tr>
+<td style="text-align: left;">Detail</td>
+<td style="text-align: left;">Documents must detail complex concepts as a set of elementary measurable concepts</td>
+</tr>
+<tr>
+<td style="text-align: left;">Scale</td>
+<td style="text-align: left;">Documents must specify a scale of measure to define the concept</td>
+</tr>
+<tr>
+<td style="text-align: left;">Quantity</td>
+<td style="text-align: left;">Given a Scale, documents must specify at least two points of reference on the defined ‘Scale’ to define relative terms (e.g. ‘higher’.) These can be called ‘benchmark’ and ‘target’ in the specification.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Qualify</td>
+<td style="text-align: left;">‘Target’ must specify ‘when’ a performance level is available. Other qualifiers such as ‘when’ and ‘if’ should be explicit if not elsewhere specified.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Complete</td>
+<td style="text-align: left;">A complete document is clear without further elaboration because it sufficiently describes the capability and characteristics it is intended to cover.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Correct</td>
+<td style="text-align: left;">A document is correct when it is either free from error or it is accurate.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Consistent</td>
+<td style="text-align: left;">A document is consistent if it contains no contradictions.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Verifiable</td>
+<td style="text-align: left;">A document is verifiable if it is possible to demonstrate that all assertions in the document can be reproduced. There are no unsupported hypotheses in the document. The assertions can be verified by either demonstration, observation or review. Claims or hypotheses must be backed by references to the associated source code or published documentation (ideally in the public domain), with specific, reproducible tests to demonstrate or confirm the claim.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Reproducible</td>
+<td style="text-align: left;">Reproducibility is specifically about what a document is referencing.  When a document describes a project sufficiently that it can be recreated, the document is considered reproducible.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Compliant</td>
+<td style="text-align: left;">A document is compliant when it is being used to satisfy a standard.  The standard can be from a public source, such as IEC or ISO, or it can be a regulation as from a government, such as FMVSS.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Maintainable</td>
+<td style="text-align: left;">A document is maintainable when it can be modified or extended, e.g. by the introduction of new versions or by adding/removing sections.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Grammatical</td>
+<td style="text-align: left;">A document is grammatical when it is well formed.  The document is in accordance with the productive rules of the grammar of a language.  Because there is variation in what is expected, the grammatical rules followed for a given document should be specified before the document is created. For example, a requirements document could be specified to conform to the syntactic rules of EARS (Easy Approach to Requirement Syntax.)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-metadata">File metadata</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metadata</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Major Version</td>
+<td style="text-align: left;">X(.0)</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minor Version</td>
+<td style="text-align: left;">Example: X(.1 to .6) – Minor version can be an indicator of the maturity of the version</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.1 – Initial version 🡪 Send for peer review</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.2 – Peer review feedback received 🡪 Mark as X.2, incorporate feedback</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.3 – Feedback incorporated 🡪 Mark as X.3, send for expert review</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.4 – Expert feedback received 🡪 Mark as X.4, incorporate feedback</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.5 – Feedback incorporated 🡪 Mark as X.5, send for acceptance review</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">X.6 – Acceptance review received 🡪 Mark as X.6, incorporate feedback</td>
+</tr>
+<tr>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">(X+1).0 – Feedback incorporated 🡪 Mark as next Major version (.0), release</td>
+</tr>
+<tr>
+<td style="text-align: left;">ID</td>
+<td style="text-align: left;">UUID</td>
+</tr>
+<tr>
+<td style="text-align: left;">Status</td>
+<td style="text-align: left;">(See below)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="status-example-only">Status (Example only)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Proposed</td>
+</tr>
+<tr>
+<td style="text-align: left;">In Progress</td>
+</tr>
+<tr>
+<td style="text-align: left;">Under Review</td>
+</tr>
+<tr>
+<td style="text-align: left;">Verified</td>
+</tr>
+<tr>
+<td style="text-align: left;">Released</td>
+</tr>
+</tbody>
+</table>
+<h3 id="file-header-metadata-example-only">File header metadata (Example only)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Metadata</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Title</td>
+<td style="text-align: left;">Title of the document</td>
+</tr>
+<tr>
+<td style="text-align: left;">Author</td>
+<td style="text-align: left;">Author of the document. Can be multiple authors.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Lead Reviewer</td>
+<td style="text-align: left;">Person responsible for reviewing, gathering feedback and providing feedback to the author.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Reviewers</td>
+<td style="text-align: left;">Reviewer of the document, should have relevant experience.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Date</td>
+<td style="text-align: left;">Date of the current version of the document. Note that this can differ from the file date.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="review-ratings-example-only">Review Ratings (Example only)</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Rating</th>
+<th style="text-align: left;">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Critical</td>
+<td style="text-align: left;">Showstopper, the document is fundamentally incorrect in its current state and should be reworked.  Must be fixed immediately.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Severe</td>
+<td style="text-align: left;">Major problem with the document.  Must be addressed or fixed before the document can be considered for further review.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Minor</td>
+<td style="text-align: left;">Problem with the document, should be corrected, but review can continue.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Observation</td>
+<td style="text-align: left;">Comment from the reviewer to the author about how something might be improved.  Not a problem with the document.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Question</td>
+<td style="text-align: left;">Could be considered as a minor also.  This is a question from the reviewer to the author to elaborate or clarify something that is unclear.  Could also be considered as a violation of the Clear, Comprehensible, or Detail property.</td>
+</tr>
+<tr>
+<td style="text-align: left;">Not Applicable</td>
+<td style="text-align: left;">It does not make sense to use this criterion for this evaluation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="document-review-process">Document review process:</h2>
+<p>Entry Conditions:</p>
+<ul>
+<li>An enumeration method (e.g. headings, line numbers, etc.) should be available for ease of review document feedback references.</li>
+<li>A mechanism should be available for tracking changes to a review document.</li>
+<li>Author requests the review</li>
+<li>Author can use the review criteria to determine if the document is mature enough to be reviewed</li>
+<li>The Author fills out the file metadata</li>
+<li>The Author fills out the file header metadata</li>
+<li>Review lead is selected from the approved list</li>
+<li>Reviewers are selected by the review lead</li>
+<li>Relevant documents are made available</li>
+<li>Perform review<ul>
+<li>Violations should be noted as: Critical (C), Severe (S), Minor (M), Observation (O), Question (Q), Not Applicable (N)</li>
+</ul>
+</li>
+<li>Mark feedback according to criteria</li>
+<li>Feedback should be included as comments unless the change is minor</li>
+<li>Feedback should be assigned to the author to address</li>
+<li>Note to author:<ul>
+<li>The reviewers are not directing their feedback at you or your ability.  The purpose of this is to find potential bugs and minimize systematic error in the documentation</li>
+</ul>
+</li>
+</ul>
+<p>Exit Condition:</p>
+<ul>
+<li>Fewer remaining major defects per page than the agreed exit standard</li>
+<li>Recommendation is one (1) Severe (or higher) defect per page as an initial exit criterion</li>
+</ul>
+<h2 id="review-checklist">Review Checklist</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Review ID</th>
+<th style="text-align: left;">Criterion</th>
+<th style="text-align: left;">Reference</th>
+<th style="text-align: left;">Rating</th>
+<th style="text-align: left;">Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">ID_01</td>
+<td style="text-align: left;">Is the document unambiguously clear to the target audience?</td>
+<td style="text-align: left;">Location(s) of the violation of the criterion</td>
+<td style="text-align: left;">C, S, M, O, Q, N</td>
+<td style="text-align: left;">Feedback on what the problem is and a suggested correction.</td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_02</td>
+<td style="text-align: left;">Do the stakeholders and consumers of the document understand its meaning?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_03</td>
+<td style="text-align: left;">Is there sufficient detail?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_04</td>
+<td style="text-align: left;">Are complex concepts described as quantifiable elementary concepts?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_05</td>
+<td style="text-align: left;">Is there a scale defined for any measurable concepts?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_06</td>
+<td style="text-align: left;">Are there benchmarks defined for any quantitative references?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_07</td>
+<td style="text-align: left;">Are there targets defined for any quantitative references?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_08</td>
+<td style="text-align: left;">If there are any performance ratings, does the document specify when those ratings are applicable?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_09</td>
+<td style="text-align: left;">Does the document sufficiently describe the capabilities and characteristics it is intended to cover?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_10</td>
+<td style="text-align: left;">Is the document accurate?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_11</td>
+<td style="text-align: left;">Is the document free from error?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_12</td>
+<td style="text-align: left;">Does the document contain any contradictions?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_13</td>
+<td style="text-align: left;">Can all of any assertions in the document be reproduced?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_14</td>
+<td style="text-align: left;">Are there any unsupported hypotheses in the document?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_15</td>
+<td style="text-align: left;">Does the document specify the project sufficiently such that it can be reproduced?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_16</td>
+<td style="text-align: left;">Is the document compliant with any applied standards?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_17</td>
+<td style="text-align: left;">Is the document organized such that it can be modified or extended?</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+<tr>
+<td style="text-align: left;">ID_18</td>
+<td style="text-align: left;">Is the document compliant with the applicable rules of syntax or grammar? (e.g. The Trustable Software Framework rules about Statements.)</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;"></td>
+</tr>
+</tbody>
+</table>
+<p>This work is licensed under CC BY 4.0</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="index.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Home">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Home
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": ".", "features": ["content.code.copy", "content.code.annotate", "navigation.footer", "navigation.top"], "search": "assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="assets/javascripts/bundle.5cfa9459.min.js"></script>
+      
+    
+  </body>
+</html>
