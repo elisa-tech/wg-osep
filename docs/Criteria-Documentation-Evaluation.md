@@ -71,19 +71,19 @@ Entry Conditions:
 * An enumeration method (e.g. headings, line numbers, etc.) should be available for ease of review document feedback references.
 * A mechanism should be available for tracking changes to a review document.
 * Author requests the review
-  * Author can use the review criteria to determine if the document is mature enough to be reviewed
-  * The Author fills out the file metadata
-  * The Author fills out the file header metadata
+    * Author can use the review criteria to determine if the document is mature enough to be reviewed
+    * The Author fills out the file metadata
+    * The Author fills out the file header metadata
 * Review lead is selected from the approved list
 * Reviewers are selected by the review lead
 * Relevant documents are made available
-  * Perform review
-    * Violations should be noted as: Critical (C), Severe (S), Minor (M), Observation (O), Question (Q), Not Applicable (N)
-  * Mark feedback according to criteria
-  * Feedback should be included as comments unless the change is minor
-  * Feedback should be assigned to the author to address
-  * Note to author:
-    * The reviewers are not directing their feedback at you or your ability.  The purpose of this is to find potential bugs and minimize systematic error in the documentation
+    * Perform review
+        * Violations should be noted as: Critical (C), Severe (S), Minor (M), Observation (O), Question (Q), Not Applicable (N)
+    * Mark feedback according to criteria
+    * Feedback should be included as comments unless the change is minor
+    * Feedback should be assigned to the author to address
+    * Note to author:
+        * The reviewers are not directing their feedback at you or your ability.  The purpose of this is to find potential bugs and minimize systematic error in the documentation
 
 Exit Condition:
 
