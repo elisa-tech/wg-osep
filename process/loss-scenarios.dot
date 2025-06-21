@@ -1,0 +1,47 @@
+digraph G {
+node [shape=box width=2 height=1 fontname=arial fontsize=14]
+graph [splines=ortho ranksep=1.5 nodesep=1.2]
+edge [fontname=arial fontsize=14]
+layout=dot; overlap=false; newrank=true; compound=true
+
+disturbc [shape=none width=0 label=""]
+disturbp [shape=none width=0 label=""]
+inputc [shape=none label="" height=0]
+outputc [shape=none label="" height=0]
+subgraph cluster_controller {
+    label="Controller (C)" fontname=arial fontsize=24 margin=10
+    controller [shape=ellipse style=dotted label="Controller\n algorithm\n(CA)"]
+    model [shape=ellipse style=dotted label="Process\nmodel\n(PM)"]
+    }
+subgraph cluster_process {
+    label="Controlled process (P)" fontname=arial fontsize=24 margin=10
+    controlled [label="Process\nbehaviour\n(PB)" style=dotted shape=ellipse]
+    statep [shape=ellipse style=dotted label="Process\nstate\n(PS)"]
+    }
+subgraph cluster_cpath {
+    label="Action path (AP)" fontname=arial fontsize=14 margin=10 color=grey
+    action [shape=ellipse style=dotted label="Control\naction\n(A)"]
+    }
+subgraph cluster_fpath {
+    label="Feedback path (AP)" fontname=arial fontsize=14 margin=10 color=grey
+    feedback [shape=ellipse style=dotted label="Feedback\n(F)\n "]
+    }
+inputp [shape=none label="" height=0]
+outputp [shape=none label="" height=0]
+
+{ rank=same; disturbc; controller; model; }
+{ rank=same; disturbp; controlled; statep; }
+
+inputc -> controller [taillabel="\nController inputs  \n(CI)" lhead=cluster_controller]
+outputc -> model [dir=back taillabel="\nController outputs  \n(CO)" lhead=cluster_controller]
+disturbc -> controller[headlabel="Controller\ndisturbance  \n(CD)" lhead=cluster_controller]
+controller -> action [taillabel="\nIssued action  \n(iA)  " lhead=cluster_cpath ltail=cluster_controller]
+action -> controlled [headlabel="\nReceived action  \n(rA)\n\n" ltail=cluster_cpath lhead=cluster_process]
+model -> feedback [dir=back taillabel="\nReceived feedback  \n(rF)" ltail=cluster_controller lhead=cluster_fpath]
+feedback -> statep [dir=back headlabel="Issued feedback  \n(iF)  \n\n" ltail=cluster_fpath lhead=cluster_process]
+disturbp -> controlled [headlabel="Process\ndisturbance  \n(PD)" lhead=cluster_process]
+statep -> inputp [dir=back taillabel="\nProcess  \ninput(s)\n(PI)" ltail=cluster_process]
+controlled -> outputp [taillabel="\nProcess  \noutputs\n (PO)" ltail=cluster_process]
+controller -> model [dir=both arrowhead=open arrowtail=open style=dotted]
+controlled -> statep [dir=both arrowhead=open arrowtail=open style=dotted]
+}
