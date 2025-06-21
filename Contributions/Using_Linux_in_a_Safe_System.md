@@ -412,6 +412,68 @@ and/or costly.
     of the SoC watchdog toward multiple operating systems, however it
     could go beyond that, and reach higher levels of complexity.
 
+  * **System Decomposition**
+ 
+    The previous points can be leveraged and extended to cases where the
+    safety requirements rely on multiple subsystems, possibly across different
+    software layers.
+    
+    As usual, it is extremely important to assess upfront the requirements
+    for availability.
+
+    A requirement for simply detecting the potential interference can be easier
+    to deal with, than a requirement to ensure continued safety operations,
+    in the presence of interference.
+
+    Leaving aside, for now, considerations about the latter scenario, the former
+    one still carries a need for the detection to happen within a maximum interval,
+    measured from the beginning of the interference.
+
+    With these two requirements in mind:
+    * detecting interference
+    * detecting the interference within a maximum allowed time
+      
+    One can attempt to isolate those subsystems directly involved, and investigate
+    the possibility of periodically validating its continued integrity.
+    
+    Here, the basic concept is that one could be able to provide - periodically -
+    a preset stimuli, and compare the live output of the system with the
+    pre-calculated expected one, that the system should produce, when free from
+    interference.
+    
+    Taking as example an image recognition pipeline, tasked with receiving an input
+    from a sensor and recognising items from a given set (e.g. a speed limit sign),
+    this could be implemented in the following way:
+    * periodically inject a known image, of a specific object(s)
+    * expect that within a given time the system will correctly identify the object(s)
+    
+    Such an approach has the advantage of not requiring any special partitioning of
+    the architecture (e.g. which parts must be implemented as user processes and
+    which parts must be kernel components).
+    
+    However, to work, it must also satisfy several conditions:
+    * the monitoring must happen form a context that is at least of equal ASIL level
+    * the monitoring context must not be affected by the interference it is supposed to detect
+    * the testing must have sufficient coverage for detecting all the relevant types of inteference
+    * the testing must account for any recently collected hystorical data
+      that the system might rely on.
+      (e.g. lighting statistics from past frames might get corrupted and affect
+      the following evaluations, but if they are not part of the periodic self test,
+      this corruption wil lgo unnoticed, because the system tested is different from
+      the system in real use)
+
+    The requirements of the Fault Deteting Time Interval (FTDI) and the intrinsic
+    latency introduced by the mechanism responsible for detecting nterference must
+    be confirmed to be compatible.
+
+    Should it be required to ensure availability, it could be possible to use some
+    form of redundancy, like 2 out of 3 majority, where multiple instances are
+    employed, to create a voting mechanism prior to actually driving any
+    actuator that can have relevance for safety.
+    This works as long as it can be proven that said instances asre sufficiently
+    decoupled to not be victim of the same interference, simultaneously.
+    
+    
 ## **Hardware features are not a replacement for good design**
 
 ***Against stupidity the gods themselves contend in vain.***
