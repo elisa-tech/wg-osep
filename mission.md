@@ -6,25 +6,33 @@ present evidence to support such claims as part of a safety engineering process.
 
 We are interested in two broad classes of claims and evidence:
 
-a) Those relating to development practices for Linux as a whole; for example,
-the peer review process for patches, the testing performed on a kernel stable
-branch when preparing a release, or the testing performed by a system integrator
-for a product that incorporates Linux
+a) Claims relating to *safety features*: specific properties or behaviour of the
+kernel that we propose to rely upon in order to support a safety-related claim
+("why bad things will not happen") for a system incorporating Linux.
 
-b) Those relating to specific properties or behaviour of Linux; for example,
-features that we can enable or disable in a kernel config, the (inferred) design
-of a subsystem, the characteristics of a driver, or tests that can verify
-aspects of a given feature
+b) Those relating to the *safety integrity* of the Linux implementation for the
+features that we propose to rely upon, and its integration as part of our
+target system.
 
-For (b), we will focus on engineering process aspects (construction,
-verification, integration, use and maintenance) relating to the feature or
-property, rather than technical details of its design/implementation.
+For (a), this might include the (inferred) design characteristics of a
+subsystem or driver, or behaviour that we can enable or disable in the kernel
+config. In OSEP, we will focus on sources of evidence to support claims about a
+feature, or techniques for creating and validating this evidence, rather than
+technical details of design or implementation.
 
 In both cases we may examine practices or processes that are undertaken by the
 Linux kernel community, as well as communities or organisations that consume
 Linux (e.g. AGL, LTP), or we may identify practices or processes from other
 sources that might be used by organisations who want to use Linux to build
 systems with safety requirements.
+
+Examples might include: the peer review process for patches, the testing
+performed on a kernel stable branch when preparing a release, or the testing
+performed by a system integrator for a product that incorporates Linux.
+
+We may also extend the scope of our examination for a given claim to include
+other FOSS components of a Linux-based operating system, together with the
+tools used to construct, integrate or verify them.
 
 Planned activities
 ------------------
