@@ -1,0 +1,57 @@
+  :root {
+
+    --elisa-green: #77c046;
+
+    --md-default-fg-color: slategrey;
+    --md-default-bg-color: white;
+
+    --md-primary-fg-color: black;
+    --md-primary-bg-color: var(--elisa-green);
+
+    --md-typeset-a-color: darkgreen;
+    --md-accent-fg-color: var(--elisa-green);
+
+  }
+
+.md-typeset__table {
+  min-width: 100%;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  border: none;
+}
+
+td {
+  background-color: #f0f0f0;
+  margin: 2px;
+}
+
+th {
+  background-color: darkgreen;
+  color: var(--elisa-green);
+}
+
+th:first-child {
+  border-top-left-radius: 10px;
+}
+
+th:last-child {
+  border-top-right-radius: 10px;
+}
+
+.elisa-title-image {
+  width: 50%;
+  float: right;
+  padding-left: 10px;
+}
+
+.md-content__inner.md-typeset:before {
+    content: "DRAFT FROM PR";
+    -webkit-transform: rotate(351deg);
+    -moz-transform: rotate(351deg);
+    -o-transform: rotate(351deg);
+    transform: rotate(351deg);
+    font-size: 10em;
+    color: rgba(255, 5, 5, 0.17);
+  }
