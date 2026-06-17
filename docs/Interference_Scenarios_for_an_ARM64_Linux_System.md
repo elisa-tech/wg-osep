@@ -1,81 +1,6 @@
 # Interference Scenarios for an ARM64 Linux System
 
 
-
-## Index
-
-[Terms and Abbreviations](#Terms-and-Abbreviations)
-
-[References](#References)
-
-[Purpose of the document](#Purpose-of-the-document)
-
-[Structure of the document](#Structure-of-the-document)
-
-[Safety-Relevant System Features](#Safety-Relevant-System-Features)
-
-[Guidance on Safety Analysis and Mitigations](#Guidance-on-Safety-Analysis-and-Mitigations)
-
-[Sources of Interference](#Sources-of-Interference)
-
-[Exposure to Interference](#Exposure-to-Interference)
-
-[License: CC BY-SA 4.0](#License:-CC-BY-SA-4.0)
-
-------------------------------------------------------------------------
-## Terms and Abbreviations
-
-
-| Acronym | Term(s) | Definition | 
-|:-:|:-:|-----------------------|
-| ASID | Address Space Identifier | Value set by the kernel and used by the MMU for           automatically tagging TLB entries belonging to different contexts. The MMU will use only TLB entries that are tagged with the currently active ASID. |
-| ASILn | Automotive Safety Integrity Level n   | The qualification of integrity used to define in a standardised way a set of properties of a system, in the Automotive industry. They go from ASIL D, more restrictive, to ASIL A, less stringent. |
-| CFI | Control Flow Integrity | [Mechanism used (nowadays in Linux through compiler extensions) to thwart attacks based on Return Oriented Programming or Jump Oriented Programming |
-| Detection | | This term has a certain meaning in Fusa Context, however here it represents the ability to take notice of an interference affecting a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level. |
-| ELn | Exception Level | The execution context at which certain code is executed: <br/>  n = 0 means what is traditionally used for user-space <br/>n = 1 means what is traditionally used for the kernel <br/>n = 2 means what is traditionally used for the hypervisor <br/> n = 3 means what is traditionally used for the secure mode<br/> (not used in this document) |
-| Exception (ARM definition) | | Event which has the potential for diverting the execution flow. In ARM parlance, an exception can be  either synchronous or asynchronous. <br/><br/>*Synchronous*: an event triggered by the regular execution flow. While it is not always certain that a specific action will result in an exception, it is at least expected that such an  event might happen (which is what in Linux is effectively called exception). <br/><br/>*Asynchronous:* an event which is either triggered by a software error (still called exception, in Linux) or by an external hardware component, like either an IRQ, an FIQ or an NMI (in Linux called interrupt, fast interrupt and non maskable interrupt respectively) |  
-| Exception (Linux definition) | | Synchronous transition between execution contexts, from lower to higher privilege, driven by the execution flow. |
-| FFI | Freedom From Interference |See definition 3.65 from ISO 26262 Part 1 - Vocabulary |
-| FIQ | Fast Interrupt Request | It's a specialised type of interrupt which, in its hardware implementation, has a more direct path to the CPU, without being routed through  as many IP blocks  like a regular  interrupt, which  typically is routed  through an interrupt  controller. The FIQ is indeed faster, at the cost of occupying one hardware line that could be otherwise used for connecting e.g. an interrupt controller. The associated benefit is reduced latency, for applications where latency is critical.|
-| FuSa | Functional Safety | *Functional Safety* is the part of the overall safety of a system or piece of equipment that depends on automatic protection operating correctly in response to its inputs or failure in a predictable manner (fail-safe). The automatic protection system should be designed to properly handle likely human errors, systematic errors,hardware failures and operational/environmental stress. [Detailed definition.](https://en.wikipedia.org/wiki/Functional_safety) |
-| Hazard |                       | See definition 3.75 from ISO 26262 Part 1 - Vocabulary |
-| I2C | Inter-Integrated Circuit    | Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively slow peripherals.|
-| Interference | | See FFI / Freedom From Interference |
-| IPC | Inter Process Communication | Generic reference to the mechanism (there can be multiple implementations) used by processes to communicate with one another; it can refer to synchronisation primitives, message passing, signalling. |
-| IRQ | Interrupt Request | Asynchronous transition between execution contexts, usually from lower to higher privilege, but also within same privilege, as long as it is sufficient, driven by the hardware events. It can still be controlled by software, though, if the software has the ability to mask/unmask the fact that a certain interrupt has occurred. |
-| IPA | Intermediate Physical Address | The address outputted by the first stage translation of the MMU and inputted into the second stage translation. |
-| LTS | Long Term Support | Special versions of the Linux kernel which are chosen to be the targets for backporting selected (mostly bugfix/security) patches. They are meant to be used for actual products, which might require sticking to a certain "stable" version for long periods of time, with the intent of preventing such products from becoming targets for unpatched vulnerability and exploits. |
-| MMU | Memory Management Unit | Component inside the SoC that primarily performs translations operations between virtual addresses and intermediate or physical ones, in support of various memory management techniques, like virtual contiguity and on-demand paging. |
-| NMI | Non Maskable Interrupt | Interrupt line that the CPU cannot ignore by disabling it. Depending on the application, different types of sources can be connected. In safety applications it can be exploited for treating exceptional events which cannot be ignored.|
-| ODD | Operational Design Domain | A set of operating conditions for an automated system, often used in the field of autonomous vehicles. These operating conditions include environmental, geographical and time of day constraints, traffic and roadway characteristics. The ODD is used by manufacturers to indicate where their product will
-operate safely. |
-| OS | Operating System | An operating system (OS) is system software that manages computer hardware and software resources, and provides common services for computer programs. |
-| PA | Physical Address | The address output to the second stage translation of the MMU, which is placed on the memory bus.|
-| Prevention | | This term has a certain meaning in Fusa Context, however here it represents the ability either to suppress or to prevent from happening, an interference, so that it doesn’t affect a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level.|
-| QM | Quality Managed | Refers to the classification of non-ASIL systems, which are still developed according to a set of processes and verification criteria, less restrictive than anything rated ASIL. |
-| Risk | | See definition 3.128 from ISO 26262 Part 1 - Vocabulary |
-| SILn | Safety Integrity Level | The qualification of integrity used to define in a standardised way a set of properties of a system, in a wide range of industry fields: aerospace, railways, etc. They go from SIL 4, more restrictive, to SIL 1, less stringent. |
-| SoC | System on a Chip | The shorthand for the entirety of the HW components that constitute the collective of the cores, busses, and the integrated peripherals. |
-| SPI | Serial Peripheral Interface | Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively fast peripherals. |
-| TEE | Trusted Execution Environment | Optional execution mode of ARM cores that creates a separate context where certain features typically related to trusted computing are enabled. |
-| Toolchain | | The set of software tools that support the generation of executable binary artefacts. The actual content varies, depending on the programming language used for the source code. However, in the Linux case, at minimum it consists of: preprocessor, compiler, assembler, linker. But it is common to have additional utilities, like object files manipulation and debugging. |
-| TLB | Translation Lookaside Buffer | Cache of address translations present within the MMU, that avoids incurring in the penalty of generating multiple memory accesses, when translating an address that had been translated recently. It also caches information about access permissions, like the read, write and execute permissions.  |
-| TZASC | Trust Zone Address Space Controller | ARM ip block which is controllable from safe mode and allows the configurations of memory zones which are exclusively accessible from a cpu core that is in secure mode. |
-| VA | Virtual Address | The address in input to the first stage translation of the MMU. |
-
-
-**Notes:**
--   ARM and Linux attribute different meanings to the term "Exception", but this document will use the Linux one.
-
-------------------------------------------------------------------------
-
-## References
-1. Seminal document by NVIDIA: ***Interference Scenarios for an ARM64 Linux System.pdf*** 
-2. [ARM64 Memory Management](https://developer.arm.com/documentation/101811/latest)
-3.  [Linux Memory Management](https://docs.kernel.org/admin-guide/mm/index.html)
-4.  [ISO 26262 Part 1 - Road Vehicles FuSa Vocabulary](https://www.iso.org/obp/ui/#iso:std:iso:26262:-1:ed-2:v1:en)<br/>**Note:** The Vocabulary refers to Road Vehicles, but the concepts used in the present document utilise terms that are applicable also to other safety contexts.
-5.  [CC BY-SA 4.0 Deed | Attribution-ShareAlike 4.0 International | Creative Commons](https://creativecommons.org/licenses/by-sa/4.0/) - <https://creativecommons.org/licenses/by-sa/4.0/> License
-
 ## Purpose of the document
 
 This document describes some of the most relevant cases of interference that can happen within the Linux kernel and how they are associated with failure modes.
@@ -86,7 +11,7 @@ These requirements are not only functional, but they also influence related proc
 
 The interference between software components can happen at both different and same safety integrity levels; however, it is expected, as part of the definition of said levels, that each level shall also dictate what considerations can be made about same-level interference between components. And even about self interference.
 
-In practice, a higher safety integrity level assigned to a component implies more rigorous qualification processes. Such higher rigour makes it less likely that it will interfere[ both with itself and with other
+In practice, a higher safety integrity level assigned to a component implies more rigorous qualification processes. Such higher rigour makes it less likely that it will interfere both with itself and with other
 components belonging to the same safety integrity level, than what can be expected from a different component, with lower safety requirements.
 
 However, these considerations rely on the assumption that inter-level interference is managed.
@@ -110,7 +35,7 @@ This document assumes that the Linux kernel can be either considered as a QM art
 
 
 ## Structure of the document
--   The first section[ lists some basic characteristics of the hardware components involved in the safety analysis, and how Linux uses them. It is not meant to be a full explanation, but merely a reference for    the considerations derived in later sections.
+-   The first section lists some basic characteristics of the hardware components involved in the safety analysis, and how Linux uses them. It is not meant to be a full explanation, but merely a reference for the considerations derived in later sections.
     - The first and second subsections focus on the hardware features.
     -  The third subsection describes memory management in Linux.
 - The second section provides considerations that should guide the analysis.
@@ -121,7 +46,7 @@ This document assumes that the Linux kernel can be either considered as a QM art
     ------------------------------------------------------------------------
 
 ## Safety-Relevant System Features
-For the purpose of this document, [the following statements are made with respect to the cores which are treated as part of the primary system. Other cores might be present, each with its own SW stack, that effectively act as smart peripherals, within the SoC or anyways within the package. These are not taken into account in the following chapters, because this very same analysis could be applied iteratively to them.
+For the purpose of this document, the following statements are made with respect to the cores which are treated as part of the primary system. Other cores might be present, each with its own SW stack, that effectively act as smart peripherals, within the SoC or anyways within the package. These are not taken into account in the following chapters, because this very same analysis could be applied iteratively to them.
 What follows is a description of the system under analysis, establishing some key facts and implications deriving from them, which will be useful when analysing failure modes, later on.
 
 ### SoC, Cores and Exception Levels
@@ -155,32 +80,32 @@ However, some peripherals might be (more) tightly coupled with certain cores tha
     1. EL0, user-space
     2. EL1, operating system, typically has higher privileges than EL0
     3. EL2, hypervisor, typically has higher privileges than EL1
-    4. EL3, monitor mode, also known as secure mode[, the highest privilege mode. Its presence is discretionary and the decision is left to the hardware designer.
+    4. EL3, monitor mode, also known as secure mode, the highest privilege mode. Its presence is discretionary and the decision is left to the hardware designer.
 
        In ARM parlance, the secure mode is called Trust Zone, and it was designed for enabling the execution of a Trusted Execution Environment.
-       
-       When the security extensions are present[, it introduces alternate versions of the previous exception levels, called Secure-ELn or S-ELn. And together they go under the moniker "Secure World", as opposed to the others, which are treated as Non-Secure.]{.c2}
-       
+
+       When the security extensions are present, it introduces alternate versions of the previous exception levels, called Secure-ELn or S-ELn. And together they go under the moniker "Secure World", as opposed to the others, which are treated as Non-Secure.
+
        The presence of an EL3 does not automatically imply the existence of all the S-ELn levels - the ARM specifications define many features as optional.
-       
+
        If present, these secure world exception levels have their own separate set of system registers and they have access privilege over the non secure world. More on this later.
 
 8. Transitions between exception levels are either exceptions or interrupts.
 
 9. The instruction set includes means for an exception level to directly transition the flow of execution to a higher level (which will have its own handler, to process the invocation).
-   1.   The invocation of EL1 services is a SVC (system call).
-   2. [The invocation of EL2 service is an HVC (hypervisor call).
+   1. The invocation of EL1 services is a SVC (system call).
+   2. The invocation of EL2 service is an HVC (hypervisor call).
    3. The invocation of EL3 services is an SMC (secure mode call).
 
-10. Exceptions are serviced through dedicated stacks, while interrupts are serviced using the stack currently [in use on the core receiving the signal at the time the interrupt is handled.
+10. Exceptions are serviced through dedicated stacks, while interrupts are serviced using the stack currently in use on the core receiving the signal at the time the interrupt is handled.
 
 11. While there may be custom deviations in some specific implementations, the typical (very simplified) boot sequence places the core first in EL3, to guarantee that the system state is not affected by any other software that might be running from a less trusted context.
 
-    The EL3 can then proceed to initialise[ hardware peripherals,
+    The EL3 can then proceed to initialise hardware peripherals,
 load/validate/execute programs at lower level of trust and so on.
 
 ### Memory accesses and the TZASC
-1. The TrustZone Address Space Controller acts like a firewall on the memory bus, preventing a core that is not in secure mode from accessing any of the memory zones that have been configured as    secure-only.
+1. The TrustZone Address Space Controller acts like a firewall on the memory bus, preventing a core that is not in secure mode from accessing any of the memory zones that have been configured as secure-only.
 
    The configuration is possible only from secure-mode.
 
@@ -232,9 +157,9 @@ However, at boot, prior to initialising the second stage address translation, it
 
     4. However, if present and active, the second stage translation takes place also for addresses originating from EL0 and EL1; in this case it's the IPA to be converted to PA.
 
-11. The operation of translating from one address space to another is performed by the MMU, by using the starting address to navigate the associated tree of page tables, starting from the root (Page Global    Directory - PGD) and ending with a leaf (PTE - Page Table Entry)
+11. The operation of translating from one address space to another is performed by the MMU, by using the starting address to navigate the associated tree of page tables, starting from the root (Page Global Directory - PGD) and ending with a leaf (PTE - Page Table Entry)
 
-12. The MMU can be configured to use different page sizes, trading granularity for TLB optimisation. Sizes supported are  4kB, 16kB and 64kB, with 4kB being the typical choice.
+12. The MMU can be configured to use different page sizes, trading granularity for TLB optimisation. Sizes supported are 4kB, 16kB and 64kB, with 4kB being the typical choice.
 
 13. The page table can be up to 4 levels deep:
     1.  Page Global Directory (PGD)
@@ -242,15 +167,15 @@ While the non secure world does not have any particular constraint, the secure w
 
     2. Page Upper Directory (PUD)
 
-    3.  Page Middle Directory (PMD)
+    3. Page Middle Directory (PMD)
 
-    4.  Page Table Entry (PTE)
+    4. Page Table Entry (PTE)
 
 14. Each level is composed of pointers to the next level - the pointers are the addresses of the pages of the next level.
 Pointers are already translated.
 
 
-15.  To optimise[ the use of the TLB, it is possible to turn a branch into a leaf node representing the underlying destination range, provided that it is contiguous and aligned.
+15. To optimise the use of the TLB, it is possible to turn a branch into a leaf node representing the underlying destination range, provided that it is contiguous and aligned.
 
 16. The page tables also implement translation attributes, like the 'executable' property for code pages and write protection for read-only data.
 
@@ -260,21 +185,21 @@ Pointers are already translated.
 
 19. Performing a translation is an expensive operation, because the MMU needs to generate various memory accesses, navigating the page table tree.
 
-20. Translations are not always successful; for example an address might not have a backing memory page, or an operation might be incompatible with the property associated with the memory location     involved (ex: writing to a read-only page).
+20. Translations are not always successful; for example an address might not have a backing memory page, or an operation might be incompatible with the property associated with the memory location involved (ex: writing to a read-only page).
 These events trigger exceptions, which are expected to be handled by the operating system.
 
 21. To mitigate the cost of a memory translation, each stage of the MMU implements a cache (TLB - Translation Lookaside Buffer) which can be implemented in various ways, however it always caches not just the translations, but also their associated properties, like write and execute permissions.
 
-22. Because of the caching, changes to a page table might not be visible, if a previous, different, translation is already present in the cache, and therefore the cache might need to be invalidated,     prior to relying on the updated translation rules.
+22. Because of the caching, changes to a page table might not be visible, if a previous, different, translation is already present in the cache, and therefore the cache might need to be invalidated, prior to relying on the updated translation rules.
 
-23. In EL1, the MMU supports having 2 [sets of page tables programmed with different base addresses at the same time, for converting virtual to intermediate physical addresses, TTBR0_EL1 and TTBR1_EL1.
+23. In EL1, the MMU supports having 2 sets of page tables programmed with different base addresses at the same time, for converting virtual to intermediate physical addresses, TTBR0_EL1 and TTBR1_EL1.
 
 24. Each core supports having its own set of MMU page tables, as described above, independent from others, with independent TLBs that can also be maintained independently.
 
 25. The mapping mechanism is such that, at any translation stage, multiple source addresses can land on the same destination address.
 In a few cases this is the intended behaviour, and usually it has a transient nature, but in general it is unwanted.
 
-26. Since the mapping properties are associated[ with the source address, the same destination address can be accessed with different properties.
+26. Since the mapping properties are associated with the source address, the same destination address can be accessed with different properties.
 
 27. The operating system executing in EL1 can manipulate both the core registers and the page tables used for EL0 so that multiple user-space programs can be run in time sharing on that core, without being aware of each other.
 
@@ -282,7 +207,7 @@ In a few cases this is the intended behaviour, and usually it has a transient na
 
 29. Because performing page tables walks is expensive, and a suspended context (be it either in EL0 or in EL1) will resume in the same state it had when suspended, instead of allowing fully replacing of the TLB entries, it can be more effective to preserve them across context changes, as long as they are temporarily disabled.
 For this purpose, it is possible to automatically tag TLB entries of the suspended context, as they are generated, by using the ASID, which is programmed as contexts are activated.
-Each context is associated with an unique ASID and the MMU will ignore TLB entries tagged with an ASID[ that is different from the active one.
+Each context is associated with an unique ASID and the MMU will ignore TLB entries tagged with an ASID that is different from the active one.
 
 30. Similarly, the EL2 TLB entries support VMIDs for tagging cached translations, obtained from different sets of page tables associated with either different VMs or with the hypervisor itself.
 
@@ -328,24 +253,24 @@ When such an address is accessed, an exception is triggered and the exception ha
 
 14. Kernel memory is not swappable: the kernel has no underlying mechanism that would alter EL1 memory allocations, moving them to disk or dropping them (if they are read-only pages).
 
-    1.  Memory compaction is a partial exception: it works on virtually linear memory allocations, changing the underlying mapping, so that it can carve out larger chunks of contiguous physical memory, which is particularly prized in special use cases (e.g. allocating a large buffer for either a peripheral device or a DMA controller that supports only direct physical memory accesses).
+    1. Memory compaction is a partial exception: it works on virtually linear memory allocations, changing the underlying mapping, so that it can carve out larger chunks of contiguous physical memory, which is particularly prized in special use cases (e.g. allocating a large buffer for either a peripheral device or a DMA controller that supports only direct physical memory accesses).
 
     2. An underlying hypervisor could swap out either part or an entire VM, but that would not be controllable by the operating system (unless the hypervisor elected to let it have a say about it).
 
-15. Almost all the memory the kernel sees as physical, which in reality corresponds to the IPA, is also mapped as VA, and it is referred to as "linear mapping", because it is mapped as contiguous in the VA     space as it is in the IPA space.
+15. Almost all the memory the kernel sees as physical, which in reality corresponds to the IPA, is also mapped as VA, and it is referred to as "linear mapping", because it is mapped as contiguous in the VA space as it is in the IPA space.
 
 16. Linux also supports HIGHMEM, which is physical memory that is not directly accessible by the kernel through the linear map. It is something that mostly impacts 32-bit systems, where physical memory can easily go beyond the size of the address space.
 In fact, usually, not even all the physical lines of the address bus are wired, because they would not be necessary.
 But certain choices of system design might make HIGHMEM necessary even in real life for ARM64, for example if it was decided to have a flatter page table with fewer levels.
 To manage high mem, the kernel is forced to create temporary mapping every time it needs to access a page belonging to high mem, because there would not be any readily available corresponding address. And the mapping would then have to be torn down, once the access is concluded.
 
-17. The free pages allocator picks free pages straight from the way they are represented in the linear mappings, operating on larger orders, and chopping and dicing large-order chunks to satisfy the     requests received.
+17. The free pages allocator picks free pages straight from the way they are represented in the linear mappings, operating on larger orders, and chopping and dicing large-order chunks to satisfy the requests received.
 
 18. The slub allocator obtains memory from the get_free_pages one, and then uses various mechanisms to further dice the pages, providing sub-page granularity, if needed. Furthermore, it also supports additional optimizations in the reuse of previous allocations, like the ability to support locality in a NUMA system.
 
-19. The virtual memory allocator is capable of providing large amounts of virtually contiguous memory, provided that there are sufficient (even non-contiguous) pages available. The allocator will create     alternate contiguous mappings, to make them all appear as if they were contiguous.
+19. The virtual memory allocator is capable of providing large amounts of virtually contiguous memory, provided that there are sufficient (even non-contiguous) pages available. The allocator will create alternate contiguous mappings, to make them all appear as if they were contiguous.
 
-20. Contiguous virtual memory allocations[ for both EL0 and EL1 are fundamentally identical, in the way they are performed, differing only in the chosen address range, which needs to be compatible for the receiving exception level.
+20. Contiguous virtual memory allocations for both EL0 and EL1 are fundamentally identical, in the way they are performed, differing only in the chosen address range, which needs to be compatible for the receiving exception level.
 EL0 mappings are also subject to active manipulation, due to on-demand paging and page eviction, driven by a need to provide addressable memory to other requestors.
 More in details:
 
@@ -370,7 +295,7 @@ When the exception is handled, it creates a local, writable, replica of the page
 
 22. Pure kernel threads are executed in EL1 context, while the user processes are primarily executed in EL0 context. However, sometimes user processes need to transition to executing in kernel/EL1 mode, when the operations they require are limited to be executed in EL1 mode.
 This is implemented through syscalls, which are a way for EL0 to invoke an handler in EL1.
-The execution in EL0 relies on a call stack which is mapped in EL0, however a separate call stack is used when running in EL1 mode, due to the different page table[ in use.
+The execution in EL0 relies on a call stack which is mapped in EL0, however a separate call stack is used when running in EL1 mode, due to the different page table in use.
 The syscall will execute a specific service, as requested by EL0, and then return the execution to EL0 mode, once there is no further need of EL1 privileges.
 
 ### Guidance on Safety Analysis and Mitigations
@@ -390,14 +315,14 @@ The documenting aspect is particularly important in building the argumentation.
 Provided that all the changes are documented and proven to not introduce relevant alterations, the "proven in use" argumentation can provide exemption from more rigorous work.
 
    - "Tested": a testing campaign is created, to generate sufficient evidence that the software operates as desired, empirically.
-It can be seen as an alternative to "proven in use", when lacking sufficient  historical evidence.
+It can be seen as an alternative to "proven in use", when lacking sufficient historical evidence.
 
    The following considerations are related to these empirical argumentation and the associated limitations.
 Even if "proven in use" and "tested" are different approaches, they are both exposed to variations in the conditions under which data is gathered, which tend to lead to comparable considerations.
    1. Empirical data collected from extensive utilisation must prove to be relevant to the case at hand.
     From this point of view, extensive utilisation in the field can be seen as equivalent to execution of a campaign of particularly well focused testing.
 
-   2. In order to leverage the results of empirical data, it must be proven that it is representative of the actual operating conditions[ that will be found in real life, during the utilisation of the product in the field.
+   2. In order to leverage the results of empirical data, it must be proven that it is representative of the actual operating conditions that will be found in real life, during the utilisation of the product in the field.
 
    3. In the case of historical data, it is necessary for the use case(s) that were leveraged to collect said data, to be also compatible with the intended new use, having similar fields of application and use cases.
 
@@ -422,7 +347,7 @@ For example, a new version of a product might have additional applications, or t
 Or the Linux system might be running as one of the partitions managed by an hypervisor, and the other partitions would alter their behaviour, without the hypervisor enforcing any form of capping.
 
       2. **Memory layout:**
-Changes to the order that data and code appear[ in memory can expose different components to never-detected-before defects.
+Changes to the order that data and code appear in memory can expose different components to never-detected-before defects.
 For example:
          1. Changes to the layout used by the linker
          2. Changes to the sizes of buffers from old to new builds
@@ -469,7 +394,7 @@ field-testing situation. And it would be anyways yet another equivalence that wo
       2. For each system-level use case to be ignored, provide evidence that the use case cannot cause interference, under any circumstances that are expected to be met during intended use. This requirement means that **it is not acceptable to omit a use case without having analysed it, and proven that it is acceptable to omit it.**
 
       3. For each system-level use case to be considered, document if anything has been omitted from the testing plan in any capacity, and prove that they are acceptable from the perspective of safety analysis.
-This refers to, for example, testing only for sub-ranges of certain parameters, or ruling out that one phenomenon might affect another,[ thus avoiding the test of combinations/permutations of parameters belonging to different subsystems ("equivalence classes", in ISO26262 parlance), for the sake of reducing time/cost associated with testing.
+This refers to, for example, testing only for sub-ranges of certain parameters, or ruling out that one phenomenon might affect another, thus avoiding the test of combinations/permutations of parameters belonging to different subsystems ("equivalence classes", in ISO26262 parlance), for the sake of reducing time/cost associated with testing.
 
       4. For the remaining scenarios, prove that all the permutations of the relevant operating parameters have been exerted sufficiently (and justify what is deemed to be sufficient).
 This is called, in the world of Functional Safety "Input triggers Space".
@@ -501,7 +426,7 @@ For example, using canary values on the call stack can probably be sufficiently 
 unlikely that it can be corrected through the use of the canary values.
 
 3. Even by allowing the definition of protections to be broadened to include what is in fact detection, it needs to be rooted into a simple, easy to both prove and verify, mechanism.
-For example, a self-test diagnostic capable of detecting spatial interference in a certain component, by running  periodically and/or in event-driven mode, is still exposed to interference and it might not be
+For example, a self-test diagnostic capable of detecting spatial interference in a certain component, by running periodically and/or in event-driven mode, is still exposed to interference and it might not be
 easy to prove that such interference can at the very least be detected.
 However, by pairing it with a simpler mechanism, like a watchdog, then it can become easier to make claims about detecting the interference, because the detector can be designed in a way to fail to ping the watchdog, in case of its own corruption.
 
@@ -519,10 +444,10 @@ proof that a countermeasure is not necessary.
 The burden of proof about completeness and effectiveness is on whoever might choose this path.
 
 ### Statistical considerations
-1. In the light of previous observations, about hard barriers vs deductive argumentation and defect density, one should also consider the chances that a certain component might generate interference     (which depend also on its size and complexity) vs the frequency said component is exerted (assuming a periodic or quasi-periodic invocation).
+1. In the light of previous observations, about hard barriers vs deductive argumentation and defect density, one should also consider the chances that a certain component might generate interference (which depend also on its size and complexity) vs the frequency said component is exerted (assuming a periodic or quasi-periodic invocation).
 
-2. This leads to a qualitative evaluation of which components are more likely to cause interference and [therefore deserve additional analysis, from multiple perspectives: complexity, frequency of execution, types of operations performed, detectability of interference it might generate, delays in the detection, etc.
-This is not a small task, but it is critical in understanding the price to pay for utilising the inductive method, and [failing to do so will introduce the risk of having a system that both lacks physical barriers and has not been properly analysed.
+2. This leads to a qualitative evaluation of which components are more likely to cause interference and therefore deserve additional analysis, from multiple perspectives: complexity, frequency of execution, types of operations performed, detectability of interference it might generate, delays in the detection, etc.
+This is not a small task, but it is critical in understanding the price to pay for utilising the inductive method, and failing to do so will introduce the risk of having a system that both lacks physical barriers and has not been properly analysed.
 There is also a feasibility problem: linux is ever evolving and there is no official bug tracking system. At most some 3rd party might keep track of defects related to security and vulnerability, however that is far from being the full picture.
 One might be tempted to use mathematical models that attempt to model the software in terms of bug density, severity, etc. and use said model to predict the probability of interference from a certain component.
 While this approach might work with components that are fully owned by a single organisation / entity and tracked appropriately to support said approach, it is very easy to see how the concept would fall apart, when applied to Linux.
@@ -547,6 +472,16 @@ This is perfectly fine from the perspective of containing user-space, however, s
 frequency execution of a large amount of code which can cause either direct or indirect interference.
 And such interference is not always detectable, depending on which component it might affect.
 
+These features are usually enabled in a mixed criticality scenario, when attempting to contain interference.
+The choice of enabling them, despite the associated risk, might be driven by overall considerations about choosing the lesser evil.
+Of course one could attemtp to qualify them, but then it is necessary to consider the fact that in reality it is necessary to qualify them together with the user-space-provided policies they will enact.
+Without being configured by user-space, neither SELinux nor cgroups are of any particular use.
+
+An alternative - possibly more costly - path could be to instead isolate more safety-relevant loads from non-safety-relevant ones, introducing a second virtual machine, with a hypervisor underneath.
+The caveat is that now the hypervisor can be a source of interference. And it is also necessary to have HW capable to support an EL2.
+It can be an interesting alternative, though, if using a Type1 hypervisor (like Xen), because it is relatively simple in comparison to qualifying the Linux code.
+
+
 ## Sources of Interference
 It is useful to model the most probable causes for spatial interference, even if not exhaustively.
 
@@ -557,9 +492,9 @@ In other cases, should the previous assumption not be true, each HW component mu
 
 ### **DMA-capable entities**
 
-   Those components which sidestep the MMU-enforced memory protection, by generating  write operations on the memory bus through other bus-master devices than the MMU.
+   Those components which sidestep the MMU-enforced memory protection, by generating write operations on the memory bus through other bus-master devices than the MMU.
 
-   The catch here is that, even if such access is performed by a separate DMA controller, the  programming and triggering of the write operation is performed by a device driver that is exposed to interference and can therefore cascade it (through either mis-configuration or mis-operation
+   The catch here is that, even if such access is performed by a separate DMA controller, the programming and triggering of the write operation is performed by a device driver that is exposed to interference and can therefore cascade it (through either mis-configuration or mis-operation
 of the DMA controller).
 
    **Causes:** The interference is possible because it originates from a component that is architecturally capable of generating it, but said component was not assigned sufficiently high safety requirements, that would account for such possibility. Nor a mechanism is in place to manage the interference.
@@ -587,7 +522,7 @@ levels.
    -  Races
 Possibly a specialised case of the previous point, it is a type of fault which can emerge from missing to consider all the possible execution paths, especially when factoring-in unrelated asynchronous and
 synchronous events, caused by memory pressure, I/O, task migration, underlying presence of other partitions managed by an hypervisor, etc.
-All of this can contribute to diverging from the expected (and intended) execution flow[, if concurrence was not taken into account properly.
+All of this can contribute to diverging from the expected (and intended) execution flow, if concurrence was not taken into account properly.
 
    - Use-after-free
 This is a source of interference that can be hard to detect in a subset of cases.
@@ -602,7 +537,7 @@ A write operation will cause an interference that can affect any other component
    **Mitigation:** Detection needs to rely on indirect effects that are not guaranteed to be noticed. A micro kernel would deal with this problem through MMU-enforced isolation, but Linux is a monolithic kernel and cannot do that.
 
 ### **Partitioning of hardware components between different safety integrity levels: constraints and limitations**
-This type of interference could be seen as a design flaw, but in practice one might not be able to implement as much hardware partitioning as the ideal case  would require.
+This type of interference could be seen as a design flaw, but in practice one might not be able to implement as much hardware partitioning as the ideal case would require.
 The typical example is a shared hardware resource, for example a bus controller like I2C or SPI, where multiple external peripherals might be connected, and only some of them would belong to a safety scenario at a certain safety integrity level, while others would be at a lower safety integrity level.
 Another common example could be an interrupt controller with shared lines.
 
@@ -612,7 +547,7 @@ interfering with a channel assigned to a different peripheral) or hog it to the 
    **Effects:** Higher safety components depending on the shared resource might be unable to use it as intended, being starved, or their use might be disrupted in other ways, either corrupting the state of the
 shared device or of other components that are proxied by the shared device.
 
-   **Detectability/Mitigation:** As long as it is possible to set expectations about the temporal evolution of the systems whose safety is being analysed[, it might be possible to rely on a timeout-based detection system, however, purely asynchronous events, like a safety-relevant peripheral attempting to request servicing through an interrupt, could go completely unnoticed.
+   **Detectability/Mitigation:** As long as it is possible to set expectations about the temporal evolution of the systems whose safety is being analysed, it might be possible to rely on a timeout-based detection system, however, purely asynchronous events, like a safety-relevant peripheral attempting to request servicing through an interrupt, could go completely unnoticed.
 
 ### **System libraries**
 The Linux kernel provides a large number of libraries implementing basic functions, both specific to an operating system and others that replace what would be part of the compiler libraries. In Linux the
@@ -645,7 +580,7 @@ Even the outcome of the evaluation is subordinate to the requirements set ad-hoc
 ### Fundamental Considerations
 Nevertheless, it is possible to conjure some considerations that will apply to any analysis of a system based on Linux, even if they will lead to conclusions which are specific to certain use-cases.
 
-1. No matter how a system might be partitioned for facilitating its analysis, the only true boundaries to interference are those enforced [by either the MMU or some other, equivalent, HW component (e.g. a HW Memory Firewall), defining a memory context.
+1. No matter how a system might be partitioned for facilitating its analysis, the only true boundaries to interference are those enforced by either the MMU or some other, equivalent, HW component (e.g. a HW Memory Firewall), defining a memory context.
 Other methods might give the illusion of providing partitioning, but it rapidly becomes even harder to prove their correctness.
 Formal verification might be tempting, but it would not be practical, when applied to a complex OS that was not designed from the ground up for it, not to mention the fact that - lacking any control whatsoever on the OS release process, and the content of said releases, it becomes hopelessly unpredictable to anticipate the amount of work required for refreshing the verification on new OS releases.
 Chosen a target for interference, there are several ways the interference might happen:
@@ -658,7 +593,7 @@ Chosen a target for interference, there are several ways the interference might 
 
    **The latter is particularly troublesome, because, lacking hard boundaries, anything can interfere with anything else.**
 
-   As long as the target for interference is exposed to other components which have the same or higher safety integrity level[, the exposure is acceptable, even if not desirable.
+   As long as the target for interference is exposed to other components which have the same or higher safety integrity level, the exposure is acceptable, even if not desirable.
 
    However it is normally the case that different components have different qualifications.
 
@@ -673,7 +608,7 @@ Security updates are a perfect example of a situation where, even in presence of
 
 3. Risking to state the obvious, there is one exception to having HW-enforced partitioning: **time-enforced partitioning.**
 
-   If it can be proven that a certain component will [cease operations past a well established watershed moment, then it is possible to consider that time boundary as an effective isolation.
+   If it can be proven that a certain component will cease operations past a well established watershed moment, then it is possible to consider that time boundary as an effective isolation.
 
    However, it is still necessary to prove that, after the aforementioned watershed, no interference has been found, which makes this argumentation far less trivial to implement than it might appear.
 
@@ -682,7 +617,7 @@ Security updates are a perfect example of a situation where, even in presence of
    Other operations might equally benefit from a similar argumentation, provided that it can be proven that:
    - They are employed only during init.
    - Their effect can be verified right after init has completed.
- 
+
 4. Every subsystem relies on memory, allocated in various ways, to manage its internal states.
 The internal states of any subsystem are exposed to potential interference from any other code that happens to be executed within the same memory map.
 
@@ -712,15 +647,15 @@ Similarly, on another system, there might be a relatively small amount of data t
 
 7. The requirements will affect as well what sort of mitigation might be necessary.
 For example, minimal or no mitigation might be required, if the only goal is to detect interference in selected subsystems and prevent effects from spreading in an uncontrolled fashion.
-However, if it is required to ensure a set level of availability, pure detection might not be an option, and prevention[ would become necessary, with all the associated implications.
+However, if it is required to ensure a set level of availability, pure detection might not be an option, and prevention would become necessary, with all the associated implications.
 
 8. When dealing with interference, it boils down to two options:
-(**Note:** FuSA and FMEA jargon assign very specific meanings to the words below, when referring to failure modes. However, in this document, they are used with regard to the interference that might     introduce a failure mode, and therefore these words are to be intended exclusively with their plain meaning from the English vocabulary. See also their definitions in the section *Terms and
+(**Note:** FuSA and FMEA jargon assign very specific meanings to the words below, when referring to failure modes. However, in this document, they are used with regard to the interference that might introduce a failure mode, and therefore these words are to be intended exclusively with their plain meaning from the English vocabulary. See also their definitions in the section *Terms and
     Abbreviations*.
 
    1. **Prevention (of an interference)**
     The act of denying a potential interference the possibility of actually manifesting itself.
-Prevention is harder to implement, but it ensures that the relevant context will not be compromised, and thus doesn't come with a timing constraint, [enabling higher levels of availability.
+Prevention is harder to implement, but it ensures that the relevant context will not be compromised, and thus doesn't come with a timing constraint, enabling higher levels of availability.
 
     2. **Detection (of an interference)**
     The act of identifying an interference that has already happened, either directly or indirectly.
@@ -747,7 +682,7 @@ But in case that was not possible, then there is a risk of interference, for any
    **Effects:** The effects are specific to each individual component, however a lack of confidence that the system is within safe operating margins even before it begins active operations would void any further assumption about its continued safety.
 
    **Detectability:** This is the base-line level of detection, that a component with an allocation of safety requirements is still safe according to its intended safety integrity level, at the very beginning of operations. It should always be possible to do so.
-Were it not possible, then it becomes questionable how it can be proven, later on, that it  is still operating according to its safety requirements.
+Were it not possible, then it becomes questionable how it can be proven, later on, that it is still operating according to its safety requirements.
 
 2. **EL1 system registers**
 Not all system registers are equal, some have special purposes that can deeply affect the flow of execution.
@@ -757,7 +692,7 @@ Depending on the register type, they might be more or less exposed to interferen
 
    - Registers encoded within instructions are less likely to be accidentally accessed.
 
-   - Registers that are memory mapped in a parametric way are more     exposed to risks of interference (this is an ARM-specific problem: as a counter example, x86 uses special instructions for these sorts     of registers and therefore they do not belong to the same space as regular memory).
+   - Registers that are memory mapped in a parametric way are more exposed to risks of interference (this is an ARM-specific problem: as a counter example, x86 uses special instructions for these sorts of registers and therefore they do not belong to the same space as regular memory).
 
    **Effects:** This is not possible to be generalised, because each type of register can lead to different effects, if exposed to interference.
 Obviously, those related to control flow have a bigger potential to lead to unsafe behaviour.
@@ -817,7 +752,7 @@ Conceptually similar to the previous point, however possibly subject to a differ
 
    **Effects:** Data exchange between user processes can be corrupted.
 
-   **Detectability:** Processes can implement some form of checksumming for detecting corruption. This can become burdensome for them. 
+   **Detectability:** Processes can implement some form of checksumming for detecting corruption. This can become burdensome for them.
 
 6. **EL1 Memory Managers - Buddy Allocator - get_free_pages()**
 
@@ -846,13 +781,13 @@ This would cause the pages to be overwritten, with a wide spectrum of possible o
 
    It is not sufficient to prove at runtime that safety-relevant allocations have happened in a successful way (for example doing them at init and verifying post-init that they were correct), because:
 
-   - If the memory manager is QM, it can still cause interference to the existing allocations in use by components with safety requirements, for example by lending a memory page that is already and still in use[ by a safe component.
+   - If the memory manager is QM, it can still cause interference to the existing allocations in use by components with safety requirements, for example by lending a memory page that is already and still in use by a safe component.
 
-   - if the metadata of the memory manager is still exposed to kernel QM components[, it can still be corrupted and lead to the same type of problems mentioned in the previous point.
+   - if the metadata of the memory manager is still exposed to kernel QM components, it can still be corrupted and lead to the same type of problems mentioned in the previous point.
 
 7. **EL1 Memory Managers - Slub allocator - kmalloc()**
 
-   The slub allocator is the go-to allocator for typical runtime[ needs of allocating memory at runtime, both because it is more efficient, especially when dealing with per_cpu allocations, and because it is
+   The slub allocator is the go-to allocator for typical runtime needs of allocating memory at runtime, both because it is more efficient, especially when dealing with per_cpu allocations, and because it is
 capable of dishing out sub-page allocations. It is widely used within EL1, but it doesn't have direct effects on EL0 processes.
 It specialises in optimising finer grained allocations than the buddy allocator, including their lifecycle and caching.
 
@@ -880,7 +815,7 @@ Furthermore it relies even on itself for allocating housekeeping memory of a cer
 9. **EL1 Memory Managers - others**
 While they might not be as broadly known and used as the ones previously
 listed, the Linux kernel does provide a host of other allocators which
-are meant to support the management of [special memory.]{.c2}
+are meant to support the management of special memory.
 Examples: genalloc, memblock, cma_alloc.
 
    **Exposure:** also these allocators rely on metadata they need for housekeeping, typically obtained from kmalloc/vmalloc, therefore they are equally exposed to interference coming from anything else with lower safety integrity level.
@@ -897,7 +832,7 @@ However, their integrity is a necessary condition for the integrity of the safet
 At the very least, one must consider the portion of the page tables which supports safety-relevant mappings.
 Indirectly, though, also the rest of the mappings is relevant, to ensure that a safety-relevant page is not mapped also elsewhere.
 
-   **Exposure:** The memory pages comprising the page tables are writable from within EL1 context.      
+   **Exposure:** The memory pages comprising the page tables are writable from within EL1 context.
 
    **Effects:** In the best case, corruption won't cause noticeable problems, however it can cause anything from crashes to subtle corruptions, depending on what might cause the interference.
 In the next-best case, the effects will be so massive that they can be detected immediately.
@@ -919,7 +854,7 @@ In the next-best case, the effects will be so massive that they can be detected 
 12. **EL1 Task Execution**
 This represents a host of features that are in charge of juggling tasks; for example:
 
-   - Management [of related data structures (tasks and cred structures, stacks, etc).
+   - Management of related data structures (tasks and cred structures, stacks, etc).
 
    - Management of threads; creation, destruction.
 
@@ -930,9 +865,66 @@ This represents a host of features that are in charge of juggling tasks; for exa
    **Exposure:** Any of the features mentioned can be affected by interference, in some form.
 
    **Effects:** Not all the features are equally affected, from a safety perspective.
-For example, the credentials [structure is less likely to cause direct problems to safety.
+For example, the credentials structure is less likely to cause direct problems to safety.
 
    **Detectability:** Provided that the timing constraints for periodic events is known, external monitors can be deployed, to confirm that the task is being executed accordingly to the expected timing constraints.
+
+## Terms and Abbreviations
+
+
+| Acronym | Term(s) | Definition |
+|:-:|:-:|-----------------------|
+| ASID | Address Space Identifier | Value set by the kernel and used by the MMU for automatically tagging TLB entries belonging to different contexts. The MMU will use only TLB entries that are tagged with the currently active ASID. |
+| ASILn | Automotive Safety Integrity Level n | The qualification of integrity used to define in a standardised way a set of properties of a system, in the Automotive industry. They go from ASIL D, more restrictive, to ASIL A, less stringent. |
+| CFI | Control Flow Integrity | Mechanism used (nowadays in Linux through compiler extensions) to thwart attacks based on Return Oriented Programming or Jump Oriented Programming |
+| Detection | | This term has a certain meaning in Fusa Context, however here it represents the ability to take notice of an interference affecting a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level. |
+| ELn | Exception Level | The execution context at which certain code is executed: <br/> n = 0 means what is traditionally used for user-space <br/>n = 1 means what is traditionally used for the kernel <br/>n = 2 means what is traditionally used for the hypervisor <br/> n = 3 means what is traditionally used for the secure mode<br/> (not used in this document) |
+| Exception (ARM definition) | | Event which has the potential for diverting the execution flow. In ARM parlance, an exception can be either synchronous or asynchronous. <br/><br/>*Synchronous*: an event triggered by the regular execution flow. While it is not always certain that a specific action will result in an exception, it is at least expected that such an event might happen (which is what in Linux is effectively called exception). <br/><br/>*Asynchronous:* an event which is either triggered by a software error (still called exception, in Linux) or by an external hardware component, like either an IRQ, an FIQ or an NMI (in Linux called interrupt, fast interrupt and non maskable interrupt respectively) |
+| Exception (Linux definition) | | Synchronous transition between execution contexts, from lower to higher privilege, driven by the execution flow. |
+| FFI | Freedom From Interference |See definition 3.65 from ISO 26262 Part 1 - Vocabulary |
+| FIQ | Fast Interrupt Request | It's a specialised type of interrupt which, in its hardware implementation, has a more direct path to the CPU, without being routed through as many IP blocks like a regular interrupt, which typically is routed through an interrupt controller. The FIQ is indeed faster, at the cost of occupying one hardware line that could be otherwise used for connecting e.g. an interrupt controller. The associated benefit is reduced latency, for applications where latency is critical.|
+| FuSa | Functional Safety | *Functional Safety* is the part of the overall safety of a system or piece of equipment that depends on automatic protection operating correctly in response to its inputs or failure in a predictable manner (fail-safe). The automatic protection system should be designed to properly handle likely human errors, systematic errors,hardware failures and operational/environmental stress. [Detailed definition.](https://en.wikipedia.org/wiki/Functional_safety) |
+| Hazard |                       | See definition 3.75 from ISO 26262 Part 1 - Vocabulary |
+| I2C | Inter-Integrated Circuit    | Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively slow peripherals.|
+| Interference | | See FFI / Freedom From Interference |
+| IPC | Inter Process Communication | Generic reference to the mechanism (there can be multiple implementations) used by processes to communicate with one another; it can refer to synchronisation primitives, message passing, signalling. |
+| IRQ | Interrupt Request | Asynchronous transition between execution contexts, usually from lower to higher privilege, but also within same privilege, as long as it is sufficient, driven by the hardware events. It can still be controlled by software, though, if the software has the ability to mask/unmask the fact that a certain interrupt has occurred. |
+| IPA | Intermediate Physical Address | The address outputted by the first stage translation of the MMU and inputted into the second stage translation. |
+| LTS | Long Term Support | Special versions of the Linux kernel which are chosen to be the targets for backporting selected (mostly bugfix/security) patches. They are meant to be used for actual products, which might require sticking to a certain "stable" version for long periods of time, with the intent of preventing such products from becoming targets for unpatched vulnerability and exploits. |
+| MMU | Memory Management Unit | Component inside the SoC that primarily performs translations operations between virtual addresses and intermediate or physical ones, in support of various memory management techniques, like virtual contiguity and on-demand paging. |
+| NMI | Non Maskable Interrupt | Interrupt line that the CPU cannot ignore by disabling it. Depending on the application, different types of sources can be connected. In safety applications it can be exploited for treating exceptional events which cannot be ignored.|
+| ODD | Operational Design Domain | A set of operating conditions for an automated system, often used in the field of autonomous vehicles. These operating conditions include environmental, geographical and time of day constraints, traffic and roadway characteristics. The ODD is used by manufacturers to indicate where their product will operate safely. |
+| OS | Operating System | An operating system (OS) is system software that manages computer hardware and software resources, and provides common services for computer programs. |
+| PA | Physical Address | The address output to the second stage translation of the MMU, which is placed on the memory bus.|
+| Prevention | | This term has a certain meaning in Fusa Context, however here it represents the ability either to suppress or to prevent from happening, an interference, so that it doesn’t affect a component with allocated FFI requirements. It applies to interference originating from components at a lower safety integrity level.|
+| QM | Quality Managed | Refers to the classification of non-ASIL systems, which are still developed according to a set of processes and verification criteria, less restrictive than anything rated ASIL. |
+| Risk | | See definition 3.128 from ISO 26262 Part 1 - Vocabulary |
+| SILn | Safety Integrity Level | The qualification of integrity used to define in a standardised way a set of properties of a system, in a wide range of industry fields: aerospace, railways, etc. They go from SIL 4, more restrictive, to SIL 1, less stringent. |
+| SoC | System on a Chip | The shorthand for the entirety of the HW components that constitute the collective of the cores, busses, and the integrated peripherals. |
+| SPI | Serial Peripheral Interface | Bus interface connection protocol incorporated into devices for serial communication. Typically used for relatively fast peripherals. |
+| TEE | Trusted Execution Environment | Optional execution mode of ARM cores that creates a separate context where certain features typically related to trusted computing are enabled. |
+| Toolchain | | The set of software tools that support the generation of executable binary artefacts. The actual content varies, depending on the programming language used for the source code. However, in the Linux case, at minimum it consists of: preprocessor, compiler, assembler, linker. But it is common to have additional utilities, like object files manipulation and debugging. |
+| TLB | Translation Lookaside Buffer | Cache of address translations present within the MMU, that avoids incurring in the penalty of generating multiple memory accesses, when translating an address that had been translated recently. It also caches information about access permissions, like the read, write and execute permissions. |
+| TZASC | Trust Zone Address Space Controller | ARM ip block which is controllable from safe mode and allows the configurations of memory zones which are exclusively accessible from a cpu core that is in secure mode. |
+| VA | Virtual Address | The address in input to the first stage translation of the MMU. |
+
+
+**Notes:**
+-   ARM and Linux attribute different meanings to the term "Exception", but this document will use the Linux one.
+
+---
+
+## References
+1. Seminal document by NVIDIA: [Interference_Scenarios_for_an_ARM64_Linux_System.pdf](contributions/Interference_Scenarios_for_an_ARM64_Linux_System.pdf)
+2. [ARM64 Memory Management](https://developer.arm.com/documentation/101811/latest)
+3. [Linux Memory Management](https://docs.kernel.org/admin-guide/mm/index.html)
+4. [ISO 26262 Part 1 - Road Vehicles FuSa Vocabulary](https://www.iso.org/obp/ui/#iso:std:iso:26262:-1:ed-2:v1:en)
+
+    **Note:** The Vocabulary refers to Road Vehicles, but the concepts used in the present document utilise terms that are applicable also to other safety contexts.
+
+5. [CC BY-SA 4.0 Deed | Attribution-ShareAlike 4.0 International | Creative Commons License](https://creativecommons.org/licenses/by-sa/4.0/)
+
+---
 
 ## **License: CC BY-SA 4.0**
 

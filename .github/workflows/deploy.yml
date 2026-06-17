@@ -28,10 +28,6 @@ jobs:
       - name: Set domain
         run: echo "DOMAIN=osep.elisa.tech" >> $GITHUB_ENV
 
-      - name: Set base URL for preview if PR
-        if: github.ref != 'refs/heads/main'
-        run: echo "BASE_URL=https://${{ env.DOMAIN }}/${{ env.PR_PATH}}/" >> $GITHUB_ENV
-
       - name: Setup python
         uses: actions/setup-python@v5
         with:
@@ -39,6 +35,12 @@ jobs:
 
       - name: Checkout the triggering ref
         uses: actions/checkout@v4
+
+      - name: Adjust BASE_URL and css if this is a PR
+        if: github.ref != 'refs/heads/main'
+        run: |
+          echo "BASE_URL=https://${{ env.DOMAIN }}/${{ env.PR_PATH}}/" >> $GITHUB_ENV
+          cat docs/stylesheets/draft.css >> docs/stylesheets/elisa.css
 
       - name: Build site
         run: |
