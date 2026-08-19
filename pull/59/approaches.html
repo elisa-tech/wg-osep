@@ -361,9 +361,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#why-not-argue-that-linux-is-proven-in-use" class="md-nav__link">
+  <a href="#why-cant-elisa-make-linux-safe" class="md-nav__link">
     <span class="md-ellipsis">
-      Why not argue that Linux is 'proven in use'?
+      Why can't ELISA make Linux safe?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-not-argue-that-linux-is-already-proven-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why not argue that Linux is already 'proven in use'?
     </span>
   </a>
   
@@ -451,9 +460,18 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#why-not-argue-that-linux-is-proven-in-use" class="md-nav__link">
+  <a href="#why-cant-elisa-make-linux-safe" class="md-nav__link">
     <span class="md-ellipsis">
-      Why not argue that Linux is 'proven in use'?
+      Why can't ELISA make Linux safe?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-not-argue-that-linux-is-already-proven-in-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why not argue that Linux is already 'proven in use'?
     </span>
   </a>
   
@@ -496,17 +514,37 @@
 
 
 <h1 id="what-approaches-do-we-recommend">What approaches do we recommend?</h1>
-<p>Our starting position in this working group is that the resources that the Linux
-open source project provides are not sufficient by themselves to support safety
-claims about its use as part of an operating system in a safety-critical role.
-This is for the simple reason that it has not been designed, implemented or
+<p>Our starting position in this working group is that the resources provided by
+the Linux project (and by associated open source projects, such as the Linux
+Test Project) are not sufficient by themselves to support safety claims about
+the use of Linux as part of an operating system in a safety-critical role. This
+is for the simple reason that Linux has not been designed, implemented or
 verified with this purpose in mind.</p>
-<p>This means that <em>Enabling Linux in Safety Applications</em> primarily involves
+<p>This means that <em>Enabling Linux in Safety Applications</em> <strong>primarily</strong> involves
 understanding the risks that using Linux entails, and then designing system
 architectures that can manage or mitigate those risks, with or without the
 involvement of Linux itself.</p>
-<p>But what are the reasons for adopting this starting position?</p>
-<h2 id="why-not-argue-that-linux-is-proven-in-use">Why not argue that Linux is 'proven in use'?</h2>
+<p>But what are our reasons for adopting this starting position?</p>
+<h2 id="why-cant-elisa-make-linux-safe">Why can't ELISA make Linux safe?</h2>
+<p>ELISA is working towards improving the available resources to support
+safety-related arguments involving Linux; for example by engaging directly with
+the Linux project to promote good engineering practices, or by analysing and
+documenting Linux features, or aspects of its architecture and design.</p>
+<p>However, these are long-term efforts, which would require strong engagement from
+the Linux community to change the established working practices and priorities
+that inform kernel development. However, potential safety-related uses are a
+priority for a small subset of the global developer community and product
+creation organisations engaging in the ongoing development of Linux. This means
+that it is very hard to persuade Linux kernel contributors and maintainers to
+take on the additional burden of work involved in the engineering practices and
+formalised processes expected by functional safety standards.</p>
+<p>Furthermore, many of the software engineering processes described by the
+standards require (or are predicated on the existence of) an organisation with
+the authority to dictate the priorities of software development and require
+developers to comply with formal processes. While this is the norm for a
+commercial organisation developing a product, it does not reflect the
+organisational model of an open source project such as Linux.</p>
+<h2 id="why-not-argue-that-linux-is-already-proven-in-use">Why not argue that Linux is already 'proven in use'?</h2>
 <p>While Linux is used to run much of the Internet, provides the basis for the
 Android OS in millions of mobile phones and is used by 100% of the world's
 super-computers, it was not developed with functional safety in mind, and
@@ -559,10 +597,15 @@ pre-existing software as part of a safety-related system. However:</p>
 <li>Maintaining such a codebase would be an ongoing commitment for the lifetime of
   any products making use of the special Linux</li>
 </ul>
+<p>Furthermore, the ELISA project has neither the resources nor the mandate from
+its member organisations to engage in this kind of effort.</p>
 <h2 id="why-not-show-that-linux-is-safe-by-testing-it-thoroughly">Why not show that Linux is safe by testing it thoroughly?</h2>
 <p>A common expectation is that safety can be achieved for software by simply doing
-enough testing. However, there are always two questions about this that are
-difficult to answer:</p>
+enough testing. However, from a functional safety perspective, testing is not
+sufficient unless it is traced to corresponding safety claims, safety
+requirements and safety scope of the code being tested and supported by a solid
+verification strategy.</p>
+<p>Fundamentally these means answering two questions:</p>
 <p><strong>1. What needs to be tested, and why?</strong></p>
 <p>Testing is only one of the verification and validation measures described in
 safety standards. All such measures have a dependency on specified requirements
