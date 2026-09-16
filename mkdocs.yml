@@ -28,13 +28,16 @@ plugins:
 
 markdown_extensions:
   - attr_list
+  - footnotes
   - pymdownx.pathconverter:
       absolute: true
   - pymdownx.tilde
-
+  - pymdownx.caret
+  - pymdownx.mark
 nav:
   - ELISA: https://elisa.tech/
   - Directory: https://directory.elisa.tech/
   - OSEP:
     - Home: index.md
+    - Approaches: approaches.md
     - Document Evaluation: Criteria-Documentation-Evaluation.md
